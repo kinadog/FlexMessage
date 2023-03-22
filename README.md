@@ -92,7 +92,7 @@ await Message.WriteAsync("Sample Message.",
 
 ## 파일 구조
 ```csharp
-FlexMessage
+FlexMessage (root)
 ├── wwwroot
 │      └── js
 │           └── flexMessage.js   // (*)프론트엔드에서 사용되는 js 라이브러리입니다.
