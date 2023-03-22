@@ -144,7 +144,7 @@ FlexMessage (root)
     
 <br/>  
 
-- 공통페이지(ex: _Layout.cshtml)에 [flexMessage.js]() 파일 삽입
+- 공통페이지에 [flexMessage.js]() 파일 삽입 (ex: _Layout.cshtml)
   
     ```html
     <script src="/js/flexMessage.js"></script>
