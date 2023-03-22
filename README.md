@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div style="text-align:center"><h1>FlexMessage</h1></div>
 
 <div style="text-align:center">
@@ -271,3 +272,6 @@ XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할
 
 #
 #
+=======
+# FlexMessage
+>>>>>>> 1a221f56fd3863ea16a88de2e44ab8f9fbf0cf8e
