@@ -122,33 +122,39 @@ await Message.WriteAsync("Sample Message.",
 ## 파일 구조
 ```csharp
 FlexMessage (root)
-│
-├── wwwroot (folder)
-│      └── js (folder)
-│           └──────── flexMessage.js   // (*)프론트엔드에서 사용되는 js 라이브러리.
-├── Configs (folder)
-│      └───────────── Configs.cs   // (*)애플리케이션의 설정 정보를 담고 있는 클래스.
-├── Hubs (folder)
-│      └───────────── MessageHub.cs   // (*)클라이언트와 통신하기 위한 Hub클래스입.
-├── Messages (folder)
-│      ├── Types (folder)
-│      │     ├─────── BrowserAlertMessages.cs   // 브라우저 알림 메시지 클래스.
-│      │     ├─────── BrowserConsoleMessage.cs   // 브라우저 개발자 콘솔 메시지 클래스.
-│      │     ├─────── BrowserToastMessage.cs   // 브라우저 토스트 메시지 클래스.
-│      │     ├─────── ConsoleMessage.cs   // 시스템 콘솔 메시지 클래스.
-│      │     ├─────── DbMessage.cs   // 데이터베이스 인서트 메시지 클래스.
-│      │     ├─────── FileMessage.cs   // 파일 기록 메시지 클래스.
-│      │     └─────── MsgType.cs   // (*)메시지 타입 정보를 담고 있는 열거형.
-│      ├─────── FileMessageCngMonitor.cs   // 실시간 파일 변경 감시 기능을 담당하는 클래스.
-│      ├─────── Hasing.cs   // (*)클라이언트의 고유Id값의 암호화를 위한 클래스입
-│      ├─────── IMessage.cs   // (*)모든 메시지 클래스가 구현해야 하는 인터페이스.
-│      └─────── Message.cs   // (*)메시지를 처리하는 기본 클래스.
-├── Middlewares (folder)
-│      └─────── HubMiddleware.cs   // (*)클라이언트와 통신하기 위한 미들웨어 클래스.
-├── Models (folder)
-│      ├─────── FileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 클래스.
-│      └─────── IFileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 인터페이스.
-└── Program.cs   // (*)애플리케이션의 시작점을 담고 있는 클래스.
+|
+|--- wwwroot (folder)
+|      |---- js (folder)
+|             |--------- flexMessage.js   // (*)프론트엔드에서 사용되는 js 라이브러리.
+|
+|--- Configs (folder)
+|      |---------------- Configs.cs   // (*)애플리케이션의 설정 정보를 담고 있는 클래스.
+|
+|--- Hubs (folder)
+|      |---------------- MessageHub.cs   // (*)클라이언트와 통신하기 위한 Hub클래스입.
+|
+|--- Messages (folder)
+|      |--- Types (folder)
+|      |      |--------- BrowserAlertMessages.cs   // 브라우저 알림 메시지 클래스.
+|      |      |--------- BrowserConsoleMessage.cs   // 브라우저 개발자 콘솔 메시지 클래스.
+|      |      |--------- BrowserToastMessage.cs   // 브라우저 토스트 메시지 클래스.
+|      |      |--------- ConsoleMessage.cs   // 시스템 콘솔 메시지 클래스.
+|      |      |--------- DbMessage.cs   // 데이터베이스 인서트 메시지 클래스.
+|      |      |--------- FileMessage.cs   // 파일 기록 메시지 클래스.
+|      |      |--------- MsgType.cs   // (*)메시지 타입 정보를 담고 있는 열거형.
+|      |--------- FileMessageCngMonitor.cs   // 실시간 파일 변경 감시 기능을 담당하는 클래스.
+|      |--------- Hasing.cs   // (*)클라이언트의 고유Id값의 암호화를 위한 클래스입
+|      |--------- IMessage.cs   // (*)모든 메시지 클래스가 구현해야 하는 인터페이스.
+|      |--------- Message.cs   // (*)메시지를 처리하는 기본 클래스.
+|
+|--- Middlewares (folder)
+|      |--------- HubMiddleware.cs   // (*)클라이언트와 통신하기 위한 미들웨어 클래스.
+|
+|--- Models (folder)
+|      |--------- FileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 클래스.
+|      |--------- IFileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 인터페이스.
+|
+|--- Program.cs   // (*)애플리케이션의 시작점을 담고 있는 클래스.
 ```  
 <br/>  
 
