@@ -22,7 +22,7 @@
 <br/>
 
 
-><div align="center"> <b>.net 웹어플리케이션용 간편한 클라이언트 메세지 라이브러리</b></div>      
+<div align="center"> <h3>.net 웹어플리케이션용 간편한 클라이언트 메세지 라이브러리</h3></div>      
 
   
 <br/>  
