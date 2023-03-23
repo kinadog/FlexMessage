@@ -1,48 +1,66 @@
-<div align="center"><h1>FlexMessage</h1></div>
+<div align="center"><h1>FLEX MESSAGE</h1></div>  
+<br/>  
+
 
 <div align="center">
   <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white" alt=""/> 
   
   <img src="https://img.shields.io/badge/C Sharp-239120?style=for-the-badge&logo=sharp&logoColor=white" alt=""/> 
   
-  <img src="https://img.shields.io/badge/JavaScript-E05F2C?style=for-the-badge&logo=javascript&logoColor=white" alt=""/> 
+  <img src="https://img.shields.io/badge/JavaScript-a28419?style=for-the-badge&logo=javascript&logoColor=white" alt=""/> 
+</div>
+<div align="center">  
+
+  <img src="https://img.shields.io/github/downloads/kinadog/FlexMessage/total?color=fPZhdJ" alt=""/> 
+
+  <img src="https://img.shields.io/github/v/release/kinadog/FlexMessage?color=0879ba&include_prereleases" alt=""/> 
+
+  <img src="https://img.shields.io/github/issues/kinadog/FlexMessage?color=ed793a" alt=""/> 
+
+  <img src="https://img.shields.io/github/issues-closed/kinadog/FlexMessage?color=ed4156" alt=""/> 
 </div>  
-<br/>  
-[GitHub all releases](https://img.shields.io/github/downloads/kinadog/FlexMessage/total)
+<br/>
 
 
-
->.net 웹어플리케이션용 간편하고 강력한 클라이언트 **메세지 라이브러리**      
+><div align="center"> <b>.net 웹어플리케이션용 간편한 클라이언트 메세지 라이브러리</b></div>      
 
   
 <br/>  
 
 
-<p>
-.net 웹어플리케이션의 백엔드에서도 런타임 과정 중에서 C# 코드를 사용하여 클라이언트에게 여러가지 포맷으로 간단하게 다양한 메세지를 보낼 수 있습니다.
-</p>
+:bulb: .net 웹어플리케이션의 백엔드에서, 
+1. `런타임` 과정 중  
+2. `C#` 코드를 사용하여 
+3. `클라이언트`에게 
+4. `여러가지 포맷`으로 
+5. `다양한 메세지`를 간단하게  
+ 
+보낼 수 있습니다.
 
-<br/>  
 <br/>  
 <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/muple.bucket/BoardImage/flexMessage.gif" alt=""></a>  
 <br/>  
 
 
 # 특징
-- **서버 사이드에서 직접 웹브라우저로 메세지 전송**. C# 코드를 사용하여 간단하게 클라이언트의 웹브라우저로 다양한 메세지를 전송할 수 있습니다.
+- **서버 사이드에서 직접 웹브라우저로 메세지 전송**     
+          `C#` 코드를 사용하여 간단하게 `클라이언트의 웹브라우저`로 다양한 메세지를 전송할 수 있습니다.
  
 
-- **다양한 타입의 메세지 전송방식**. 자바스크립트의 기본 `alert('')` 부터, `console.log('')`는 물론이며, 개발자가 마음대로 커스터마이징 할 수 있는 toast메시지와 
+- **다양한 타입의 메세지 전송방식**     
+     자바스크립트의 기본 `alert('')` 부터, `console.log('')`는 물론이며, 개발자가 마음대로 커스터마이징 할 수 있는 toast메시지와 
   alert메시지, 그리고 서버의 로컬디스크에 Text 파일로 저장하거나 데이터베이스에 저장하는 등 개발자가 상황에 따라 필요한 모든 종류의 메세징을 구현할 수 있습니다.
  
 
-- **복수 타입 메세지 동시 전송 가능**. 동시에 여러 타입의 메세지를 원하는 대로 구성하여 발신 할 수 있습니다.  
+- **복수 타입 메세지 동시 전송 가능**      
+     `동시에 여러 타입의 메세지`를 원하는 대로 구성하여 발신 할 수 있습니다.  
 <br/>  
  
 
 
 # 사용법  
 ```csharp
+// Console.WriteLine("") 을 사용하는것처럼 간편하게 호출하시면 됩니다.
 Message.Write($"{보낼 메시지}", (enum)MsgType.메세지_서비스종류)
 ```  
 <br/>  
@@ -93,32 +111,33 @@ await Message.WriteAsync("Sample Message.",
 ## 파일 구조
 ```csharp
 FlexMessage (root)
-├── wwwroot
-│      └── js
-│           └── flexMessage.js   // (*)프론트엔드에서 사용되는 js 라이브러리입니다.
-├── Configs
-│      └── Configs.cs   // (*)애플리케이션의 설정 정보를 담고 있는 클래스입니다.
-├── Hubs
-│      └── MessageHub.cs   // (*)클라이언트와 통신하기 위한 Hub클래스입니다.
-├── Messages
-│      ├── Types
-│      │     ├── BrowserAlertMessages.cs   // 브라우저 알림 메시지 클래스.
-│      │     ├── BrowserConsoleMessage.cs   // 브라우저 개발자 콘솔 메시지 클래스.
-│      │     ├── BrowserToastMessage.cs   // 브라우저 토스트 메시지 클래스.
-│      │     ├── ConsoleMessage.cs   // 시스템 콘솔 메시지 클래스.
-│      │     ├── DbMessage.cs   // 데이터베이스 인서트 메시지 클래스.
-│      │     ├── FileMessage.cs   // 파일 기록 메시지 클래스.
-│      │     └── MsgType.cs   // (*)메시지 타입 정보를 담고 있는 열거형.
-│      ├── FileMessageCngMonitor.cs   // 실시간 파일 변경 모니터링 기능을 담당하는 클래스입니다.
-│      ├── Hasing.cs   // (*)클라이언트의 고유Id값의 암호화를 위한 클래스입니다.
-│      ├── IMessage.cs   // (*)모든 메시지 클래스가 구현해야 하는 인터페이스입니다.
-│      └── Message.cs   // (*)메시지를 처리하는 기본 클래스입니다.
-├── Middlewares
-│      └── HubMiddleware.cs   // (*)클라이언트와 통신하기 위한 미들웨어 클래스입니다.
-├── Models
-│      ├── FileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수저장 용 클래스 입니다.
-│      └── IFileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수저장 용 인터페이스 입니다.
-└── Program.cs       // (*)애플리케이션의 시작점을 담고 있는 클래스입니다.
+│
+├── wwwroot (folder)
+│      └── js (folder)
+│           └──────── flexMessage.js   // (*)프론트엔드에서 사용되는 js 라이브러리.
+├── Configs (folder)
+│      └───────────── Configs.cs   // (*)애플리케이션의 설정 정보를 담고 있는 클래스.
+├── Hubs (folder)
+│      └───────────── MessageHub.cs   // (*)클라이언트와 통신하기 위한 Hub클래스입.
+├── Messages (folder)
+│      ├── Types (folder)
+│      │     ├─────── BrowserAlertMessages.cs   // 브라우저 알림 메시지 클래스.
+│      │     ├─────── BrowserConsoleMessage.cs   // 브라우저 개발자 콘솔 메시지 클래스.
+│      │     ├─────── BrowserToastMessage.cs   // 브라우저 토스트 메시지 클래스.
+│      │     ├─────── ConsoleMessage.cs   // 시스템 콘솔 메시지 클래스.
+│      │     ├─────── DbMessage.cs   // 데이터베이스 인서트 메시지 클래스.
+│      │     ├─────── FileMessage.cs   // 파일 기록 메시지 클래스.
+│      │     └─────── MsgType.cs   // (*)메시지 타입 정보를 담고 있는 열거형.
+│      ├─────── FileMessageCngMonitor.cs   // 실시간 파일 변경 감시 기능을 담당하는 클래스.
+│      ├─────── Hasing.cs   // (*)클라이언트의 고유Id값의 암호화를 위한 클래스입
+│      ├─────── IMessage.cs   // (*)모든 메시지 클래스가 구현해야 하는 인터페이스.
+│      └─────── Message.cs   // (*)메시지를 처리하는 기본 클래스.
+├── Middlewares (folder)
+│      └─────── HubMiddleware.cs   // (*)클라이언트와 통신하기 위한 미들웨어 클래스.
+├── Models (folder)
+│      ├─────── FileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 클래스.
+│      └─────── IFileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 인터페이스.
+└── Program.cs   // (*)애플리케이션의 시작점을 담고 있는 클래스.
 ```  
 <br/>  
 
@@ -133,25 +152,27 @@ FlexMessage (root)
 - 패키지 설치 :
 
     ```powershell
-  # .NET CLI
-  dotnet add package Microsoft.AspNet.SignalR
+  # .NET CLI로 설치
+  dotnet add package Microsoft.AspNet.SignalR.Client
+  dotnet add package Newtonsoft.Json
+  
+  # 또는 
+  
+  # Package Manager로 설치
+  PM> NuGet\Install-Package Microsoft.AspNet.SignalR.Client
+  PM> NuGet\Install-Package Newtonsoft.Json
   ```  
-  또는 
-   ```powershell
-  # Package Manager
-  PM> NuGet\Install-Package Microsoft.AspNet.Signal
-   ```  
     
 <br/>  
 
-- 공통페이지에 [flexMessage.js]() 파일 삽입 (ex: _Layout.cshtml)
+- 공통페이지에 [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
   
     ```html
     <script src="/js/flexMessage.js"></script>
     ```
 <br/>  
 
-- [Program.cs]() 파일 편집 :
+- [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
    ```csharp
    // builder.Services는 아래의 객체입니다.
    // var builder = WebApplication.CreateBuilder(args);
@@ -179,7 +200,7 @@ FlexMessage (root)
 ## 추가기능 설정
 
 * **Database Insert 기능을 사용하는 경우**  
-   * [Messages/Types/DbMessage.cs]() 파일 편집 :
+   * [Messages/Types/DbMessage.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Messages/Types/DbMessage.cs) 파일 편집 :
 
       ```csharp
       // # Write 메서드와 WriteAsync 메서드 내부의 Database Insert 로직 구현
@@ -188,7 +209,7 @@ FlexMessage (root)
 
 * **실시간 로그 파일 뷰어 기능을 사용하는 경우**
 
-  * [Program.cs]() 파일 편집 :
+  * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
 
       ```csharp
       builder.Services
@@ -205,7 +226,7 @@ FlexMessage (root)
     .
       ```
 
-  * [flexMessage.js]() 파일 편집 :
+  * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
       ```javascript
               connection.on("ReceiveMessage", function(msgType, 
                     message) {
@@ -227,7 +248,7 @@ FlexMessage (root)
 
 
 * **부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**
-  * [flexMessage.js]() 파일 편집 :
+  * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
 
     ```javascript
     connection.on("ReceiveMessage", function (msgType, message) {
@@ -267,6 +288,6 @@ XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할
 2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
 3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
 4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요.
-5. 풀리퀘스트를 보내주세요.
+5. Pull request를 보내주세요.
 
 #
