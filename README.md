@@ -9,7 +9,7 @@
 <br/>  
 
 
-<div align="center"><h1>FlexMessage</h1></div>  
+<div align="center"><h1>FLEX MESSAGE</h1></div>  
 
 <div align="center">
   <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white" alt=""/> 
