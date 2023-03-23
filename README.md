@@ -1,3 +1,14 @@
+<div align="right">
+
+[![en](https://img.shields.io/badge/lang-en-ed4156.svg)](https://github.com/kinadog/FlexMessage/blob/master/README.md)
+[![ko](https://img.shields.io/badge/lang-ko-0879ba.svg)](https://github.com/kinadog/FlexMessage/blob/master/README.ko.md)
+
+</div>
+
+---  
+<br/>  
+
+
 <div align="center"><h1>FlexMessage</h1></div>  
 
 <div align="center">
