@@ -18,36 +18,36 @@
 <div align="center"> <h3>Easy and versatile client message library for .net web applications</h3></div>     
 <br/>  
 
- you can,  
+you can,
 
-1. during the `runtime process`  
-2. using `C# code`  
-3. send `various messages`  
+1. during the `runtime process`
+2. using `C# code`
+3. send `various messages`
 4. to the `client`
-5. in `various formats`   
- 
+5. in `various formats`
+
 in the backend of a .net web application.
 
 <br/>
 
 <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/muple.bucket/BoardImage/flexMessage.gif" alt=""></a>  
-<br/>  
+<br/>
 # Features
 - **Send messages directly from server side to web browser**  
-You can easily send various messages to the client's web browser using C# code.   
- 
+  You can easily send various messages to the client's web browser using C# code.
+
 
 - **Various types of message delivery methods**  
-From basic JavaScript alert('') to console.log(''), and customizable toast messages and alert messages, as well as 
-  saving to local disk as a text file or storing in a database, developers can implement any type of messaging 
-  required depending on the situation.   
- 
+  From basic JavaScript alert('') to console.log(''), and customizable toast messages and alert messages, as well as
+  saving to local disk as a text file or storing in a database, developers can implement any type of messaging
+  required depending on the situation.
+
 
 - **Simultaneous transmission of multiple types of messages possible**  
-You can configure and send multiple types of messages simultaneously as desired.   
-<br/>  
+  You can configure and send multiple types of messages simultaneously as desired.   
+  <br/>
 
-# Usage  
+# Usage
 
 ```csharp
 // Simply call it like using Console.WriteLine("").
@@ -94,50 +94,56 @@ MsgType.Db);
 <br/>  
 
 
-# Installation   
+# Installation
 <br/>   
 
-## File structure   
+## File structure
 
 ```csharp
 FlexMessage (root)
-¦¢
-¦§¦¡¦¡ wwwroot (folder)
-¦¢      ¦¦¦¡¦¡ js (folder)
-¦¢           ¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡ flexMessage.js   // (*)Front-end js library.
-¦§¦¡¦¡ Configs (folder)
-¦¢      ¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡ Configs.cs   // (*)Class containing application configuration information.
-¦§¦¡¦¡ Hubs (folder)
-¦¢      ¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡ MessageHub.cs   // (*)Hub class for communicating with clients.
-¦§¦¡¦¡ Messages (folder)
-¦¢      ¦§¦¡¦¡ Types (folder)
-¦¢      ¦¢     ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ BrowserAlertMessages.cs   // Browser notification message class.
-¦¢      ¦¢     ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ BrowserConsoleMessage.cs   // Browser developer console message class.
-¦¢      ¦¢     ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ BrowserToastMessage.cs   // Browser toast message class.
-¦¢      ¦¢     ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ ConsoleMessage.cs   // System console message class.
-¦¢      ¦¢     ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ DbMessage.cs   // Database insert message class.
-¦¢      ¦¢     ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ FileMessage.cs   // File record message class.
-¦¢      ¦¢     ¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡ MsgType.cs   // (*)Enum containing message type information.
-¦¢      ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ FileMessageCngMonitor.cs   // Class responsible for real-time file change monitoring.
-¦¢      ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ Hasing.cs   // (*)Class for encrypting client's unique Id value.
-¦¢      ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ IMessage.cs   // (*)Interface that all message classes must implement.
-¦¢      ¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡ Message.cs   // (*)Base class for handling messages.
-¦§¦¡¦¡ Middlewares (folder)
-¦¢      ¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡ HubMiddleware.cs   // (*)Middleware class for communicating with clients.
-¦§¦¡¦¡ Models (folder)
-¦¢      ¦§¦¡¦¡¦¡¦¡¦¡¦¡¦¡ FileEndPosition.cs   // Class for variables used in real-time file monitoring.
-¦¢      ¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡ IFileEndPosition.cs   // Interface for variables used in real-time file monitoring.
-¦¦¦¡¦¡ Program.cs       // (*)Class containing the starting point of the application.
+|
+|--- wwwroot (folder)
+|      |---- js (folder)
+|             |--------- flexMessage.js   // (*)Front-end js library.
+|
+|--- Configs (folder)
+|      |---------------- Configs.cs   // (*)Class containing application configuration information.
+|
+|--- Hubs (folder)
+|      |---------------- MessageHub.cs   // (*)Hub class for communicating with clients.
+|
+|--- Messages (folder)
+|      |--- Types (folder)
+|      |      |--------- BrowserAlertMessages.cs   // Browser notification message class.
+|      |      |--------- BrowserConsoleMessage.cs   // Browser developer console message class.
+|      |      |--------- BrowserToastMessage.cs   // Browser toast message class.
+|      |      |--------- ConsoleMessage.cs   // System console message class.
+|      |      |--------- DbMessage.cs   // Database insert message class.
+|      |      |--------- FileMessage.cs   // File record message class.
+|      |      |--------- MsgType.cs   // (*)Enum containing message type information.
+|      |--------- FileMessageCngMonitor.cs   // Class responsible for real-time file change monitoring.
+|      |--------- Hasing.cs   // (*)Class for encrypting client's unique Id value.
+|      |--------- IMessage.cs   // (*)Interface that all message classes must implement.
+|      |--------- Message.cs   // (*)Base class for handling messages.
+|
+|--- Middlewares (folder)
+|      |--------- HubMiddleware.cs   // (*)Middleware class for communicating with clients.
+|
+|--- Models (folder)
+|      |--------- FileEndPosition.cs   // Class for variables used in real-time file monitoring.
+|      |--------- IFileEndPosition.cs   // Interface for variables used in real-time file monitoring.
+|
+|--- Program.cs       // (*)Class containing the starting point of the application.
 ```   
 <br/>
 
-## Required .NET version   
-> [.net 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) Higher   
+## Required .NET version
+> [.net 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) Higher
 
 <br/>
 
-## Required configuration   
-   
+## Required configuration
+
 - Package installation :
 
     ```powershell
@@ -151,29 +157,134 @@ FlexMessage (root)
     PM> NuGet\Install-Package Microsoft.AspNet.SignalR.Client
     PM> NuGet\Install-Package Newtonsoft.Json
     ```  
+<br/>  
 
+- Insert [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file into 
+the common page (ex: _Layout.cshtml)  
 
-
-
-
-
-
-
-
-
-
-
+    ```javascript
+    <script src="/js/flexMessage.js"></script>
+    ```  
+<br/>  
  
+- Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
+   ```csharp
+   // builder.Services is the following object.
+   // var builder = WebApplication.CreateBuilder(args);
+   
+   Config.ContentRootPath = builder.Environment.ContentRootPath; // added
+  .
+  .
+   builder.Services.AddSignalR(); // added
+  .
+  .
+  
+   app.UseMiddleware<HubMiddleware>(); // added
+  .
+  .
+   app.MapHub<MessageHub>("/msghub"); // added
+   ```   
+  <br/>
+
+  >**Installation complete!!**
+
+
+
+<br>
+
+## Configuring additional features
+
+* **When using the Database Insert feature**
+  * Edit [Messages/Types/DbMessage.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Messages/Types/DbMessage.cs) file :
+
+     ```csharp
+     // # Implement the Database Insert logic within the Write and WriteAsync methods
+     ```  
+    <br/>  
+
+* **When using the real-time log file viewer feature**
+
+  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
+
+      ```csharp
+      builder.Services
+          .AddHostedService<FileMessageCngMonitor>(); // added
+    .
+    .
+      builder.Services
+          .AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // added
+      builder.Services
+          .AddSingleton<IFileEndPosition, FileEndPosition>(); // added
+      builder.Services
+          .AddSingleton<Dictionary<string, long>>(); // added
+    .
+    .
+      ```
+
+    * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file :
+        ```javascript
+                connection.on("ReceiveMessage", function(msgType, 
+                      message) {
+                    switch (msgType) {
+                        case "File": {
+                            const toast =
+                                // Create the div element to be used as the real-time log file viewer 
+                                // in the desired location on the page. (In this code, #Logs)
+                                let logViewer = document.getElementById('Logs');
+                                logViewer.textContent += "\n" + message;
+                            break;
+                        }
+                        // Other types of messages...
+                        case ""....
+                    }
+                }
+        ```  
+      <br/>  
+
+
+* **If you want to use a Toast JavaScript plugin other than Bootstrap**
+  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file :
+
+    ```javascript
+    connection.on("ReceiveMessage", function (msgType, message) {
+        switch (msgType) {
+            case "BrowserToast": {
+              // This code executes the Toast for Bootstrap.
+              // If you want to use a different Toast plugin, modify this section of code.
+                const toastBody =
+                    document.getElementsByClassName('toast-body')[0];
+                toastBody.innerHTML = message;
+                const toast =
+                    new bootstrap.Toast(document.getElementById('toastWrap'));
+                toast.show();
+                break;
+            }
+            // Other types of messages...
+            case ""....
+        }
+    }
+    ```  
+    ï¼ƒ Note that you can also use the same method to apply a custom plugin for `Alert messages`.  
+    <br/>
+
+
+# Information
+
+Developer Information : Kinadog / [id@faither.me](mailto:id@faither.me)  
+Developer Blog : [https://blog.faither.me](https://blog.faither.me)
+
+This project follows the APACHE License. Please see [LICENSE](https://www.apache.org/licenses/LICENSE-2.0) for more information.
 <br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+
+
+# How to Contribute
+
+1. Fork (<https://github.com/faitherme/FlexMessage/fork>.)
+2. Create a new branch with  (`git checkout -b feature/fooBar`).
+3. Commit your changes with (`git commit -am 'Add some fooBar'`).
+4. Push to the branch with (`git push origin feature/fooBar`).
+5. Create a new Pull Request.
+
 <br/>
 <br/>
 <br/>

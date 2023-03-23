@@ -4,9 +4,9 @@
 
 <div align="center">
   <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white" alt=""/> 
-  
+
   <img src="https://img.shields.io/badge/C Sharp-239120?style=for-the-badge&logo=sharp&logoColor=white" alt=""/> 
-  
+
   <img src="https://img.shields.io/badge/JavaScript-a28419?style=for-the-badge&logo=javascript&logoColor=white" alt=""/> 
 </div>
 <div align="center">  
@@ -24,17 +24,17 @@
 
 <div align="center"> <h3>.net 웹어플리케이션용 간편한 클라이언트 메세지 라이브러리</h3></div>      
 
-  
+
 <br/>  
 
 
-:bulb: .net 웹어플리케이션의 백엔드에서, 
-1. `런타임` 과정 중  
-2. `C#` 코드를 사용하여 
-3. `클라이언트`에게 
-4. `여러가지 포맷`으로 
-5. `다양한 메세지`를 간단하게  
- 
+:bulb: .net 웹어플리케이션의 백엔드에서,
+1. `런타임` 과정 중
+2. `C#` 코드를 사용하여
+3. `클라이언트`에게
+4. `여러가지 포맷`으로
+5. `다양한 메세지`를 간단하게
+
 보낼 수 있습니다.
 
 <br/>  
@@ -44,28 +44,28 @@
 
 # 특징
 - **서버 사이드에서 직접 웹브라우저로 메세지 전송**     
-          `C#` 코드를 사용하여 간단하게 `클라이언트의 웹브라우저`로 다양한 메세지를 전송할 수 있습니다.
- 
+  `C#` 코드를 사용하여 간단하게 `클라이언트의 웹브라우저`로 다양한 메세지를 전송할 수 있습니다.
+
 
 - **다양한 타입의 메세지 전송방식**     
-     자바스크립트의 기본 `alert('')` 부터, `console.log('')`는 물론이며, 개발자가 마음대로 커스터마이징 할 수 있는 toast메시지와 
+  자바스크립트의 기본 `alert('')` 부터, `console.log('')`는 물론이며, 개발자가 마음대로 커스터마이징 할 수 있는 toast메시지와
   alert메시지, 그리고 서버의 로컬디스크에 Text 파일로 저장하거나 데이터베이스에 저장하는 등 개발자가 상황에 따라 필요한 모든 종류의 메세징을 구현할 수 있습니다.
- 
+
 
 - **복수 타입 메세지 동시 전송 가능**      
-     `동시에 여러 타입의 메세지`를 원하는 대로 구성하여 발신 할 수 있습니다.  
-<br/>  
- 
+  `동시에 여러 타입의 메세지`를 원하는 대로 구성하여 발신 할 수 있습니다.  
+  <br/>
 
 
-# 사용법  
+
+# 사용법
 ```csharp
 // Console.WriteLine("") 을 사용하는것처럼 간편하게 호출하시면 됩니다.
 Message.Write($"{보낼 메시지}", (enum)MsgType.메세지_서비스종류)
 ```  
 <br/>  
 
-메시지 서비스의 종류는 enum타입으로 정의되어 있습니다.  
+메시지 서비스의 종류는 enum타입으로 정의되어 있습니다.
 ```csharp
 /// <summary>
 /// 메시지 서비스 종류가 정의 된 enum class
@@ -82,7 +82,7 @@ public enum MsgType
 ```  
 <br/>  
 
-메시지 발송 예제  
+메시지 발송 예제
 
 ```csharp
 /// 1. 웹브라우저 Alert창으로.
@@ -105,7 +105,7 @@ await Message.WriteAsync("Sample Message.",
 
 
 
-# 설치  
+# 설치
 <br/>  
 
 ## 파일 구조
@@ -142,7 +142,7 @@ FlexMessage (root)
 <br/>  
 
 ## .NET 필요 버전
-> [.net 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) 이상  
+> [.net 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) 이상
 
 <br/>  
 
@@ -162,12 +162,12 @@ FlexMessage (root)
   PM> NuGet\Install-Package Microsoft.AspNet.SignalR.Client
   PM> NuGet\Install-Package Newtonsoft.Json
   ```  
-    
+
 <br/>  
 
 - 공통페이지에 [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
-  
-    ```html
+
+    ```javascript
     <script src="/js/flexMessage.js"></script>
     ```
 <br/>  
@@ -199,95 +199,97 @@ FlexMessage (root)
 
 ## 추가기능 설정
 
-* **Database Insert 기능을 사용하는 경우**  
-   * [Messages/Types/DbMessage.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Messages/Types/DbMessage.cs) 파일 편집 :
+* **Database Insert 기능을 사용하는 경우**
+    * [Messages/Types/DbMessage.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Messages/Types/DbMessage.cs) 파일 편집 :
 
-      ```csharp
-      // # Write 메서드와 WriteAsync 메서드 내부의 Database Insert 로직 구현
-      ```  
-     <br/>  
+       ```csharp
+       // # Write 메서드와 WriteAsync 메서드 내부의 Database Insert 로직 구현
+       ```  
+      <br/>  
 
 * **실시간 로그 파일 뷰어 기능을 사용하는 경우**
 
-  * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
+    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
 
-      ```csharp
-      builder.Services
-          .AddHostedService<FileMessageCngMonitor>(); // 추가
-    .
-    .
-      builder.Services
-          .AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // 추가
-      builder.Services
-          .AddSingleton<IFileEndPosition, FileEndPosition>(); // 추가
-      builder.Services
-          .AddSingleton<Dictionary<string, long>>(); // 추가
-    .
-    .
-      ```
+        ```csharp
+        builder.Services
+            .AddHostedService<FileMessageCngMonitor>(); // 추가
+      .
+      .
+        builder.Services
+            .AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // 추가
+        builder.Services
+            .AddSingleton<IFileEndPosition, FileEndPosition>(); // 추가
+        builder.Services
+            .AddSingleton<Dictionary<string, long>>(); // 추가
+      .
+      .
+        ```
 
-  * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
-      ```javascript
-              connection.on("ReceiveMessage", function(msgType, 
-                    message) {
-                  switch (msgType) {
-                      case "File": {
-                          const toast =
-                              // 실시간 로그파일 뷰어로 사용할 div element를 
-                              // 페이지의 원하는 곳에 만듭니다. (이 코드에선 #Logs)
-                              let logViewer = document.getElementById('Logs');
-                              logViewer.textContent += "\n" + message;
-                          break;
-                      }
-                      /// 다른 종류의 메세지들 ...
-                      case ""....
-                  }
-              }
-      ```  
-    <br/>  
+    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
+        ```javascript
+                connection.on("ReceiveMessage", function(msgType, 
+                      message) {
+                    switch (msgType) {
+                        case "File": {
+                            const toast =
+                                // 실시간 로그파일 뷰어로 사용할 div element를 
+                                // 페이지의 원하는 곳에 만듭니다. (이 코드에선 #Logs)
+                                let logViewer = document.getElementById('Logs');
+                                logViewer.textContent += "\n" + message;
+                            break;
+                        }
+                        // 다른 종류의 메세지들 ...
+                        case ""....
+                    }
+                }
+        ```  
+      <br/>  
 
 
 * **부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**
-  * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
+    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
 
-    ```javascript
-    connection.on("ReceiveMessage", function (msgType, message) {
-        switch (msgType) {
-            case "BrowserToast": {
-              //이 코드는 Bootstrap의 Toast를 실행시키는 코드 입니다.
-              //만약 다른 Toast 플러그인을 사용하신다면 이부분의 코드를 변경합니다.
-                const toastBody =
-                    document.getElementsByClassName('toast-body')[0];
-                toastBody.innerHTML = message;
-                const toast =
-                    new bootstrap.Toast(document.getElementById('toastWrap'));
-                toast.show();
-                break;
-            }
-            /// 다른 종류의 메세지들 ...
-            case ""....
-        }
-    }
-    ```  
-    ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다.  
-<br/>  
+      ```javascript
+      connection.on("ReceiveMessage", function (msgType, message) {
+          switch (msgType) {
+              case "BrowserToast": {
+                //이 코드는 Bootstrap의 Toast를 실행시키는 코드 입니다.
+                //만약 다른 Toast 플러그인을 사용하신다면 이부분의 코드를 변경합니다.
+                  const toastBody =
+                      document.getElementsByClassName('toast-body')[0];
+                  toastBody.innerHTML = message;
+                  const toast =
+                      new bootstrap.Toast(document.getElementById('toastWrap'));
+                  toast.show();
+                  break;
+              }
+              // 다른 종류의 메세지들 ...
+              case ""....
+          }
+      }
+      ```  
+      ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다.  
+      <br/>
 
 
 # 정보
-  
+
 개발자 정보 : Kinadog / [id@faither.me](mailto:id@faither.me)  
-개발자 블로그 : [https://blog.faither.me](https://blog.faither.me)  
+개발자 블로그 : [https://blog.faither.me](https://blog.faither.me)
 
 XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.  
-<br/>  
+<br/>
 
 
 # 기여 방법
 
-1. (<https://github.com/faitherme/FlexMessage/fork>을 포크합니다.)
+1. (<https://github.com/faitherme/FlexMessage/fork>)을 포크합니다.
 2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
 3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
 4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요.
 5. Pull request를 보내주세요.
 
-#
+<br/>
+<br/>
+<br/>
