@@ -1,7 +1,7 @@
 ﻿using FlexMessage.Hubs;
 using FlexMessage.Models;
 using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace FlexMessage.Messages.Types;
 
@@ -84,7 +84,7 @@ public class DbMessage : IMessage
         if (getConnectionId && !string.IsNullOrWhiteSpace(connectionId))
         {
             connectionId = Hashing.Decrypt(connectionId);
-            //_hubContext!.Clients.Client(connectionId!).SendAsync("ReceiveMessage", "Db", JsonConvert.SerializeObject( {{ DbSchema }} ));
+            //_hubContext!.Clients.Client(connectionId!).SendAsync("ReceiveMessage", "Db", JsonSerializer.Serialize( {{ DbSchema }} ));
         }
     }
 
@@ -131,7 +131,7 @@ public class DbMessage : IMessage
         if (getConnectionId && !string.IsNullOrWhiteSpace(connectionId))
         {
             connectionId = Hashing.Decrypt(connectionId);
-            //await _hubContext!.Clients.Client(connectionId!).SendAsync("ReceiveMessage", "Db", JsonConvert.SerializeObject( {{ DbSchema }} ));
+            //await _hubContext!.Clients.Client(connectionId!).SendAsync("ReceiveMessage", "Db", JsonSerializer.Serialize( {{ DbSchema }} ));
         }
     }
 

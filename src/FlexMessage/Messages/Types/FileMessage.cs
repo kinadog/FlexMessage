@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using FlexMessage.Configs;
 
 namespace FlexMessage.Messages.Types;
 

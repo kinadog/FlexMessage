@@ -1,4 +1,5 @@
-﻿using FlexMessage.Hubs;
+﻿using FlexMessage.Configs;
+using FlexMessage.Hubs;
 using FlexMessage.Models;
 using Microsoft.AspNetCore.SignalR;
 

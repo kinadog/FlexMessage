@@ -9,7 +9,8 @@ builder.Services.AddHttpContextAccessor(); // ← 추가 (Add)
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR(options => // ← 추가 (Add)
 {
-    options.ClientTimeoutInterval = TimeSpan.FromHours(1);
+    options.ClientTimeoutInterval = TimeSpan.FromMinutes(30);
+    options.KeepAliveInterval = TimeSpan.FromMinutes(15);
     options.MaximumReceiveMessageSize = 1024 * 1024;
 });
 

@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using FlexMessage.Configs;
 
 #pragma warning disable SYSLIB0041
 

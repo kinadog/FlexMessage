@@ -2,7 +2,7 @@
 using Demo.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Demo.Messages.Types;
 
@@ -98,7 +98,7 @@ public class DbMessage : IMessage
         {
             connectionId = Hashing.Decrypt(connectionId);
             _hubContext!.Clients.Client(connectionId!)
-                .SendAsync("ReceiveMessage", "Db", JsonConvert.SerializeObject(newLogs));
+                .SendAsync("ReceiveMessage", "Db", JsonSerializer.Serialize(newLogs));
         }
     }
 
@@ -158,7 +158,7 @@ public class DbMessage : IMessage
         {
             connectionId = Hashing.Decrypt(connectionId);
             await _hubContext!.Clients.Client(connectionId!)
-                .SendAsync("ReceiveMessage", "Db", JsonConvert.SerializeObject(newLogs));
+                .SendAsync("ReceiveMessage", "Db", JsonSerializer.Serialize(newLogs));
         }
     }
 

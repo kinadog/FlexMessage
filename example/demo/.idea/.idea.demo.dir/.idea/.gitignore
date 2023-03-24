@@ -1,12 +1,12 @@
-ï»¿# ë””í´íŠ¸ ë¬´ì‹œëœ íŒŒì¼
+# µğÆúÆ® ¹«½ÃµÈ ÆÄÀÏ
 /shelf/
 /workspace.xml
-# Riderì—ì„œ ë¬´ì‹œëœ íŒŒì¼
-/.idea.FlexMessage.iml
-/modules.xml
+# Rider¿¡¼­ ¹«½ÃµÈ ÆÄÀÏ
 /projectSettingsUpdater.xml
 /contentModel.xml
-# ì—ë””í„° ê¸°ë°˜ HTTP í´ë¼ì´ì–¸íŠ¸ ìš”ì²­
+/.idea.demo.iml
+/modules.xml
+# ¿¡µğÅÍ ±â¹İ HTTP Å¬¶óÀÌ¾ğÆ® ¿äÃ»
 /httpRequests/
 # Datasource local storage ignored files
 /dataSources/

@@ -1,4 +1,8 @@
-﻿using FlexMessage.Messages;
+﻿using FlexMessage.Configs;
+using FlexMessage.Hubs;
+using FlexMessage.Messages;
+using FlexMessage.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexMessage.Middlewares;
 
@@ -7,6 +11,7 @@ namespace FlexMessage.Middlewares;
 ///     Middleware that sets up the configuration for
 ///     logging messages via various channels, including console, file, and browser.
 /// </summary>
+
 public class HubMiddleware
 {
     private readonly RequestDelegate _next;

@@ -1,37 +1,31 @@
-using FlexMessage.Hubs;
-using FlexMessage.Messages;
-using FlexMessage.Middlewares;
-using FlexMessage.Models;
+using FlexMessage.Services;
 
-/*
-    아래의 코드는,
-    Program.cs 파일 중 해당 기능을 구현하기 위한 코드만을 추려서 기재 한 코드 입니다.
-    그러므로 이 파일에 아래의 코드만 작성하시면 어플리케이션이 구동 되지 않습니다.
-    아래 코드의 주석을 해제하신 후, 서비스 하시려는 Program.cs 파일에
-    알맞은 순서대로 추가시켜서 사용 하시기 바랍니다.
+namespace FlexMessage
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-    The following code is a selection of code from the Program.cs file,
-    specifically for implementing this project functionality.
-    Therefore, this file only includes the code required for that functionality,
-    and it cannot run the application by itself.
-    Please uncomment the code below, and add it to the Program.cs file
-    in the appropriate order for your desired service.
- */
+            builder.Services.AddFlexMessage(builder, option => //Added
+            {
+                option.AddPageView = builder.Services.AddRazorPages();
+            });
 
-//builder.Services.AddHttpContextAccessor();
+            var app = builder.Build();
 
-//builder.Services.AddSignalR();
+            app.UseStaticFiles();
 
-//Config.ContentRootPath = builder.Environment.ContentRootPath;
+            app.UseRouting();
 
-// ↓ 웹페이지의 실시간 파일 View 기능이 필요 없으시면 비활성화 해 주세요
-// ↓ (If real-time file view feature is not needed, disable the code below)
-//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            app.UseFlexMessage(); //Added
 
-//builder.Services.AddSingleton<IFileEndPosition, FileEndPosition>();
+            app.MapRazorPages();
 
-//builder.Services.AddSingleton<Dictionary<string, long>>();
+            app.MapFlexMessage(); //Added
 
-//app.UseMiddleware<HubMiddleware>();
-
-//app.MapHub<MessageHub>("/msghub");
+            app.Run();
+        }
+    }
+}

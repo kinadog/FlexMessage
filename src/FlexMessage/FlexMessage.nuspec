@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+	<metadata>
+		<id>FlexMessage</id>
+		<version>1.0.0</version>
+		<title>FlexMessage</title>
+		<authors>Kinadog</authors>
+		<owners>Kinadog</owners>
+		<licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+		<projectUrl>https://github.com/kinadog/FlexMessage</projectUrl>
+		<icon>icon.png</icon>
+		<readme>README.en.md</readme>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Easy and versatile client message library for .net web applications</description>
+		<releaseNotes>https://github.com/kinadog/FlexMessage/releases</releaseNotes>
+		<copyright>copyright (c) Kinadog 2023</copyright>
+		<tags>runtime C# message to client webbrowser</tags>
+		<dependencies>
+			<dependency id="Microsoft.AspNetCore.App" version="6.0.14" />
+		</dependencies>
+		<summary></summary>
+	</metadata>
+	<files>
+		<file src="README.en.md" target="" />
+		<file src="icon.png" target="" />
+	</files>
+</package>
