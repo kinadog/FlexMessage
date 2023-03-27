@@ -1,33 +1,13 @@
-using Demo.Hubs;
-using Demo.Messages;
-using Demo.Middlewares;
-using Demo.Models;
+using FlexMessage.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpContextAccessor(); // ← 추가 (Add)
-builder.Services.AddControllersWithViews();
-builder.Services.AddSignalR(options => // ← 추가 (Add)
+builder.Services.AddFlexMessage(builder, option => // ← 추가 (Add)
 {
-    options.ClientTimeoutInterval = TimeSpan.FromMinutes(30);
-    options.KeepAliveInterval = TimeSpan.FromMinutes(15);
-    options.MaximumReceiveMessageSize = 1024 * 1024;
+    option.IsFileMessageWriteLiveView = true; // 파일타입 메세지의 라이브뷰 보기여부 옵션
 });
 
-
-Config.ContentRootPath = builder.Environment.ContentRootPath; // ← 추가 (Add)
-
-// ↓ 웹페이지의 실시간 파일 View 기능이 필요 없으시면 비활성화 해 주세요
-// ↓ (If real-time file view feature is not needed, disable the code below)
-builder.Services.AddHostedService<FileMessageCngMonitor>();
-
-// ↓ 웹페이지의 실시간 파일 View 기능이 필요 없으시면 비활성화 해 주세요
-// ↓ (If real-time file view feature is not needed, disable the code below)
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-builder.Services.AddSingleton<IFileEndPosition, FileEndPosition>();
-builder.Services.AddSingleton<Dictionary<string, long>>();
-// ← 추가 (Add)
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
@@ -39,7 +19,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseMiddleware<HubMiddleware>(); // ← 추가 (Add)
+
+app.UseFlexMessage(); // ← 추가 (Add)
 
 app.MapControllerRoute(
     "default",
@@ -50,5 +31,6 @@ app.MapControllerRoute(
     "sample",
     "msg/controller=Sample/{action=Index}/{id?}");
 
-app.MapHub<MessageHub>("/msghub"); // ← 추가 (Add)
+app.MapFlexMessage(); // ← 추가 (Add)
+
 app.Run();

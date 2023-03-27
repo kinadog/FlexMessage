@@ -1,4 +1,5 @@
 ﻿using FlexMessage.Messages.Types;
+using Microsoft.AspNetCore.Http;
 
 // ReSharper disable CyclomaticComplexity
 // ReSharper disable CognitiveComplexity

@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexMessage", "src\FlexMessage\FlexMessage.csproj", "{61B04193-EEB0-4FB4-AB14-FC55CFBD3C59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexMessage", "src\FlexMessage\FlexMessage.csproj", "{C47A1764-B0FA-4BB9-BD71-2D581EB965B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,17 +28,17 @@ Global
 		{72175FB9-BBF8-4D88-B8D6-F88E9C2CF97A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72175FB9-BBF8-4D88-B8D6-F88E9C2CF97A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72175FB9-BBF8-4D88-B8D6-F88E9C2CF97A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61B04193-EEB0-4FB4-AB14-FC55CFBD3C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61B04193-EEB0-4FB4-AB14-FC55CFBD3C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61B04193-EEB0-4FB4-AB14-FC55CFBD3C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61B04193-EEB0-4FB4-AB14-FC55CFBD3C59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47A1764-B0FA-4BB9-BD71-2D581EB965B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47A1764-B0FA-4BB9-BD71-2D581EB965B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47A1764-B0FA-4BB9-BD71-2D581EB965B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47A1764-B0FA-4BB9-BD71-2D581EB965B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{72175FB9-BBF8-4D88-B8D6-F88E9C2CF97A} = {AFADF3AF-3E2F-47F2-8445-DB610CA351EA}
-		{61B04193-EEB0-4FB4-AB14-FC55CFBD3C59} = {60CE142B-7F7B-4B7A-BAA6-A8828D354817}
+		{C47A1764-B0FA-4BB9-BD71-2D581EB965B8} = {60CE142B-7F7B-4B7A-BAA6-A8828D354817}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66A15FFC-9932-482C-A03B-47901FA3ED83}

@@ -1,36 +1,42 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>FlexMessage</PackageId>
     <Title>FlexMessage</Title>
+    <Version>1.0.2</Version>
     <Authors>Kinadog</Authors>
+    <Company>Kinadog</Company>
+    <Product>FlexMessage</Product>
     <Description>Easy and versatile client message library for .net web applications</Description>
-    <Copyright>Copyright (c) Kinadog 2022</Copyright>
+    <Copyright>Copyright (c) Kinadog 2023</Copyright>
     <PackageProjectUrl>https://github.com/kinadog/FlexMessage</PackageProjectUrl>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageReadmeFile>README.en.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/kinadog/FlexMessage/releases</RepositoryUrl>
+    <PackageTags>runtime C# message to client webbrowser</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/kinadog/FlexMessage</RepositoryUrl>
-    <PackageReleaseNotes>https://github.com/kinadog/FlexMessage/releases</PackageReleaseNotes>
-    <PackAsTool>False</PackAsTool>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-	  <IsPackable>true</IsPackable>
-	  <IsPublishable>False</IsPublishable>
-	  <OutputType>Library</OutputType>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
+    <BaseOutputPath>bin\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\..\README.en.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
   </ItemGroup>
+
+  <ItemGroup Label="Packaging">
+    <Content Include="build\FlexMessage.targets" PackagePath="build\FlexMessage.targets" />
+
+    <Content Include="scriptsToGenerate/*.js">
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="scriptsToGenerate/signalr/*.js">
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
+
+  
 
 </Project>

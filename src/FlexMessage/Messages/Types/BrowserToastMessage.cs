@@ -1,5 +1,7 @@
 ﻿using FlexMessage.Hubs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexMessage.Messages.Types;
 

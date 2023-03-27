@@ -2,6 +2,7 @@
 using FlexMessage.Hubs;
 using FlexMessage.Messages;
 using FlexMessage.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexMessage.Middlewares;

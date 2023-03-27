@@ -2,26 +2,71 @@
 <package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>FlexMessage</id>
-		<version>1.0.0</version>
+		<version>1.0.21 </version>
 		<title>FlexMessage</title>
 		<authors>Kinadog</authors>
 		<owners>Kinadog</owners>
-		<licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
 		<projectUrl>https://github.com/kinadog/FlexMessage</projectUrl>
 		<icon>icon.png</icon>
-		<readme>README.en.md</readme>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Easy and versatile client message library for .net web applications</description>
+		<description>
+			<![CDATA[
+Easy and versatile client message library for .net web applications
+
+you can,
+
+1. during the runtime process
+2. using C# code
+3. send various messages
+4. to the client
+5. in various formats
+
+in the backend of a .net web application.
+
+Features
+Send messages directly from server side to web browser:
+You can easily send various messages to the client's web browser using C# code.
+
+Various types of message delivery methods:
+From basic JavaScript alert('') to console.log(''), and customizable toast messages and alert messages,
+as well as saving to local disk as a text file or storing in a database,
+developers can implement any type of messaging required depending on the situation.
+
+Simultaneous transmission of multiple types of messages possible:
+You can configure and send multiple types of messages simultaneously as desired.
+
+More infomation is please visit : <a href="https://github.com/kinadog/FlexMessage" target="_blank">https://github.com/kinadog/FlexMessage</a>
+			]]>
+		</description>
 		<releaseNotes>https://github.com/kinadog/FlexMessage/releases</releaseNotes>
 		<copyright>copyright (c) Kinadog 2023</copyright>
 		<tags>runtime C# message to client webbrowser</tags>
 		<dependencies>
-			<dependency id="Microsoft.AspNetCore.App" version="6.0.14" />
+			<group targetFramework="net6.0" />
 		</dependencies>
-		<summary></summary>
+		<frameworkReferences>
+			<group targetFramework="net6.0">
+				<frameworkReference name="Microsoft.AspNetCore.App" />
+			</group>
+		</frameworkReferences>
+		<summary>Easy and versatile client message library for .net web applications</summary>
+		<contentFiles>
+			<files include="**/flexMessage.js" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="**/signalr.js" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="**/signalr.min.js" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="**/signalr.js.map" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="**/signalr.min.js.map" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="**/FlexMessage.targets" buildAction="Content" copyToOutput="true" flatten="false" />
+		</contentFiles>
 	</metadata>
 	<files>
-		<file src="README.en.md" target="" />
-		<file src="icon.png" target="" />
+		<file src="icon.png" target="/" />
+		<file src="build/**" target="build" />
+<!--		<file src="bin/Release/net6.0/FlexMessage.dll" target="lib\net6.0\FlexMessage.dll" />
+		<file src="wwwroot/js/flexMessage.js" target="contentFiles\any\any\wwwroot\js" />
+		<file src="wwwroot/js/signalr/signalr.js" target="contentFiles\any\any\wwwroot\js\signalr" />
+		<file src="wwwroot/js/signalr/signalr.min.js" target="contentFiles\any\any\wwwroot\js\signalr" />
+		<file src="wwwroot/js/signalr/signalr.js.map" target="contentFiles\any\any\wwwroot\js\signalr" />
+		<file src="wwwroot/js/signalr/signalr.min.js.map" target="contentFiles\any\any\wwwroot\js\signalr" />-->
 	</files>
 </package>
