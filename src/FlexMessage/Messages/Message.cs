@@ -1,5 +1,8 @@
-﻿using FlexMessage.Messages.Types;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using FlexMessage.Messages.Types;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable CyclomaticComplexity
 // ReSharper disable CognitiveComplexity
@@ -18,11 +21,12 @@ public static class Message
 
     private static IMessage? _fileMessage; // 파일 메세지 객체 (File message object)
     private static IMessage? _consoleMessage; // 콘솔 메세지 객체 (Console message object)
-    private static IMessage? _dbMessage; // 데이터베이스 메세지 객체 (Database message object)
+    //private static IMessage? _dbMessage; // 데이터베이스 메세지 객체 (Database message object)
     private static IMessage? _browserConsoleMessage; // 브라우저 콘솔 메세지 객체 (Browser console message object)
     private static IMessage? _browserAlertMessage; // 브라우저 경고창 메세지 객체 (Browser alert message object)
     private static IMessage? _browserToastMessage; // 브라우저 토스트 메세지 객체 (Browser toast message object)
     private static IHttpContextAccessor? _httpContextAccessor; // HTTP 컨텍스트 객체 (HTTP context object)
+    private static IServiceProvider? _serviceProvider; // 서비스 제공자 객체 (Service provider object)
 
     #endregion
 
@@ -47,8 +51,10 @@ public static class Message
     ///     A method that injects an HttpContext for using SignalR.
     /// </summary>
     /// <param name="httpContextAccessor">HTTP 컨텍스트 객체</param>
-    public static void Configure(IHttpContextAccessor? httpContextAccessor)
+    public static void Configure(IHttpContextAccessor? httpContextAccessor
+        , IServiceProvider serviceProvider)
     {
+        _serviceProvider = serviceProvider;
         _httpContextAccessor = httpContextAccessor;
         // 주입된 HttpContext를 사용하여 브라우저별 메시지 유형을 초기화합니다.
         // Initializes browser-specific message types using the injected HttpContext.
@@ -65,8 +71,7 @@ public static class Message
          If you don't need this feature, you can move it
          to the static constructor, static Message().
          */
-        const string connectionString = "YOUR_DB_CONNECT_STRING";
-        _dbMessage = new DbMessage(connectionString, _httpContextAccessor!);
+        //_dbMessage = new DbMessage(_httpContextAccessor!, _saveMessageAction);
     }
 
 
@@ -121,7 +126,12 @@ public static class Message
                 // 메시지 타입이 Db인 경우, 데이터베이스에 로그를 작성합니다.
                 // If the message type is Db, writes the log to the database.
                 case MsgType.Db:
-                    _dbMessage?.Write(message);
+                    if (_serviceProvider != null)
+                    {
+                        using var scope = _serviceProvider.CreateScope();
+                        var dbMessage = scope.ServiceProvider.GetRequiredService<DbMessage>();
+                        dbMessage.Write(message);
+                    }
                     break;
 
                 // 메시지 타입이 BrowserAlert인 경우, 브라우저에서 Alert를 띄웁니다.
@@ -201,7 +211,12 @@ public static class Message
                 // 메시지 타입이 Db인 경우, 데이터베이스에 로그를 작성합니다.
                 // If the message type is Db, writes the log to the database.
                 case MsgType.Db:
-                    await _dbMessage?.WriteAsync(message)!;
+                    if (_serviceProvider != null)
+                    {
+                        using var scope = _serviceProvider.CreateScope();
+                        var dbMessage = scope.ServiceProvider.GetRequiredService<DbMessage>();
+                        await dbMessage.WriteAsync(message);
+                    }
                     break;
 
                 // 메시지 타입이 BrowserAlert인 경우, 브라우저에서 Alert를 띄웁니다.

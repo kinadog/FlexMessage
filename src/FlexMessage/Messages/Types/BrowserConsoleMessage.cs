@@ -1,4 +1,5 @@
-﻿using FlexMessage.Hubs;
+﻿using System.Threading.Tasks;
+using FlexMessage.Hubs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;

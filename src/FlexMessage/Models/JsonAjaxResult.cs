@@ -1,4 +1,7 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
+
+using System;
+
 namespace FlexMessage.Models;
 
 

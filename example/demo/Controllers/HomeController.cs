@@ -1,5 +1,5 @@
-﻿using Demo.Messages;
-using Demo.Messages.Types;
+﻿using FlexMessage.Messages;
+using FlexMessage.Messages.Types;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlexMessage.Controllers;

@@ -2,7 +2,7 @@
 <package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>FlexMessage</id>
-		<version>1.0.21 </version>
+		<version>1.0.0 </version>
 		<title>FlexMessage</title>
 		<authors>Kinadog</authors>
 		<owners>Kinadog</owners>
@@ -35,7 +35,7 @@ developers can implement any type of messaging required depending on the situati
 Simultaneous transmission of multiple types of messages possible:
 You can configure and send multiple types of messages simultaneously as desired.
 
-More infomation is please visit : <a href="https://github.com/kinadog/FlexMessage" target="_blank">https://github.com/kinadog/FlexMessage</a>
+More infomation is please visit : https://github.com/kinadog/FlexMessage
 			]]>
 		</description>
 		<releaseNotes>https://github.com/kinadog/FlexMessage/releases</releaseNotes>
@@ -44,29 +44,36 @@ More infomation is please visit : <a href="https://github.com/kinadog/FlexMessag
 		<dependencies>
 			<group targetFramework="net6.0" />
 		</dependencies>
-		<frameworkReferences>
-			<group targetFramework="net6.0">
-				<frameworkReference name="Microsoft.AspNetCore.App" />
-			</group>
-		</frameworkReferences>
 		<summary>Easy and versatile client message library for .net web applications</summary>
 		<contentFiles>
-			<files include="**/flexMessage.js" buildAction="Content" copyToOutput="true" flatten="false" />
-			<files include="**/signalr.js" buildAction="Content" copyToOutput="true" flatten="false" />
-			<files include="**/signalr.min.js" buildAction="Content" copyToOutput="true" flatten="false" />
-			<files include="**/signalr.js.map" buildAction="Content" copyToOutput="true" flatten="false" />
-			<files include="**/signalr.min.js.map" buildAction="Content" copyToOutput="true" flatten="false" />
-			<files include="**/FlexMessage.targets" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="any/net6.0/wwwroot/js/flexMessage/flexMessage.js" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="any/net6.0/wwwroot/js/flexMessage/signalr.js" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="any/net6.0/wwwroot/js/flexMessage/signalr.min.js" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="any/net6.0/wwwroot/js/flexMessage/signalr.js.map" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="any/net6.0/wwwroot/js/flexMessage/signalr.min.js.map" buildAction="Content" copyToOutput="true" flatten="false" />
+			<files include="any/net6.0/wwwroot/js/flexMessage/FlexMessage.targets" buildAction="Content" copyToOutput="true" flatten="false" />
 		</contentFiles>
 	</metadata>
 	<files>
 		<file src="icon.png" target="/" />
-		<file src="build/**" target="build" />
-<!--		<file src="bin/Release/net6.0/FlexMessage.dll" target="lib\net6.0\FlexMessage.dll" />
-		<file src="wwwroot/js/flexMessage.js" target="contentFiles\any\any\wwwroot\js" />
-		<file src="wwwroot/js/signalr/signalr.js" target="contentFiles\any\any\wwwroot\js\signalr" />
-		<file src="wwwroot/js/signalr/signalr.min.js" target="contentFiles\any\any\wwwroot\js\signalr" />
-		<file src="wwwroot/js/signalr/signalr.js.map" target="contentFiles\any\any\wwwroot\js\signalr" />
-		<file src="wwwroot/js/signalr/signalr.min.js.map" target="contentFiles\any\any\wwwroot\js\signalr" />-->
+		<file src="build/FlexMessage.targets" target="build\FlexMessage.targets" />
+
+		<file src="wwwroot/js/flexMessage/flexMessage.js" target="content\wwwroot\js\flexMessage\flexMessage.js" />
+		<file src="wwwroot/js/flexMessage/signalr.js" target="content\wwwroot\js\flexMessage\signalr.js" />
+		<file src="wwwroot/js/flexMessage/signalr.min.js" target="content\wwwroot\js\flexMessage\signalr.min.js" />
+		<file src="wwwroot/js/flexMessage/signalr.js.map" target="content\wwwroot\js\flexMessage\signalr.js.map" />
+		<file src="wwwroot/js/flexMessage/signalr.min.js.map"
+			  target="content\wwwroot\js\flexMessage\signalr.min.js.map" />
+
+		<file src="wwwroot/js/flexMessage/flexMessage.js"
+			  target="contentFiles\any\net6.0\wwwroot\js\flexMessage\flexMessage.js" />
+		<file src="wwwroot/js/flexMessage/signalr.js"
+			  target="contentFiles\any\net6.0\wwwroot\js\flexMessage\signalr.js" />
+		<file src="wwwroot/js/flexMessage/signalr.min.js"
+			  target="contentFiles\any\net6.0\wwwroot\js\flexMessage\signalr.min.js" />
+		<file src="wwwroot/js/flexMessage/signalr.js.map"
+			  target="contentFiles\any\net6.0\wwwroot\js\flexMessage\signalr.js.map" />
+		<file src="wwwroot/js/flexMessage/signalr.min.js.map"
+			  target="contentFiles\any\net6.0\wwwroot\js\flexMessage\signalr.min.js.map" />
 	</files>
 </package>

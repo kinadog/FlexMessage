@@ -1,25 +1,54 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>FlexMessage</PackageId>
     <Title>FlexMessage</Title>
-    <Version>1.0.2</Version>
+    <Version>1.0.1</Version>
     <Authors>Kinadog</Authors>
     <Company>Kinadog</Company>
     <Product>FlexMessage</Product>
-    <Description>Easy and versatile client message library for .net web applications</Description>
+    <Description><![CDATA[
+Easy and versatile client message library for .net web applications
+
+you can,
+
+1. during the runtime process
+2. using C# code
+3. send various messages
+4. to the client
+5. in various formats
+
+in the backend of a .net web application.
+
+Features
+Send messages directly from server side to web browser:
+You can easily send various messages to the client's web browser using C# code.
+
+Various types of message delivery methods:
+From basic JavaScript alert('') to console.log(''), and customizable toast messages and alert messages,
+as well as saving to local disk as a text file or storing in a database,
+developers can implement any type of messaging required depending on the situation.
+
+Simultaneous transmission of multiple types of messages possible:
+You can configure and send multiple types of messages simultaneously as desired.
+
+More infomation is please visit : https://github.com/kinadog/FlexMessage
+			]]></Description>
     <Copyright>Copyright (c) Kinadog 2023</Copyright>
+    <summary>Easy and versatile client message library for .net web applications</summary>
     <PackageProjectUrl>https://github.com/kinadog/FlexMessage</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/kinadog/FlexMessage/releases</RepositoryUrl>
-    <PackageTags>runtime C# message to client webbrowser</PackageTags>
+    <RepositoryUrl>https://github.com/kinadog/FlexMessage</RepositoryUrl>
+    <PackageTags>runtime C# message to client web browser</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
     <BaseOutputPath>bin\</BaseOutputPath>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReleaseNotes>https://github.com/kinadog/FlexMessage/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,14 +58,19 @@
   <ItemGroup Label="Packaging">
     <Content Include="build\FlexMessage.targets" PackagePath="build\FlexMessage.targets" />
 
-    <Content Include="scriptsToGenerate/*.js">
-      <Pack>true</Pack>
-    </Content>
-    <Content Include="scriptsToGenerate/signalr/*.js">
+    <Content Include="wwwroot/js/flexMessage/*.*" buildAction="Content">
       <Pack>true</Pack>
     </Content>
   </ItemGroup>
 
-  
+  <ItemGroup>
+    <Content Include="icon.png" PackagePath="icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="obj\" />
+  </ItemGroup>
+
+
 
 </Project>

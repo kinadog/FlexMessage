@@ -1,4 +1,5 @@
-﻿using FlexMessage.Configs;
+﻿using System.Threading.Tasks;
+using FlexMessage.Configs;
 using FlexMessage.Hubs;
 using FlexMessage.Messages;
 using FlexMessage.Models;
@@ -35,8 +36,9 @@ public class HubMiddleware
         // Injects the HttpContextAccessor to the logging channels configuration
         var httpContextAccessor = context.RequestServices
             .GetRequiredService<IHttpContextAccessor>();
+        var serviceProvider = context.RequestServices;
 
-        Message.Configure(httpContextAccessor);
+        Message.Configure(httpContextAccessor, serviceProvider);
 
         // ↓ 웹페이지의 실시간 파일 View 기능이 필요 없으시면 비 활성화 하셔도 됩니다.
         // ↓ If real-time file view feature is not needed, you can disable it.

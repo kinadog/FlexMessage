@@ -1,10 +1,16 @@
 using FlexMessage.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFlexMessage(builder, option => // ← 추가 (Add)
 {
-    option.IsFileMessageWriteLiveView = true; // 파일타입 메세지의 라이브뷰 보기여부 옵션
+    option.FileMessageStatus = FileMessageStatus.LiveView; // 파일타입 메세지의 라이브뷰 보기여부 옵션
+}, message =>
+{
+    // 여기에 데이터베이스에 메시지를 저장하는 코드를 작성하세요.
 });
 
 builder.Services.AddControllersWithViews();

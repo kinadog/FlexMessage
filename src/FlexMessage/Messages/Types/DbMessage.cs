@@ -1,9 +1,11 @@
-﻿using FlexMessage.Hubs;
+﻿using System;
+using FlexMessage.Hubs;
 using FlexMessage.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FlexMessage.Messages.Types;
 
@@ -14,10 +16,10 @@ namespace FlexMessage.Messages.Types;
 public class DbMessage : IMessage
 {
     #region Field
-
-    private readonly string _connectionString;
     private static IHttpContextAccessor? _contextAccessor;
     private static IHubContext<MessageHub>? _hubContext;
+    private readonly Action<string> _saveMessageAction;
+
 
     #endregion
 
@@ -28,14 +30,13 @@ public class DbMessage : IMessage
     /// DbMessage의 생성자
     /// Initializes a new instance of the DbMessage class.
     /// </summary>
-    /// <param name="connectionString">데이터베이스 연결 문자열</param>
     /// <param name="contextAccessor">HttpContextAccessor 객체</param>
-    public DbMessage(string connectionString,
-        IHttpContextAccessor contextAccessor)
+    public DbMessage(IHttpContextAccessor contextAccessor,
+        Action<string> saveMessageAction)
     {
-        _connectionString = connectionString;
         _contextAccessor = contextAccessor;
         _hubContext = _contextAccessor.HttpContext!.RequestServices.GetRequiredService<IHubContext<MessageHub>>();
+        _saveMessageAction = saveMessageAction;
     }
 
     #endregion
@@ -61,6 +62,8 @@ public class DbMessage : IMessage
                  데이터베이스에 message를 입력하는 구문을 코딩합니다.
                  The code for inserting a message into the database is implemented.
              */
+
+            _saveMessageAction(message);
         }
         catch (Exception e)
         {
@@ -108,6 +111,7 @@ public class DbMessage : IMessage
                  데이터베이스에 message를 입력하는 구문을 코딩합니다.
                  The code for inserting a message into the database is implemented.
              */
+            _saveMessageAction(message);
         }
         catch (Exception e)
         {
