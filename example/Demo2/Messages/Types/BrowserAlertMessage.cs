@@ -1,8 +1,5 @@
-﻿using System.Threading.Tasks;
-using Demo2.Hubs;
-using Microsoft.AspNetCore.Http;
+﻿using Demo2.Hubs;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Demo2.Messages.Types;
 

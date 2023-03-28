@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace FlexMessage.Messages;
+﻿namespace FlexMessage.Messages;
 
 public interface IMessage
 {

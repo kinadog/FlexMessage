@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Demo2.Models;
+﻿namespace Demo2.Models;
 
 /// <summary>
 /// 파일의 마지막 위치 정보를 담는 클래스입니다.

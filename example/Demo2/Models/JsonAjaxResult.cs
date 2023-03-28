@@ -1,7 +1,5 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
 
-using System;
-
 namespace Demo2.Models;
 
 

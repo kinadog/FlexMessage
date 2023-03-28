@@ -1,11 +1,7 @@
-﻿using System;
-using Demo2.Hubs;
+﻿using Demo2.Hubs;
 using Demo2.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Demo2.Messages.Types;
 
@@ -30,7 +26,6 @@ public class DbMessage : IMessage
     /// DbMessage의 생성자
     /// Initializes a new instance of the DbMessage class.
     /// </summary>
-    /// <param name="contextAccessor">HttpContextAccessor 객체</param>
     public DbMessage(IHttpContextAccessor contextAccessor,
         Action<string> saveMessageAction)
     {
@@ -108,7 +103,10 @@ public class DbMessage : IMessage
                  데이터베이스에 message를 입력하는 구문을 코딩합니다.
                  The code for inserting a message into the database is implemented.
              */
-            _saveMessageAction(message);
+            await Task.Run(() =>
+            {
+                _saveMessageAction(message);
+            });
         }
         catch (Exception e)
         {

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using FlexMessage.Messages;
+﻿using FlexMessage.Messages;
 using Microsoft.AspNetCore.SignalR;
 
 namespace FlexMessage.Hubs

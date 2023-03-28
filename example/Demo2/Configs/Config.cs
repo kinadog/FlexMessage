@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Demo2.Configs;
+﻿namespace Demo2.Configs;
 
 public static class Config
 {

@@ -1,16 +1,41 @@
+using Demo.Models;
 using FlexMessage.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddFlexMessage(builder, option => // ¡ç Ãß°¡ (Add)
+builder.Services.AddFlexMessage(builder, option => // â† ì¶”ê°€ (Add)
 {
-    option.FileMessageStatus = FileMessageStatus.LiveView; // ÆÄÀÏÅ¸ÀÔ ¸Ş¼¼ÁöÀÇ ¶óÀÌºêºä º¸±â¿©ºÎ ¿É¼Ç
+    option.FileMessageStatus = FileMessageStatus.LiveView; // íŒŒì¼íƒ€ì… ë©”ì„¸ì§€ì˜ ë¼ì´ë¸Œë·° ë³´ê¸°ì—¬ë¶€ ì˜µì…˜ (Option for live view of file type messages.)
 }, message =>
 {
-    // ¿©±â¿¡ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ¸Ş½ÃÁö¸¦ ÀúÀåÇÏ´Â ÄÚµå¸¦ ÀÛ¼ºÇÏ¼¼¿ä.
+    // DbMessageë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šì„ ê²½ìš° ì•„ë˜ì˜ ì½”ë“œëŠ” ì‚­ì œ í•˜ì…”ë„ ë©ë‹ˆë‹¤.
+    // ì—¬ê¸°ì— ë°ì´í„°ë² ì´ìŠ¤ì— ë©”ì‹œì§€ë¥¼ ì €ì¥í•˜ëŠ” ì½”ë“œë¥¼ ì‘ì„±í•˜ì„¸ìš”.
+    // If you are not using DbMessage, you can delete the following code.
+    // Write code here to save the message to the database.
+    try
+    {
+        // ë°ì´í„°ë² ì´ìŠ¤ì— messageë¥¼ ì…ë ¥í•˜ëŠ” êµ¬ë¬¸ì„ ì½”ë”©í•©ë‹ˆë‹¤.
+        // ì˜ˆì œë¥¼ ìœ„í•˜ì—¬ EFì˜ ì¸ë©”ëª¨ë¦¬ ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
+        // The code for inserting a message into the database is implemented.
+        // In this example, an in-memory database of EF is used.
+        var options = new DbContextOptionsBuilder<EfDbContext>()
+            .UseInMemoryDatabase("FlexMessageSampleDb")
+            .Options;
+        var newLogs = new Logs
+        {
+            Message = message,
+            Writedates = DateTime.Now
+        };
+        using var context = new EfDbContext(options);
+        context.Logs!.Add(newLogs);
+        context.SaveChangesAsync();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
 });
 
 builder.Services.AddControllersWithViews();
@@ -26,17 +51,17 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseFlexMessage(); // ¡ç Ãß°¡ (Add)
+app.UseFlexMessage(); // â† ì¶”ê°€ (Add)
 
 app.MapControllerRoute(
     "default",
     "{controller=Home}/{action=Index}/{id?}");
 
-// ¡ç »ùÇÃ ÆäÀÌÁö¿ë ¶ó¿ìÆ®¸¦ Ãß°¡ÇÕ´Ï´Ù. (Add route for sample page)
+// â† ìƒ˜í”Œ í˜ì´ì§€ìš© ë¼ìš°íŠ¸ë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤. (Add route for sample page)
 app.MapControllerRoute(
     "sample",
     "msg/controller=Sample/{action=Index}/{id?}");
 
-app.MapFlexMessage(); // ¡ç Ãß°¡ (Add)
+app.MapFlexMessage(); // â† ì¶”ê°€ (Add)
 
 app.Run();

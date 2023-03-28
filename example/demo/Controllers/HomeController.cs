@@ -2,7 +2,7 @@
 using FlexMessage.Messages.Types;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FlexMessage.Controllers;
+namespace Demo.Controllers;
 
 public class HomeController : Controller
 {

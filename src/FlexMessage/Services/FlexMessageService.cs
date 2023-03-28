@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FlexMessage.Configs;
+﻿using FlexMessage.Configs;
 using FlexMessage.Hubs;
 using FlexMessage.Messages;
 using FlexMessage.Messages.Types;
@@ -68,10 +66,15 @@ namespace FlexMessage.Services
             services.AddScoped<DbMessage>(sp => new DbMessage(
                 sp.GetRequiredService<IHttpContextAccessor>(),
                 saveMessageAction));
+
             // IsFileMessageWriteLiveView 값에 따라 파일 메시지 기록 라이브 뷰 여부을 수행할지 결정.
             // Register services for file message write live view depending on IsLiveViewFileMessageWrite value.
+            var flexMessageOption = new FlexMessageOption();
+            option?.Invoke(flexMessageOption);
 
-             if (option is { Target: FlexMessageOption { FileMessageStatus : FileMessageStatus.LiveView } })
+            // 옵션 값이 FileMessageStatus.LiveView 인 경우 필요한 동작을 수행합니다.
+            // Perform the necessary action if the option value is FileMessageStatus.LiveView.
+            if (flexMessageOption.FileMessageStatus == FileMessageStatus.LiveView)
             {
                 // 파일 메시지 기록 라이브 뷰 관련 서비스 등록.
                 // Register services for writing file message live view.

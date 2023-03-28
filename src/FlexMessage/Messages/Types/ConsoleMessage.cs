@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace FlexMessage.Messages.Types;
+﻿namespace FlexMessage.Messages.Types;
 /// <summary>
 /// 시스템 콘솔 메세지를 처리하는 클래스
 /// Class for handling system console messages.

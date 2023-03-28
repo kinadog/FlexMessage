@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FlexMessage.Configs;
+﻿namespace FlexMessage.Configs;
 
 public static class Config
 {

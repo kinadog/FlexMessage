@@ -1,10 +1,5 @@
-﻿using System.Threading.Tasks;
-using Demo2.Configs;
-using Demo2.Hubs;
+﻿using Demo2.Configs;
 using Demo2.Messages;
-using Demo2.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Demo2.Middlewares;
 

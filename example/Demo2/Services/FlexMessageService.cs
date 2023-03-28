@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Demo2.Configs;
+﻿using Demo2.Configs;
 using Demo2.Hubs;
 using Demo2.Messages;
 using Demo2.Messages.Types;
 using Demo2.Middlewares;
 using Demo2.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Demo2.Services
 {

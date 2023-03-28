@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Demo2.Messages;
+﻿namespace Demo2.Messages;
 
 public interface IMessage
 {

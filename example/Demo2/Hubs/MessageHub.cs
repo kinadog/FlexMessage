@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Demo2.Messages;
+﻿using Demo2.Messages;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Demo2.Hubs
