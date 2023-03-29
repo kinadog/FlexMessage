@@ -20,14 +20,12 @@
 
   <img src="https://img.shields.io/badge/JavaScript-a28419?logo=javascript&logoColor=white" alt=""/> 
 </div>
+
 <div align="center">  
-
-  <img src="https://img.shields.io/github/downloads/kinadog/FlexMessage/total?color=fPZhdJ" alt=""/> 
-
   <img src="https://img.shields.io/github/v/release/kinadog/FlexMessage?color=0879ba&include_prereleases" alt=""/> 
-
+  <img src="https://img.shields.io/github/downloads/kinadog/FlexMessage/total?color=fPZhdJ" alt=""/> 
+  <img src="https://img.shields.io/nuget/dt/FlexMessage?color=0078d4&label=nuget" alt=""/> 
   <img src="https://img.shields.io/github/issues/kinadog/FlexMessage?color=ed793a" alt=""/> 
-
   <img src="https://img.shields.io/github/issues-closed/kinadog/FlexMessage?color=ed4156" alt=""/> 
 </div>  
 <br/>
