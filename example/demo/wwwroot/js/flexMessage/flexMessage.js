@@ -1,29 +1,29 @@
-// DOMì´ ì™„ì „íˆ ë¡œë“œë  ë•Œê¹Œì§€ ëŒ€ê¸°í•©ë‹ˆë‹¤.
+// DOMÀÌ ¿ÏÀüÈ÷ ·ÎµåµÉ ¶§±îÁö ´ë±âÇÕ´Ï´Ù.
 // Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", async () => {
 
-    // signalR í—ˆë¸Œì— ì—°ê²°í•©ë‹ˆë‹¤.
+    // signalR Çãºê¿¡ ¿¬°áÇÕ´Ï´Ù.
     // Create a connection to the signalR hub
     const connection = new signalR.HubConnectionBuilder()
-        .withUrl("/msghub") // "/msghub" URLì„ ì‚¬ìš©í•˜ì—¬ í—ˆë¸Œì— ì—°ê²°í•©ë‹ˆë‹¤. (Use the "/msghub" URL to connect to the hub)
-        .configureLogging(signalR.LogLevel.None) // signalRì˜ ëª¨ë“  ë©”ì„¸ì§€ë¥¼ ë¡œê·¸ë¡œ ë‚¨ê¸°ì§€ ì•ŠìŠµë‹ˆë‹¤. (Do not log any messages from signalR)
-        .withAutomaticReconnect() // ì—°ê²°ì´ ëŠì–´ì§„ ê²½ìš° ìë™ìœ¼ë¡œ ì¬ì—°ê²°í•©ë‹ˆë‹¤. (Automatically try to reconnect if the connection is lost)
-        .build(); // ì—°ê²° ê°ì²´ë¥¼ ë¹Œë“œí•©ë‹ˆë‹¤. (Build the connection object)
+        .withUrl("/msghub") // "/msghub" URLÀ» »ç¿ëÇÏ¿© Çãºê¿¡ ¿¬°áÇÕ´Ï´Ù. (Use the "/msghub" URL to connect to the hub)
+        .configureLogging(signalR.LogLevel.None) // signalRÀÇ ¸ğµç ¸Ş¼¼Áö¸¦ ·Î±×·Î ³²±âÁö ¾Ê½À´Ï´Ù. (Do not log any messages from signalR)
+        .withAutomaticReconnect() // ¿¬°áÀÌ ²÷¾îÁø °æ¿ì ÀÚµ¿À¸·Î Àç¿¬°áÇÕ´Ï´Ù. (Automatically try to reconnect if the connection is lost)
+        .build(); // ¿¬°á °´Ã¼¸¦ ºôµåÇÕ´Ï´Ù. (Build the connection object)
 
-    // ì„œë²„ì—ì„œ "ReceiveMessage" ì´ë²¤íŠ¸ë¥¼ ì²˜ë¦¬í•©ë‹ˆë‹¤.
+    // ¼­¹ö¿¡¼­ "ReceiveMessage" ÀÌº¥Æ®¸¦ Ã³¸®ÇÕ´Ï´Ù.
     // Handle the "ReceiveMessage" event from the server
     connection.on("ReceiveMessage", function (msgType, message) {
         switch (msgType) {
             case "BrowserConsole": {
-                // ë©”ì„¸ì§€ë¥¼ ë¸Œë¼ìš°ì € ì½˜ì†”ì— ì¶œë ¥í•©ë‹ˆë‹¤.
+                // ¸Ş¼¼Áö¸¦ ºê¶ó¿ìÀú ÄÜ¼Ö¿¡ Ãâ·ÂÇÕ´Ï´Ù.
                 // Output the message to the browser console
                 console.log(message);
                 break;
             }
             case "BrowserAlert": {
                 /*
-                    ì‚¬ìš©í•˜ê³ ì í•˜ì‹œëŠ” alert í”ŒëŸ¬ê·¸ì¸ì˜ ì½”ë“œë¥¼ ì•„ë˜ì— êµ¬í˜„ í•´ ì£¼ì„¸ìš”.
-                    ê¸°ë³¸ Javascriptì˜ Alertë¥¼ ê·¸ëŒ€ë¡œ ì‚¬ìš©í•˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.
+                    »ç¿ëÇÏ°íÀÚ ÇÏ½Ã´Â alert ÇÃ·¯±×ÀÎÀÇ ÄÚµå¸¦ ¾Æ·¡¿¡ ±¸Çö ÇØ ÁÖ¼¼¿ä.
+                    ±âº» JavascriptÀÇ Alert¸¦ ±×´ë·Î »ç¿ëÇÏ¼Åµµ ÁÁ½À´Ï´Ù.
                     Implement the code for the alert plugin you want to use below.
                     You can also use the default JavaScript Alert.
                  */
@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
             case "BrowserToast": {
                 /*
-                    ì˜ˆì œëŠ” Bootstrapì˜ ê¸°ë³¸ Toastê¸°ëŠ¥ì„ êµ¬í˜„ í•˜ì˜€ìŠµë‹ˆë‹¤.
-                    ë‹¤ë¥¸ Toast ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ì‚¬ìš©í•˜ì‹œë ¤ë©´,
-                    ì•„ë˜ì˜ ì½”ë“œë¥¼ ì‚¬ìš©í•˜ì‹œë ¤ëŠ” Toast ë¼ì´ë¸ŒëŸ¬ë¦¬ì˜ êµ¬í˜„ ì½”ë“œë¡œ ë³€ê²½ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.
+                    ¿¹Á¦´Â BootstrapÀÇ ±âº» Toast±â´ÉÀ» ±¸Çö ÇÏ¿´½À´Ï´Ù.
+                    ´Ù¸¥ Toast ¶óÀÌºê·¯¸®¸¦ »ç¿ëÇÏ½Ã·Á¸é,
+                    ¾Æ·¡ÀÇ ÄÚµå¸¦ »ç¿ëÇÏ½Ã·Á´Â Toast ¶óÀÌºê·¯¸®ÀÇ ±¸Çö ÄÚµå·Î º¯°æ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
                     This code is an example implementation of the default Toast functionality from Bootstrap.
                     If you want to use a different Toast library,
                     replace the code below with the implementation code for the Toast library you want to use.
@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
             case "File": {
                 /*
-                    íŒŒì¼ì— ê¸°ë¡ ëœ ë©”ì„¸ì§€ë¥¼ ì‹¤ì‹œê°„ìœ¼ë¡œ ì›¹ì— ì¶œë ¥í•˜ê¸° ìœ„í•œ ìƒ˜í”Œ ì½”ë“œ ì…ë‹ˆë‹¤.
-                    í•´ë‹¹ ê¸°ëŠ¥ì´ í•„ìš” ì—†ìœ¼ì‹œë©´ ì´ ì½”ë“œë¥¼ ì‚­ì œ í•˜ì‹œë©´ ë©ë‹ˆë‹¤.
+                    ÆÄÀÏ¿¡ ±â·Ï µÈ ¸Ş¼¼Áö¸¦ ½Ç½Ã°£À¸·Î À¥¿¡ Ãâ·ÂÇÏ±â À§ÇÑ »ùÇÃ ÄÚµå ÀÔ´Ï´Ù.
+                    ÇØ´ç ±â´ÉÀÌ ÇÊ¿ä ¾øÀ¸½Ã¸é ÀÌ ÄÚµå¸¦ »èÁ¦ ÇÏ½Ã¸é µË´Ï´Ù.
                     This is a sample code to output messages written to a file in real time to the web.
                     If you don't need this functionality, you can delete this code.
                 */
@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
             case "Db": {
                 /*
-                    DBì— ê¸°ë¡ ëœ ë©”ì„¸ì§€ë¥¼ ì‹¤ì‹œê°„ìœ¼ë¡œ ì›¹ì— ì¶œë ¥í•˜ê¸° ìœ„í•œ ìƒ˜í”Œ ì½”ë“œ ì…ë‹ˆë‹¤.
-                    í•´ë‹¹ ê¸°ëŠ¥ì´ í•„ìš” ì—†ìœ¼ì‹œë©´ ì´ ì½”ë“œë¥¼ ì‚­ì œ í•˜ì‹œë©´ ë©ë‹ˆë‹¤.
+                    DB¿¡ ±â·Ï µÈ ¸Ş¼¼Áö¸¦ ½Ç½Ã°£À¸·Î À¥¿¡ Ãâ·ÂÇÏ±â À§ÇÑ »ùÇÃ ÄÚµå ÀÔ´Ï´Ù.
+                    ÇØ´ç ±â´ÉÀÌ ÇÊ¿ä ¾øÀ¸½Ã¸é ÀÌ ÄÚµå¸¦ »èÁ¦ ÇÏ½Ã¸é µË´Ï´Ù.
                     This is a sample code to output messages written to a DB in real time to the web.
                     If you don't need this functionality, you can delete this code.
                 */
@@ -71,15 +71,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let tableData = JSON.parse(message);
                 const {Id, Message, Writedates} = tableData;
 
-                let tdId = document.createElement('td');
                 let tdMessage = document.createElement('td');
                 let tdWritedate = document.createElement('td');
-                tdId.textContent = Id;
                 tdMessage.textContent = Message;
                 tdWritedate.textContent = Writedates;
 
                 let newTr = document.createElement('tr');
-                newTr.appendChild(tdId);
                 newTr.appendChild(tdMessage);
                 newTr.appendChild(tdWritedate);
 
@@ -94,14 +91,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             }
             default: {
-                // ë©”ì„¸ì§€ë¥¼ ë¸Œë¼ìš°ì € ì½˜ì†”ì— ì¶œë ¥í•©ë‹ˆë‹¤.
+                // ¸Ş¼¼Áö¸¦ ºê¶ó¿ìÀú ÄÜ¼Ö¿¡ Ãâ·ÂÇÕ´Ï´Ù.
                 // Output the message to the browser console
                 console.log(message);
             }
         }
     });
 
-    // í—ˆë¸Œì— ì—°ê²°ì„ ì‹œì‘í•©ë‹ˆë‹¤.
+    // Çãºê¿¡ ¿¬°áÀ» ½ÃÀÛÇÕ´Ï´Ù.
     // Start the connection to the hub
     async function start() {
         try {
@@ -113,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
         } catch (err) {
             console.log(err);
-            // ì—°ê²°ì´ ì‹¤íŒ¨í•˜ë©´ 5ì´ˆ í›„ ë‹¤ì‹œ ì‹œë„í•©ë‹ˆë‹¤.
+            // ¿¬°áÀÌ ½ÇÆĞÇÏ¸é 5ÃÊ ÈÄ ´Ù½Ã ½ÃµµÇÕ´Ï´Ù.
             // If the connection fails, try again in 5 seconds
             setTimeout(start, 5000);
         }
@@ -128,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-// ì¿ í‚¤ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
+// ÄíÅ°¸¦ »ı¼ºÇÕ´Ï´Ù.
 // Create Cookie.
 function createCookie(name, value, days) {
     let expires;
@@ -143,7 +140,7 @@ function createCookie(name, value, days) {
     return Promise.resolve();
 }
 
-// ì¿ í‚¤ë¥¼ ì½ì–´ì˜µë‹ˆë‹¤.
+// ÄíÅ°¸¦ ÀĞ¾î¿É´Ï´Ù.
 // Read Cookie.
 function readCookie(name) {
     let nameEQ = name + "=";
