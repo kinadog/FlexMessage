@@ -1,7 +1,7 @@
-﻿using FlexMessage.Configs;
-using FlexMessage.Messages;
-using FlexMessage.Messages.Types;
-using FlexMessage.Models;
+﻿using Demo.Configs;
+using Demo.Messages;
+using Demo.Messages.Types;
+using Demo.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Controllers;

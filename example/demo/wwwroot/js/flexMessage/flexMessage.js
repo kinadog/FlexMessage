@@ -2,9 +2,40 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", async () => {
 
+    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    const host = window.location.hostname;
+    const port = window.location.port;
+
+    // 서버와 웹소켓 연결 생성
+    const webSocket = new WebSocket(protocol + '://' + host + ':' + port +'/ws');
+
+    // 연결이 열리면 호출되는 이벤트 리스너
+    webSocket.addEventListener('open', (event) => {
+        console.log('WebSocket connection opened:', event);
+    });
+
+    // 서버로부터 메시지를 받으면 호출되는 이벤트 리스너
+    webSocket.addEventListener('message', (event) => {
+        let data = JSON.parse(event.data);
+        console.log('WebSocket message received:', data);
+        createCookie("webSocketId",data.Message,1);
+        //messageElement.innerText = event.data;
+    });
+
+    // 연결이 닫히면 호출되는 이벤트 리스너
+    webSocket.addEventListener('close', (event) => {
+        console.log('WebSocket connection closed:', event);
+    });
+
+    // 오류가 발생하면 호출되는 이벤트 리스너
+    webSocket.addEventListener('error', (event) => {
+        console.error('WebSocket error:', event);
+    });
+
+
     // signalR 허브에 연결합니다.
     // Create a connection to the signalR hub
-    const connection = new signalR.HubConnectionBuilder()
+    /*const connection = new signalR.HubConnectionBuilder()
         .withUrl("/msghub") // "/msghub" URL을 사용하여 허브에 연결합니다. (Use the "/msghub" URL to connect to the hub)
         .configureLogging(signalR.LogLevel.None) // signalR의 모든 메세지를 로그로 남기지 않습니다. (Do not log any messages from signalR)
         .withAutomaticReconnect() // 연결이 끊어진 경우 자동으로 재연결합니다. (Automatically try to reconnect if the connection is lost)
@@ -21,17 +52,17 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             }
             case "BrowserAlert": {
-                /*
+                /!*
                     사용하고자 하시는 alert 플러그인의 코드를 아래에 구현 해 주세요.
                     기본 Javascript의 Alert를 그대로 사용하셔도 좋습니다.
                     Implement the code for the alert plugin you want to use below.
                     You can also use the default JavaScript Alert.
-                 */
+                 *!/
                 alert(message);
                 break;
             }
             case "BrowserToast": {
-                /*
+                /!*
                     예제는 Bootstrap의 기본 Toast기능을 구현 하였습니다.
                     다른 Toast 라이브러리를 사용하시려면,
                     아래의 코드를 사용하시려는 Toast 라이브러리의 구현 코드로 변경 하시기 바랍니다.
@@ -39,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     If you want to use a different Toast library,
                     replace the code below with the implementation code for the Toast library you want to use.
 
-                 */
+                 *!/
                 const toastBody =
                     document.getElementsByClassName('toast-body')[0];
                 toastBody.innerHTML = message;
@@ -50,23 +81,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             }
             case "File": {
-                /*
+                /!*
                     파일에 기록 된 메세지를 실시간으로 웹에 출력하기 위한 샘플 코드 입니다.
                     해당 기능이 필요 없으시면 이 코드를 삭제 하시면 됩니다.
                     This is a sample code to output messages written to a file in real time to the web.
                     If you don't need this functionality, you can delete this code.
-                */
+                *!/
                 let logViewer = document.getElementById('Logs');
                 logViewer.textContent += "\n" + message;
                 break;
             }
             case "Db": {
-                /*
+                /!*
                     DB에 기록 된 메세지를 실시간으로 웹에 출력하기 위한 샘플 코드 입니다.
                     해당 기능이 필요 없으시면 이 코드를 삭제 하시면 됩니다.
                     This is a sample code to output messages written to a DB in real time to the web.
                     If you don't need this functionality, you can delete this code.
-                */
+                *!/
                 let dbViewer = document.getElementById('Db');
                 let tableData = JSON.parse(message);
                 const {Id, Message, Writedates} = tableData;
@@ -125,7 +156,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     await start().then(function () {
-    });
+    });*/
 });
 
 // 쿠키를 생성합니다.
