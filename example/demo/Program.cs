@@ -21,7 +21,6 @@ builder.Services.AddFlexMessage(builder, option => // ← 추가 (Add)
         // The code for inserting a message into the database is implemented.
         // In this example, an in-memory database of EF is used.
         var options = new DbContextOptionsBuilder<EfDbContext>()
-            .UseInMemoryDatabase("FlexMessageSampleDb")
             .Options;
         var newLogs = new Logs
         {

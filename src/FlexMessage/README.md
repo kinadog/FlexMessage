@@ -12,9 +12,11 @@
 <div align="center"><h1>FLEX MESSAGE</h1></div>  
 
 <div align="center">
-  <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white" alt=""/> 
-  <img src="https://img.shields.io/badge/C Sharp-239120?style=for-the-badge&logo=sharp&logoColor=white" alt=""/> 
-  <img src="https://img.shields.io/badge/JavaScript-a28419?style=for-the-badge&logo=javascript&logoColor=white" alt=""/> 
+  <img src="https://img.shields.io/badge/.NET-512BD4?logo=.net&logoColor=white" alt=""/> 
+
+  <img src="https://img.shields.io/badge/C Sharp-239120?logo=sharp&logoColor=white" alt=""/> 
+
+  <img src="https://img.shields.io/badge/JavaScript-a28419?logo=javascript&logoColor=white" alt=""/> 
 </div>
 
 <div align="center">  
@@ -26,7 +28,9 @@
 
 <br/>
 
-<div align="center"> <h3>Easy and versatile client message library for .net web applications</h3></div>     
+<div align="center"> <h3>Easy and versatile client message library for .net web applications</h3></div>  
+<br>
+<div align="center"> :link: <a href="https://flexmessage.faither.me" target="_blank">DEMO WEBSITE</a></div>   
 <br/>  
 
 you can,
@@ -37,7 +41,7 @@ you can,
 4. to the `client`
 5. in `various formats`
 
-in the backend of a .net web application.
+:bulb: in the backend of a .net web application.
 
 <br/>
 
@@ -45,17 +49,17 @@ in the backend of a .net web application.
 <br/>
 # Features
 - **Send messages directly from server side to web browser**  
-  You can easily send various messages to the client's web browser using C# code.
+  You can easily send various messages to the `client's web browser` using `C#` code.
 
 
 - **Various types of message delivery methods**  
-  From basic JavaScript alert('') to console.log(''), and customizable toast messages and alert messages, as well as
+  From basic JavaScript `alert('')` to `console.log('')`, and customizable toast messages and alert messages, as well as
   saving to local disk as a text file or storing in a database, developers can implement any type of messaging
   required depending on the situation.
 
 
 - **Simultaneous transmission of multiple types of messages possible**  
-  You can configure and send multiple types of messages simultaneously as desired.   
+  You can configure and send `multiple types of messages` simultaneously as desired.   
   <br/>
 
 # Usage
@@ -155,45 +159,42 @@ FlexMessage (root)
 
 ## Required configuration
 
-- Package installation :
+- 1. Package installation :
 
     ```powershell
-    # Install with .NET CLI
-    dotnet add package Microsoft.AspNet.SignalR.Client
-    dotnet add package Newtonsoft.Json
-    
-    # Or
-    
-    # Install with Package Manager
-    PM> NuGet\Install-Package Microsoft.AspNet.SignalR.Client
-    PM> NuGet\Install-Package Newtonsoft.Json
+    # Package Manager
+    PM> NuGet\Install-Package FlexMessage
     ```  
 <br/>  
 
-- Insert [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file into 
+- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file into 
 the common page (ex: _Layout.cshtml)  
 
     ```javascript
-    <script src="/js/flexMessage.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/signalr/signalr.min.js"></script>
     ```  
 <br/>  
  
-- Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
+- 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
    ```csharp
    // builder.Services is the following object.
    // var builder = WebApplication.CreateBuilder(args);
    
-   Config.ContentRootPath = builder.Environment.ContentRootPath; // added
+   builder.Services.AddFlexMessage(builder); // Add the FlexMessage service.
   .
-  .
-   builder.Services.AddSignalR(); // added
   .
   .
   
-   app.UseMiddleware<HubMiddleware>(); // added
-  .
-  .
-   app.MapHub<MessageHub>("/msghub"); // added
+  // Insert between app.UseRouting() 
+  
+  app.UseFlexMessage(); // Use the FlexMessage service.
+  
+  // and app.MapControllerRoute().
+  
+  app.MapFlexMessage(); // Execute the FlexMessageRoute.
+  
+  // app.Run();
    ```   
   <br/>
 
@@ -205,55 +206,45 @@ the common page (ex: _Layout.cshtml)
 
 ## Configuring additional features
 
-* **When using the Database Insert feature**
-  * Edit [Messages/Types/DbMessage.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Messages/Types/DbMessage.cs) file :
 
-     ```csharp
-     // # Implement the Database Insert logic within the Write and WriteAsync methods
-     ```  
-    <br/>  
 
-* **When using the real-time log file viewer feature**
+* **1. When using the real-time log file viewer feature**
 
   * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
 
       ```csharp
-      builder.Services
-          .AddHostedService<FileMessageCngMonitor>(); // added
-    .
-    .
-      builder.Services
-          .AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // added
-      builder.Services
-          .AddSingleton<IFileEndPosition, FileEndPosition>(); // added
-      builder.Services
-          .AddSingleton<Dictionary<string, long>>(); // added
-    .
-    .
+      // builder.Services is the following object.
+      // var builder = WebApplication.CreateBuilder(args);
+      builder.Services.AddFlexMessage(builder, option => // Add the FlexMessage service.
+      {
+          option.FileMessageStatus = FileMessageStatus.LiveView;  // On/Off live view of file type messages.
+      });
+      .
+      .
       ```
 
-    * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file :
-        ```javascript
-                connection.on("ReceiveMessage", function(msgType, 
-                      message) {
-                    switch (msgType) {
-                        case "File": {
-                            const toast =
-                                // Create the div element to be used as the real-time log file viewer 
-                                // in the desired location on the page. (In this code, #Logs)
-                                let logViewer = document.getElementById('Logs');
-                                logViewer.textContent += "\n" + message;
-                            break;
-                        }
-                        // Other types of messages...
-                        case ""....
-                    }
-                }
-        ```  
-      <br/>  
+  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file :
+      ```javascript
+              connection.on("ReceiveMessage", function(msgType, 
+                    message) {
+                  switch (msgType) {
+                      case "File": {
+                          const toast =
+                              // Create the div element to be used as the real-time log file viewer 
+                              // in the desired location on the page. (In this code, #Logs)
+                              let logViewer = document.getElementById('Logs');
+                              logViewer.textContent += "\n" + message;
+                          break;
+                      }
+                      // Other types of messages...
+                      case ""....
+                  }
+              }
+      ```  
+    <br/>  
 
 
-* **If you want to use a Toast JavaScript plugin other than Bootstrap**
+* **2. When using a Toast JavaScript plugin other than Bootstrap.**
   * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file :
 
     ```javascript
@@ -277,7 +268,34 @@ the common page (ex: _Layout.cshtml)
     ```  
     ＃ Note that you can also use the same method to apply a custom plugin for `Alert messages`.  
     <br/>
+  
+* **3. When using the Database Insert feature**
+  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
 
+     ```csharp
+      // builder.Services is the following object.
+      // var builder = WebApplication.CreateBuilder(args);
+       builder.Services.AddFlexMessage(builder, option => // Add the FlexMessage service.
+      {
+          option.FileMessageStatus = FileMessageStatus.LiveView or Off;  // On/Off live view of file type messages.
+      }, message => {
+          try{
+              // The code for inserting a message into the database is implemented.
+              var options = new DbContextOptionsBuilder<EfDbContext>().Option;
+              var schema = new Schema { Message = message, WriteDates = Datetime.Now };
+              using var context = new DbContext(options);
+              context.Schemas.Add(schema);
+              context.SaveChangeAsync();
+          }
+          catch(Exception e){
+              Console.WriteLine(e.Message);
+          }
+      });
+      .
+      .
+      .
+     ```  
+    <br/>  
 
 # Information
 

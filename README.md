@@ -14,11 +14,11 @@
 
 
 <div align="center">
-  <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white" alt=""/> 
+  <img src="https://img.shields.io/badge/.NET-512BD4?logo=.net&logoColor=white" alt=""/> 
 
-  <img src="https://img.shields.io/badge/C Sharp-239120?style=for-the-badge&logo=sharp&logoColor=white" alt=""/> 
+  <img src="https://img.shields.io/badge/C Sharp-239120?logo=sharp&logoColor=white" alt=""/> 
 
-  <img src="https://img.shields.io/badge/JavaScript-a28419?style=for-the-badge&logo=javascript&logoColor=white" alt=""/> 
+  <img src="https://img.shields.io/badge/JavaScript-a28419?logo=javascript&logoColor=white" alt=""/> 
 </div>
 <div align="center">  
 
@@ -34,7 +34,8 @@
 
 
 <div align="center"> <h3>.net 웹어플리케이션용 간편한 클라이언트 메세지 라이브러리</h3></div>      
-
+<br>
+<div align="center"> :link: <a href="https://flexmessage.faither.me" target="_blank">DEMO WEBSITE</a></div>
 
 <br/>  
 
@@ -164,51 +165,48 @@ FlexMessage (root)
 <br/>  
 
 
-## 필수 설정
+## 기본 설치
 
-- 패키지 설치 :
+- 1. Nuget 패키지 설치 :
 
     ```powershell
-  # .NET CLI로 설치
-  dotnet add package Microsoft.AspNet.SignalR.Client
-  dotnet add package Newtonsoft.Json
-  
-  # 또는 
-  
-  # Package Manager로 설치
-  PM> NuGet\Install-Package Microsoft.AspNet.SignalR.Client
-  PM> NuGet\Install-Package Newtonsoft.Json
+    # Package Manager
+    PM> NuGet\Install-Package FlexMessage
   ```  
 
 <br/>  
 
-- 공통페이지에 [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
+- 2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
 
     ```javascript
-    <script src="/js/flexMessage.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/signalr/signalr.min.js"></script>
     ```
 <br/>  
 
-- [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
+- 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
    ```csharp
    // builder.Services는 아래의 객체입니다.
    // var builder = WebApplication.CreateBuilder(args);
-   
-   Config.ContentRootPath = builder.Environment.ContentRootPath; // 추가
+  
+  builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
   .
-  .
-   builder.Services.AddSignalR(); // 추가
   .
   .
   
-   app.UseMiddleware<HubMiddleware>(); // 추가
-  .
-  .
-   app.MapHub<MessageHub>("/msghub"); // 추가
+  // app.UseRouting() 과 
+  
+  app.UseFlexMessage(); // FlexMessage 서비스 사용
+  
+  // app.MapControllerRoute() 사이에 삽입합니다.
+  
+  app.MapFlexMessage(); // FlexMessageRoute 실행
+  
+  // app.Run();
    ```   
   <br/>
 
-  >**설치완료!**
+  >**설치 완료!**
 
 
 
@@ -216,29 +214,17 @@ FlexMessage (root)
 
 ## 추가기능 설정
 
-* **Database Insert 기능을 사용하는 경우**
-    * [Messages/Types/DbMessage.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Messages/Types/DbMessage.cs) 파일 편집 :
-
-       ```csharp
-       // # Write 메서드와 WriteAsync 메서드 내부의 Database Insert 로직 구현
-       ```  
-      <br/>  
-
-* **실시간 로그 파일 뷰어 기능을 사용하는 경우**
+* **1. 실시간 로그 파일 뷰어 기능을 사용하는 경우**
 
     * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
 
         ```csharp
-        builder.Services
-            .AddHostedService<FileMessageCngMonitor>(); // 추가
-      .
-      .
-        builder.Services
-            .AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // 추가
-        builder.Services
-            .AddSingleton<IFileEndPosition, FileEndPosition>(); // 추가
-        builder.Services
-            .AddSingleton<Dictionary<string, long>>(); // 추가
+       // builder.Services는 아래의 객체입니다.
+       // var builder = WebApplication.CreateBuilder(args);
+       builder.Services.AddFlexMessage(builder, option => // FlexMessage 서비스 추가
+      {
+          option.FileMessageStatus = FileMessageStatus.LiveView;  // 파일타입 메세지의 라이브뷰 보기여부
+      });
       .
       .
         ```
@@ -264,7 +250,7 @@ FlexMessage (root)
       <br/>  
 
 
-* **부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**
+* **2. 부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**
     * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
 
       ```javascript
@@ -289,6 +275,35 @@ FlexMessage (root)
       ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다.  
       <br/>
 
+
+* **3. Database Insert 기능을 사용하는 경우**
+    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
+
+       ```csharp
+       // builder.Services는 아래의 객체입니다.
+       // var builder = WebApplication.CreateBuilder(args);
+       builder.Services.AddFlexMessage(builder, option => // FlexMessage 서비스 추가
+      {
+          option.FileMessageStatus = FileMessageStatus.LiveView 또는 Off;  // 파일타입 메세지의 라이브뷰 보기여부
+      }, message => {
+          try{
+              // 데이터베이스에 message를 입력하는 구문을 코딩합니다.
+              var options = new DbContextOptionsBuilder<EfDbContext>().Option;
+              var schema = new Schema { Message = message, WriteDates = Datetime.Now };
+              using var context = new DbContext(options);
+              context.Schemas.Add(schema);
+              context.SaveChangeAsync();
+          }
+          catch(Exception e){
+              Console.WriteLine(e.Message);
+          }
+      });
+      .
+      .
+      .
+      
+       ```  
+      <br/>  
 
 # 정보
 
