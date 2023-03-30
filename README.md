@@ -286,11 +286,11 @@ FlexMessage (root)
       }, message => {
           try{
               // 데이터베이스에 message를 입력하는 구문을 코딩합니다.
-              var options = new DbContextOptionsBuilder<EfDbContext>().Option;
-              var schema = new Schema { Message = message, WriteDates = Datetime.Now };
-              using var context = new DbContext(options);
+              var options = new DbContextOptionsBuilder<EfDbContext>().Options;
+              var schema = new Schema { Message = message, Writedates = DateTime.Now };
+              using var context = new EfDbContext(options);
               context.Schemas.Add(schema);
-              context.SaveChangeAsync();
+              context.SaveChangesAsync();
           }
           catch(Exception e){
               Console.WriteLine(e.Message);
