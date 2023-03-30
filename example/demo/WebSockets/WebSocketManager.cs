@@ -1,17 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Text;
-using Demo.Messages;
-using Demo.Messages.Types;
+using System.Text.Json;
 
 namespace Demo.WebSockets;
-
-public class WebSocketMessage
-{
-    public bool IsId { get; set; }
-    public MsgType? MsgType { get; set; }
-    public string? Message { get; set; }
-}
 
 public class WebSocketManager
 {
@@ -28,12 +20,17 @@ public class WebSocketManager
 
     #region Method
 
+    /// <summary>
+    /// Id로 웹소켓 가져오기
+    /// </summary>
     public WebSocket? GetSocketById(string id)
     {
         return _sockets.TryGetValue(id, out var socket) ? socket : null;
     }
 
-
+    /// <summary>
+    /// 전체 WebSocket 가져오기
+    /// </summary>
     public IEnumerable<WebSocket> GetAllSockets()
     {
         return _sockets.Values;
@@ -80,10 +77,20 @@ public class WebSocketManager
         }
     }
 
-
+    /// <summary>
+    /// Remove WebSocket by Id
+    /// </summary>
     public bool RemoveWebSocket(string id)
     {
         return _sockets.TryRemove(id, out _);
+    }
+
+    public async Task SendMessageAsync(WebSocket webSocket, WebSocketMessage? webSocketMessage)
+    {
+        var message = JsonSerializer.Serialize(webSocketMessage);
+        byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+        var buffer = new ArraySegment<byte>(messageBytes);
+        await webSocket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
     }
 
     /// <summary>

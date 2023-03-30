@@ -74,8 +74,7 @@ public class SampleController : ControllerBase
     [HttpGet("File")]
     public void File()
     {
-        Message.Write(@"Write file Sample message!
-        and can be detected live file changes to output the content in a browser.", MsgType.File);
+        Message.Write(@"Write file Sample message! and can be detected live file changes to output the content in a browser.", MsgType.File);
     }
 
 

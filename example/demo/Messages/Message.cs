@@ -1,7 +1,4 @@
-﻿using System.Net.WebSockets;
-using Demo.Messages.Types;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Demo.Messages.Types;
 
 // ReSharper disable CyclomaticComplexity
 // ReSharper disable CognitiveComplexity
@@ -11,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Demo.Messages;
 
 /// <summary>
-///     콘솔, 파일, 데이터베이스 및 브라우저와 같은 다양한 유형의 메시지 로깅을 처리하는 클래스입니다.
-///     A class that handles various types of message logging, including console, file, database, and browser.
+/// 콘솔, 파일, 데이터베이스 및 브라우저와 같은 다양한 유형의 메시지 로깅을 처리하는 클래스입니다.
+/// A class that handles various types of message logging, including console, file, database, and browser.
 /// </summary>
 public static class Message
 {
@@ -24,9 +21,8 @@ public static class Message
     private static IMessage? _browserConsoleMessage; // 브라우저 콘솔 메세지 객체 (Browser console message object)
     private static IMessage? _browserAlertMessage; // 브라우저 경고창 메세지 객체 (Browser alert message object)
     private static IMessage? _browserToastMessage; // 브라우저 토스트 메세지 객체 (Browser toast message object)
-    private static IHttpContextAccessor? _httpContextAccessor; // HTTP 컨텍스트 객체 (HTTP context object)
     private static IServiceProvider? _serviceProvider; // 서비스 제공자 객체 (Service provider object)
-
+    private static IMessageCommon? _messageCommon;
     #endregion
 
 
@@ -46,41 +42,19 @@ public static class Message
     #region Method
 
     /// <summary>
-    ///     SignalR을 사용하기 위해 HttpContext를 주입하는 메서드입니다.
-    ///     A method that injects an HttpContext for using SignalR.
+    /// WebSocket을 사용하기 위해 HttpContext를 주입하는 메서드입니다.
+    /// A method that injects an HttpContext for using WebSocket.
     /// </summary>
-    /// <param name="httpContextAccessor">HTTP 컨텍스트 객체</param>
-    public static void Configure(IHttpContextAccessor? httpContextAccessor
-        , IServiceProvider serviceProvider)
+    public static void Configure(
+        IServiceProvider serviceProvider,
+        IMessageCommon? messageCommon)
     {
         _serviceProvider = serviceProvider;
-        _httpContextAccessor = httpContextAccessor;
-        // 주입된 HttpContext를 사용하여 브라우저별 메시지 유형을 초기화합니다.
-        // Initializes browser-specific message types using the injected HttpContext.
-        _browserToastMessage = new BrowserToastMessage(_httpContextAccessor!);
-        _browserAlertMessage = new BrowserAlertMessage(_httpContextAccessor!);
-        _browserConsoleMessage = new BrowserConsoleMessage(_httpContextAccessor!);
-
-        /*
-         아래의 코드는 웹 페이지에 실시간 파일 View와 Db View를 위해
-         httpContextAccessor를 주입합니다.
-         이 기능이 필요 없으시면, static Message() 정적 생성자로 옮기십시오.
-         The following code injects the httpContextAccessor
-         for real-time file and Db views on a web page.
-         If you don't need this feature, you can move it
-         to the static constructor, static Message().
-         */
-        //_dbMessage = new DbMessage(_httpContextAccessor!, _saveMessageAction);
+        _messageCommon = messageCommon;
+        _browserToastMessage = new BrowserToastMessage(_messageCommon);
+        _browserAlertMessage = new BrowserAlertMessage(_messageCommon);
+        _browserConsoleMessage = new BrowserConsoleMessage(_messageCommon);
     }
-
-
-    private static WebSocket WebSocket { get; set; }
-
-    public static void ConfigureWebSocket(WebSocket webSocket)
-    {
-        WebSocket = webSocket;
-    }
-
 
     /// <summary>
     /// 메세지 타입에 따라 로그 메세지를 작성하는 메서드입니다.
@@ -134,9 +108,12 @@ public static class Message
                 case MsgType.Db:
                     if (_serviceProvider != null)
                     {
-                        using var scope = _serviceProvider.CreateScope();
-                        var dbMessage = scope.ServiceProvider.GetRequiredService<DbMessage>();
-                        dbMessage.Write(message);
+                        Task.Run(async () =>
+                        {
+                            using var scope = _serviceProvider.CreateScope();
+                            var dbMessage = scope.ServiceProvider.GetRequiredService<DbMessage>();
+                            await dbMessage.WriteAsync(message);
+                        });
                     }
                     break;
 

@@ -1,7 +1,6 @@
-﻿using Demo.Hubs;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text.Json;
+using Demo.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Messages.Types;
 
@@ -12,9 +11,9 @@ namespace Demo.Messages.Types;
 public class DbMessage : IMessage
 {
     #region Field
-    private static IHttpContextAccessor? _contextAccessor;
-   // private static IHubContext<MessageHub>? _hubContext;
-    private readonly Action<string> _saveMessageAction;
+    private readonly Action<string>? _saveMessageAction;
+    private readonly IMessageCommon? _messageCommon;
+    private static EfDbContext? _efDbContext;
 
 
     #endregion
@@ -26,12 +25,12 @@ public class DbMessage : IMessage
     /// DbMessage의 생성자
     /// Initializes a new instance of the DbMessage class.
     /// </summary>
-    public DbMessage(IHttpContextAccessor contextAccessor,
-        Action<string> saveMessageAction)
+    public DbMessage(IMessageCommon? messageCommon,
+        Action<string>? saveMessageAction)
     {
-        _contextAccessor = contextAccessor;
-        /*_hubContext = _contextAccessor.HttpContext!.RequestServices.GetRequiredService<IHubContext<MessageHub>>();*/
+        _messageCommon = messageCommon;
         _saveMessageAction = saveMessageAction;
+        _efDbContext = new EfDbContext(new DbContextOptionsBuilder<EfDbContext>().UseInMemoryDatabase("SampleDataBase").Options);
     }
 
     #endregion
@@ -44,8 +43,8 @@ public class DbMessage : IMessage
     /// Saves a message to the database.
     /// </summary>
     /// <param name="message">
-    ///     저장할 메세지
-    ///     message to save
+    /// 저장할 메세지
+    /// message to save
     /// </param>
     public void Write(string? message)
     {
@@ -53,11 +52,6 @@ public class DbMessage : IMessage
 
         try
         {
-            /*
-                 데이터베이스에 message를 입력하는 구문을 코딩합니다.
-                 The code for inserting a message into the database is implemented.
-             */
-
             _saveMessageAction(message);
         }
         catch (Exception e)
@@ -66,26 +60,15 @@ public class DbMessage : IMessage
         }
 
         /*
-            브라우저에 Db 데이터 업데이트 전송
-            (불필요 시 삭제 해도 됩니다.)
-            Sends a message to update Db data to the browser.
-            (You can remove this code if it is not needed.)
+        브라우저에 Db 데이터 업데이트 전송
+        (불필요 시 삭제 해도 됩니다.)
+        Sends a message to update Db data to the browser.
+        (You can remove this code if it is not needed.)
         */
 
-        // 쿠키에서 현재 접속중인 SignalR의 ConnectionId 가져오기
-        // Get the ConnectionId from the cookie
-        var getConnectionId =
-            _contextAccessor!.HttpContext!
-                .Request.Cookies.TryGetValue("signalr_connectionId",
-                    out var connectionId);
-
-        // connectionId 값으로 Client 메세지 전송 메소드 호출
-        // Call the method to send the message to the client using the ConnectionId
-        if (getConnectionId && !string.IsNullOrWhiteSpace(connectionId))
-        {
-            connectionId = Hashing.Decrypt(connectionId);
-            //_hubContext!.Clients.Client(connectionId!).SendAsync("ReceiveMessage", "Db", JsonSerializer.Serialize( {{ DbSchema }} ));
-        }
+        var db = _efDbContext?.Logs?.LastOrDefault();
+        _messageCommon?
+            .Write(JsonSerializer.Serialize(db), MsgType.Db);
     }
 
     /// <summary>
@@ -93,8 +76,8 @@ public class DbMessage : IMessage
     /// Saves a message to the database. (asynchronous)
     /// </summary>
     /// <param name="message">
-    ///     저장할 메세지
-    ///     message to save
+    /// 저장할 메세지
+    /// message to save
     /// </param>
     public async Task WriteAsync(string? message)
     {
@@ -102,10 +85,6 @@ public class DbMessage : IMessage
 
         try
         {
-            /*
-                 데이터베이스에 message를 입력하는 구문을 코딩합니다.
-                 The code for inserting a message into the database is implemented.
-             */
             await Task.Run(() =>
             {
                 _saveMessageAction(message);
@@ -122,21 +101,9 @@ public class DbMessage : IMessage
             Sends a message to update Db data to the browser.
             (You can remove this code if it is not needed.)
         */
-
-        // 쿠키에서 현재 접속중인 SignalR의 ConnectionId 가져오기
-        // Get the ConnectionId from the cookie
-        var getConnectionId =
-            _contextAccessor!.HttpContext!
-                .Request.Cookies.TryGetValue("signalr_connectionId",
-                    out var connectionId);
-
-        // connectionId 값으로 Client 메세지 전송 메소드 호출
-        // Call the method to send the message to the client using the ConnectionId
-        if (getConnectionId && !string.IsNullOrWhiteSpace(connectionId))
-        {
-            connectionId = Hashing.Decrypt(connectionId);
-            //await _hubContext!.Clients.Client(connectionId!).SendAsync("ReceiveMessage", "Db", JsonSerializer.Serialize( {{ DbSchema }} ));
-        }
+        var db = _efDbContext?.Logs?.LastOrDefault();
+        await _messageCommon?
+            .WriteAsync(JsonSerializer.Serialize(db), MsgType.Db)!;
     }
 
     #endregion
