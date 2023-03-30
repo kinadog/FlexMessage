@@ -210,7 +210,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
 ## 추가기능 설정
 
 ### 1. 실시간 로그 파일 뷰어 기능을 사용하는 경우  
-<br/>
+
 
 * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
 
@@ -245,70 +245,71 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
   ```  
 <br/>
 
-* **2. 부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**  
- <br/>
-    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 편집 :
+### 2. 부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우  
+ 
+* [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 편집 :
 
-      ```javascript
-      connection.on("ReceiveMessage", function (msgType, message) {
-          switch (msgType) {
-              case "BrowserToast": {
-                //이 코드는 Bootstrap의 Toast를 실행시키는 코드 입니다.
-                //만약 다른 Toast 플러그인을 사용하신다면 이부분의 코드를 변경합니다.
-                  const toastBody =
-                      document.getElementsByClassName('toast-body')[0];
-                  toastBody.innerHTML = message;
-                  const toast =
-                      new bootstrap.Toast(document.getElementById('toastWrap'));
-                  toast.show();
-                  break;
-              }
-              // 다른 종류의 메세지들 ...
-              case ""....
+  ```javascript
+  connection.on("ReceiveMessage", function (msgType, message) {
+      switch (msgType) {
+          case "BrowserToast": {
+            //이 코드는 Bootstrap의 Toast를 실행시키는 코드 입니다.
+            //만약 다른 Toast 플러그인을 사용하신다면 이부분의 코드를 변경합니다.
+              const toastBody =
+                  document.getElementsByClassName('toast-body')[0];
+              toastBody.innerHTML = message;
+              const toast =
+                  new bootstrap.Toast(document.getElementById('toastWrap'));
+              toast.show();
+              break;
           }
+          // 다른 종류의 메세지들 ...
+          case ""....
       }
-      ```  
-      ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다.  
-      <br/>
-      <br/>
+  }
+  ```  
+  >> ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다. 
+   
+<br/>
 
 
-* **3. Database Insert 기능을 사용하는 경우**  
-  <br/>
-    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
+### 3. Database Insert 기능을 사용하는 경우
 
-       ```csharp
-       // builder.Services는 아래의 객체입니다.
-       // var builder = WebApplication.CreateBuilder(args);
-       builder.Services.AddFlexMessage(builder, option => // FlexMessage 서비스 추가
-      {
-          option.FileMessageStatus = FileMessageStatus.LiveView 또는 Off;  // 파일타입 메세지의 라이브뷰 보기여부
-      }, message => {
-          try{
-              // 데이터베이스에 message를 입력하는 구문을 코딩합니다.
-              var options = new DbContextOptionsBuilder<EfDbContext>().Options;
-              var schema = new Schema { Message = message, Writedates = DateTime.Now };
-              using var context = new EfDbContext(options);
-              context.Schemas.Add(schema);
-              context.SaveChangesAsync();
-          }
-          catch(Exception e){
-              Console.WriteLine(e.Message);
-          }
-      });
-      .
-      .
-      .
-      
-       ```  
-      <br/>  
+* [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
+
+  ```csharp
+  // builder.Services는 아래의 객체입니다.
+  // var builder = WebApplication.CreateBuilder(args);
+  builder.Services.AddFlexMessage(builder, option => // FlexMessage 서비스 추가
+  {
+    option.FileMessageStatus = FileMessageStatus.LiveView 또는 Off;  // 파일타입 메세지의 라이브뷰 보
+      기여부
+  }, message => {
+    try{
+        // 데이터베이스에 message를 입력하는 구문을 코딩합니다.
+        var options = new DbContextOptionsBuilder<EfDbContext>().Options;
+        var schema = new Schema { Message = message, Writedates = DateTime.Now };
+        using var context = new EfDbContext(options);
+        context.Schemas.Add(schema);
+        context.SaveChangesAsync();
+    }
+    catch(Exception e){
+        Console.WriteLine(e.Message);
+    }
+  });
+  .
+  .
+  .
+  
+  ```  
+<br/>  
 
 # 정보
 
 개발자 정보 : Kinadog / [id@faither.me](mailto:id@faither.me)  
 개발자 블로그 : [https://blog.faither.me](https://blog.faither.me)
 
-XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.  
+APACHE 라이센스를 준수하며  [LICENSE](https://www.apache.org/licenses/LICENSE-2.0)에서 자세한 정보를 확인할 수 있습니다.  
 <br/>
 
 
