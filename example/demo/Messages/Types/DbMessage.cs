@@ -52,7 +52,7 @@ public class DbMessage : IMessage
 
         try
         {
-            _saveMessageAction(message);
+            _saveMessageAction?.Invoke(message);
         }
         catch (Exception e)
         {
@@ -87,7 +87,7 @@ public class DbMessage : IMessage
         {
             await Task.Run(() =>
             {
-                _saveMessageAction(message);
+                _saveMessageAction?.Invoke(message);
             });
         }
         catch (Exception e)

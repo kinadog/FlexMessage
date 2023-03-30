@@ -120,9 +120,7 @@ public class FileMessageCngMonitor : BackgroundService
         {
             // 파일에서 추가된 내용이 발견된 경우
             // In case additional content is found in the file
-            if (logRefresh.IndexOf(log) != 0)
-                logText += Environment.NewLine;
-            logText += log;
+            logText += Environment.NewLine + log;
         }
 
         if (logText == null) return;
