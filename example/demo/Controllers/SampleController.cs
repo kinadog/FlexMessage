@@ -3,6 +3,7 @@ using FlexMessage.Messages;
 using FlexMessage.Messages.Types;
 using FlexMessage.Models;
 using Microsoft.AspNetCore.Mvc;
+using JsonAjaxResult = Demo.Models.JsonAjaxResult;
 
 namespace Demo.Controllers;
 
@@ -30,31 +31,14 @@ public class SampleController : ControllerBase
     [HttpGet("BrowserConsole")]
     public void BrowserConsole()
     {
-
         Message.Write(@"Browser Console Sample message!", MsgType.BrowserConsole);
-
-    }
-
-
-    [HttpGet("Multiple")]
-    public void Multiple()
-    {
-        Message.Write(@"Multiple Sample message!",
-                            MsgType.BrowserAlert,
-                            MsgType.BrowserConsole,
-                            MsgType.BrowserToast,
-                            MsgType.File,
-                            MsgType.Db,
-                            MsgType.Console);
     }
 
 
     [HttpGet("BrowserToast")]
     public void BrowserToast()
     {
-
         Message.Write(@"Browser Toast Sample message!", MsgType.BrowserToast);
-
     }
 
 
@@ -74,17 +58,27 @@ public class SampleController : ControllerBase
     [HttpGet("File")]
     public void File()
     {
-        Message.Write(@"Write file Sample message!
-        and can be detected live file changes to output the content in a browser.", MsgType.File);
+        Message.Write(@"Write file Sample message! and can be detected live file changes to output the content in a browser.", MsgType.File);
     }
 
 
     [HttpGet("Db")]
     public void Db()
     {
-
         Message.Write(@"Database Insert Sample message!", MsgType.Db);
+    }
 
+
+    [HttpGet("Multiple")]
+    public void Multiple()
+    {
+        Message.Write(@"Multiple Sample message!",
+            MsgType.BrowserAlert,
+            MsgType.BrowserConsole,
+            MsgType.BrowserToast,
+            MsgType.File,
+            MsgType.Db,
+            MsgType.Console);
     }
 
 }

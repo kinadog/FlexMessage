@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>FlexMessage</PackageId>
     <Title>FlexMessage</Title>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Kinadog</Authors>
     <Company>Kinadog</Company>
     <Product>FlexMessage</Product>

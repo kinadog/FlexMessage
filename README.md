@@ -71,7 +71,7 @@
 # 사용법
 ```csharp
 // Console.WriteLine("") 을 사용하는것처럼 간편하게 호출하시면 됩니다.
-Message.Write($"{보낼 메시지}", (enum)MsgType.메세지_서비스종류)
+Message.Write($"{보낼 메시지}", MsgType.메세지_서비스종류)
 ```  
 <br/>  
 
@@ -129,9 +129,6 @@ FlexMessage (root)
 |--- Configs (folder)
 |      |---------------- Configs.cs   // (*)애플리케이션의 설정 정보를 담고 있는 클래스.
 |
-|--- Hubs (folder)
-|      |---------------- MessageHub.cs   // (*)클라이언트와 통신하기 위한 Hub클래스입.
-|
 |--- Messages (folder)
 |      |--- Types (folder)
 |      |      |--------- BrowserAlertMessages.cs   // 브라우저 알림 메시지 클래스.
@@ -140,18 +137,23 @@ FlexMessage (root)
 |      |      |--------- ConsoleMessage.cs   // 시스템 콘솔 메시지 클래스.
 |      |      |--------- DbMessage.cs   // 데이터베이스 인서트 메시지 클래스.
 |      |      |--------- FileMessage.cs   // 파일 기록 메시지 클래스.
+|      |      |--------- IMessageCommon.cs   // 메세지 클래스 용 공통 메서드의 클래스.
+|      |      |--------- MessageCommon.cs   // 메세지 클리스 용 공통 메서드의 인터페이스.
 |      |      |--------- MsgType.cs   // (*)메시지 타입 정보를 담고 있는 열거형.
 |      |--------- FileMessageCngMonitor.cs   // 실시간 파일 변경 감시 기능을 담당하는 클래스.
-|      |--------- Hasing.cs   // (*)클라이언트의 고유Id값의 암호화를 위한 클래스입
 |      |--------- IMessage.cs   // (*)모든 메시지 클래스가 구현해야 하는 인터페이스.
 |      |--------- Message.cs   // (*)메시지를 처리하는 기본 클래스.
 |
 |--- Middlewares (folder)
-|      |--------- HubMiddleware.cs   // (*)클라이언트와 통신하기 위한 미들웨어 클래스.
+|      |--------- WebSocketMiddleware.cs   // (*)클라이언트와 통신하기 위한 미들웨어 클래스.
 |
 |--- Models (folder)
 |      |--------- FileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 클래스.
 |      |--------- IFileEndPosition.cs   // 실시간 파일 모니터링 시 사용하는 변수 용 인터페이스.
+|
+|--- Services (folder)
+|      |--------- FlexMessageOptions.cs   // 서비스를 어플리케이션에 등록하기 위한 옵션 클래스.
+|      |--------- FlexMessageService.cs   // 서비스를 어플리케이션에 등록하기 위한 클래스.
 |
 |--- Program.cs   // (*)애플리케이션의 시작점을 담고 있는 클래스.
 ```  
@@ -167,44 +169,40 @@ FlexMessage (root)
 
 - 1. Nuget 패키지 설치 :
 
-    ```powershell
-    # Package Manager
-    PM> NuGet\Install-Package FlexMessage
-  ```  
+  ```powershell
+  # Package Manager
+  PM> NuGet\Install-Package FlexMessage
+  ```
 
-<br/>  
+  
 
 - 2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
 
-    ```javascript
-    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/signalr/signalr.min.js"></script>
-    ```
+  ```javascript
+  <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
+  ```
 <br/>  
 
 - 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
-   ```csharp
-   // builder.Services는 아래의 객체입니다.
-   // var builder = WebApplication.CreateBuilder(args);
-  
-  builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
-  .
-  .
-  .
-  
-  // app.UseRouting() 과 
-  
-  app.UseFlexMessage(); // FlexMessage 서비스 사용
-  
-  // app.MapControllerRoute() 사이에 삽입합니다.
-  
-  app.MapFlexMessage(); // FlexMessageRoute 실행
-  
-  // app.Run();
-   ```   
-  <br/>
+ ```csharp
+ // builder.Services는 아래의 객체입니다.
+ // var builder = WebApplication.CreateBuilder(args);
 
-  >**설치 완료!**
+builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
+.
+.
+.
+
+// app.UseRouting() 과 
+
+app.UseFlexMessage(); // FlexMessage 서비스 사용
+
+// app.MapControllerRoute() 사이에 삽입합니다.
+// app.Run();
+ ```   
+<br/>
+
+>**설치 완료!**
 
 
 

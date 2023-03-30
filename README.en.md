@@ -67,7 +67,7 @@ you can,
 
 ```csharp
 // Simply call it like using Console.WriteLine("").
-Message.Write($"{message_to_send}", (enum)MsgType.message_service_type)
+Message.Write($"{message_to_send}", MsgType.message_service_type)
 ```   
 <br/>
 The types of message services are defined as enum types   
@@ -125,9 +125,6 @@ FlexMessage (root)
 |--- Configs (folder)
 |      |---------------- Configs.cs   // (*)Class containing application configuration information.
 |
-|--- Hubs (folder)
-|      |---------------- MessageHub.cs   // (*)Hub class for communicating with clients.
-|
 |--- Messages (folder)
 |      |--- Types (folder)
 |      |      |--------- BrowserAlertMessages.cs   // Browser notification message class.
@@ -136,18 +133,23 @@ FlexMessage (root)
 |      |      |--------- ConsoleMessage.cs   // System console message class.
 |      |      |--------- DbMessage.cs   // Database insert message class.
 |      |      |--------- FileMessage.cs   // File record message class.
+|      |      |--------- IMessageCommon.cs   // A class for common methods for message classes.
+|      |      |--------- MessageCommon.cs   // An interface for common methods for message classes.
 |      |      |--------- MsgType.cs   // (*)Enum containing message type information.
 |      |--------- FileMessageCngMonitor.cs   // Class responsible for real-time file change monitoring.
-|      |--------- Hasing.cs   // (*)Class for encrypting client's unique Id value.
 |      |--------- IMessage.cs   // (*)Interface that all message classes must implement.
 |      |--------- Message.cs   // (*)Base class for handling messages.
 |
 |--- Middlewares (folder)
-|      |--------- HubMiddleware.cs   // (*)Middleware class for communicating with clients.
+|      |--------- WebSocketMiddleware.cs   // (*)Middleware class for communicating with clients.
 |
 |--- Models (folder)
 |      |--------- FileEndPosition.cs   // Class for variables used in real-time file monitoring.
 |      |--------- IFileEndPosition.cs   // Interface for variables used in real-time file monitoring.
+|
+|--- Services (folder)
+|      |--------- FlexMessageOptions.cs   // A class for options to register the service in the application.
+|      |--------- FlexMessageService.cs   // A class to register the service in the application.
 |
 |--- Program.cs       // (*)Class containing the starting point of the application.
 ```   
@@ -162,44 +164,40 @@ FlexMessage (root)
 
 - 1. Package installation :
 
-    ```powershell
-    # Package Manager
-    PM> NuGet\Install-Package FlexMessage
-    ```  
+  ```powershell
+  # Package Manager
+  PM> NuGet\Install-Package FlexMessage
+  ```  
 <br/>  
 
-- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file into 
-the common page (ex: _Layout.cshtml)  
+- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file into
+     the common page (ex: _Layout.cshtml)
 
-    ```javascript
-    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/signalr/signalr.min.js"></script>
-    ```  
+  ```javascript
+  <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
+  ```  
 <br/>  
- 
+
 - 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
-   ```csharp
-   // builder.Services is the following object.
-   // var builder = WebApplication.CreateBuilder(args);
-   
-   builder.Services.AddFlexMessage(builder); // Add the FlexMessage service.
-  .
-  .
-  .
-  
-  // Insert between app.UseRouting() 
-  
-  app.UseFlexMessage(); // Use the FlexMessage service.
-  
-  // and app.MapControllerRoute().
-  
-  app.MapFlexMessage(); // Execute the FlexMessageRoute.
-  
-  // app.Run();
-   ```   
-  <br/>
+ ```csharp
+ // builder.Services is the following object.
+ // var builder = WebApplication.CreateBuilder(args);
+ 
+ builder.Services.AddFlexMessage(builder); // Add the FlexMessage service.
+.
+.
+.
 
-  >**Installation complete!!**
+// Insert between app.UseRouting() 
+
+app.UseFlexMessage(); // Use the FlexMessage service.
+
+// and app.MapControllerRoute().
+// app.Run();
+ ```   
+<br/>
+
+>**Installation complete!!**
 
 
 
@@ -269,7 +267,7 @@ the common page (ex: _Layout.cshtml)
     ```  
     ＃ Note that you can also use the same method to apply a custom plugin for `Alert messages`.  
     <br/>
-  
+
 * **3. When using the Database Insert feature**
   * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
 
