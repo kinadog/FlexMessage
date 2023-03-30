@@ -1,9 +1,6 @@
 ﻿using FlexMessage.Configs;
-using FlexMessage.Hubs;
+using FlexMessage.Messages.Types;
 using FlexMessage.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace FlexMessage.Messages;
@@ -15,13 +12,7 @@ public class FileMessageCngMonitor : BackgroundService
     private readonly string? _contentRootPath = Config.ContentRootPath; // 파일 디렉토리 경로 (File directory path)
     private readonly FileSystemWatcher? _watcher = new(); // 파일 시스템 감시 객체 (File system watcher object)
     private readonly IFileEndPosition? _fileEndPosition; // 파일 끝 지점 위치 인터페이스 (Interface for file end position)
-    private static IHttpContextAccessor? _contextAccessor; // HTTP 컨텍스트 접근 인터페이스 (HTTP context access interface)
-
-    private static IHubContext<MessageHub>? _hubContext; // SignalR Hub 컨텍스트 (SignalR Hub context)
-
-    // ↓ 웹페이지의 실시간 파일 View 기능이 필요 없으시면 비활성화 해 주세요 (If you don't need real-time file view function on the web page, please deactivate)
-    public static string?
-        connectionId = string.Empty; // 웹페이지 실시간 파일 View 연결 ID (Web page real-time file view connection ID)
+    private static IMessageCommon? _messageCommon; // 클라이언트 메세지 발송 메서드 객체 (Client message sending method object)
 
     #endregion
 
@@ -39,19 +30,16 @@ public class FileMessageCngMonitor : BackgroundService
     #region Method
 
     /*
-          아래의 메서드는,
-          웹페이지에 실시간 파일 View를 위해 httpContextAccessor를
-          주입하여 HubContext의 인스턴스를 생성합니다.
-          이 기능이 필요 없으시면, 메서드를 비활성화 시켜주세요.
-          The following method injects the httpContextAccessor
-          to create an instance of HubContext for real-time file view on a web page.
-          If you don't need this feature, please disable the method.
+      아래의 메서드는,
+      웹페이지에 실시간 파일 View를 위해 IMessageCommon 인스턴스를 생성합니다.
+      이 기능이 필요 없으시면, 메서드를 비활성화 시켜주세요.
+      The following method to create an instance of IMessageCommon
+      for real-time file view on a web page.
+      If you don't need this feature, please disable the method.
      */
-    public static void Configure(IHttpContextAccessor? contextAccessor)
+    public static void Configure(IMessageCommon? messageCommon)
     {
-        _contextAccessor = contextAccessor; // HTTP 컨텍스트 접근 인터페이스 설정 (Set HTTP context access interface)
-        _hubContext = _contextAccessor!.HttpContext!.RequestServices
-            .GetRequiredService<IHubContext<MessageHub>>(); // SignalR Hub 컨텍스트 설정 (Set SignalR Hub context)
+        _messageCommon = messageCommon;
     }
 
 
@@ -133,9 +121,7 @@ public class FileMessageCngMonitor : BackgroundService
         {
             // 파일에서 추가된 내용이 발견된 경우
             // In case additional content is found in the file
-            if (logRefresh.IndexOf(log) != 0)
-                logText += Environment.NewLine;
-            logText += log;
+            logText += Environment.NewLine + log;
         }
 
         if (logText == null) return;
@@ -146,8 +132,7 @@ public class FileMessageCngMonitor : BackgroundService
          If you do not need real-time file view on the web page,
          please disable the code below.
          */
-        if (!string.IsNullOrWhiteSpace(connectionId))
-            await _hubContext!.Clients.Client(connectionId).SendAsync("ReceiveMessage", "File", logText);
+        await _messageCommon?.WriteAsync(logText, MsgType.File)!;
     }
 
     #endregion

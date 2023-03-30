@@ -1,11 +1,12 @@
 ﻿using System.Net.WebSockets;
-using Demo.Configs;
-using Demo.Messages;
-using Demo.Messages.Types;
-using Demo.WebSockets;
-using WebSocketManager = Demo.WebSockets.WebSocketManager;
+using FlexMessage.Configs;
+using FlexMessage.Messages;
+using FlexMessage.Messages.Types;
+using FlexMessage.WebSockets;
+using Microsoft.AspNetCore.Http;
+using WebSocketManager = FlexMessage.WebSockets.WebSocketManager;
 
-namespace Demo.Middlewares;
+namespace FlexMessage.Middlewares;
 
 /// <summary>
 /// WebSocket에서 사용할 미들웨어 클래스입니다.

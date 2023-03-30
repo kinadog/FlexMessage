@@ -1,6 +1,7 @@
-﻿using Demo.WebSockets;
+﻿using FlexMessage.WebSockets;
+using Microsoft.AspNetCore.Http;
 
-namespace Demo.Messages.Types;
+namespace FlexMessage.Messages.Types;
 
 public class MessageCommon : IMessageCommon
 {

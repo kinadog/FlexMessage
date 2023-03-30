@@ -3,7 +3,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 
-namespace Demo.WebSockets;
+namespace FlexMessage.WebSockets;
 
 public class WebSocketManager
 {
