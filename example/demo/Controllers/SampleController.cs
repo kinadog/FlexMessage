@@ -1,8 +1,9 @@
-﻿using Demo.Configs;
-using Demo.Messages;
-using Demo.Messages.Types;
-using Demo.Models;
+﻿using FlexMessage.Configs;
+using FlexMessage.Messages;
+using FlexMessage.Messages.Types;
+using FlexMessage.Models;
 using Microsoft.AspNetCore.Mvc;
+using JsonAjaxResult = Demo.Models.JsonAjaxResult;
 
 namespace Demo.Controllers;
 
