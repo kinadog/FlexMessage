@@ -167,22 +167,25 @@ FlexMessage (root)
 
 ## 기본 설치
 
-1. Nuget 패키지 설치 :  
+### 1. Nuget 패키지 설치 :  
 
 ```powershell
 # Package Manager
-PM> NuGet\Install-Package FlexMessage
+PM> NuGet\Install-Package FlexMessage -Version 1.0.1
+
+# .NET CLI
+> dotnet add package FlexMessage --version 1.0.1
   ```  
 <br/>  
 
-2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)  
+### 2. 공통 페이지에 [[flexMessage.js]](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript 파일 삽입 (ex: _Layout.cshtml)  
 
 ```javascript
 <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
 ```
 <br/>  
 
-3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
+### 3. [[Program.cs]](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일에서 서비스 등록 :
 ```csharp
 // builder.Services는 아래의 객체입니다.
 // var builder = WebApplication.CreateBuilder(args);
@@ -268,7 +271,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
       }
   }
   ```  
-  >> ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다. 
+  > ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다. 
    
 <br/>
 
