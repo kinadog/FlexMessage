@@ -176,7 +176,7 @@ FlexMessage (root)
 
   
 
-- 2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
+- 2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
 
   ```javascript
   <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
@@ -225,7 +225,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
       .
         ```
 
-    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
+    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 편집 :
         ```javascript
                 connection.on("ReceiveMessage", function(msgType, 
                       message) {
@@ -247,7 +247,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
 
 
 * **2. 부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**
-    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) 파일 편집 :
+    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 편집 :
 
       ```javascript
       connection.on("ReceiveMessage", function (msgType, message) {
