@@ -209,42 +209,41 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
 
 ## 추가기능 설정
 
-* **1. 실시간 로그 파일 뷰어 기능을 사용하는 경우**  
+### 1. 실시간 로그 파일 뷰어 기능을 사용하는 경우  
 <br/>
-    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
 
-        ```csharp
-       // builder.Services는 아래의 객체입니다.
-       // var builder = WebApplication.CreateBuilder(args);
-       builder.Services.AddFlexMessage(builder, option => // FlexMessage 서비스 추가
-      {
-          option.FileMessageStatus = FileMessageStatus.LiveView;  // 파일타입 메세지의 라이브뷰 보기여부
-      });
-      .
-      .
-        ```
+* [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
 
-    * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 편집 :
-        ```javascript
-                connection.on("ReceiveMessage", function(msgType, 
-                      message) {
-                    switch (msgType) {
-                        case "File": {
-                            const toast =
-                                // 실시간 로그파일 뷰어로 사용할 div element를 
-                                // 페이지의 원하는 곳에 만듭니다. (이 코드에선 #Logs)
-                                let logViewer = document.getElementById('Logs');
-                                logViewer.textContent += "\n" + message;
-                            break;
-                        }
-                        // 다른 종류의 메세지들 ...
-                        case ""....
-                    }
-                }
-        ```  
-      <br/>  
-      <br/>
+  ```csharp
+  // builder.Services는 아래의 객체입니다.
+  // var builder = WebApplication.CreateBuilder(args);
+  builder.Services.AddFlexMessage(builder, option => // FlexMessage 서비스 추가
+  {
+    option.FileMessageStatus = FileMessageStatus.LiveView;  // 파일타입 메세지의 라이브뷰 보기여부
+  });
+  .
+  .
+  ```
 
+* [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 편집 :
+  ```javascript
+  connection.on("ReceiveMessage", function(msgType, 
+        message) {
+      switch (msgType) {
+          case "File": {
+              const toast =
+                  // 실시간 로그파일 뷰어로 사용할 div element를 
+                  // 페이지의 원하는 곳에 만듭니다. (이 코드에선 #Logs)
+                  let logViewer = document.getElementById('Logs');
+                  logViewer.textContent += "\n" + message;
+              break;
+          }
+          // 다른 종류의 메세지들 ...
+          case ""....
+      }
+  }
+  ```  
+<br/>
 
 * **2. 부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**  
  <br/>
