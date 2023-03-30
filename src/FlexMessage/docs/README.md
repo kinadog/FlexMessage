@@ -179,7 +179,7 @@ PM> NuGet\Install-Package FlexMessage
 ```  
 <br/>  
 
-- 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
+- 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
  ```csharp
  // builder.Services is the following object.
  // var builder = WebApplication.CreateBuilder(args);
@@ -210,7 +210,7 @@ app.UseFlexMessage(); // Use the FlexMessage service.
 
 * **1. When using the real-time log file viewer feature**
 
-  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
+  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
       ```csharp
       // builder.Services is the following object.
@@ -270,7 +270,7 @@ app.UseFlexMessage(); // Use the FlexMessage service.
     <br/>
 
 * **3. When using the Database Insert feature**
-  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) file :
+  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
      ```csharp
       // builder.Services is the following object.
