@@ -62,6 +62,4 @@ app.MapControllerRoute(
     "sample",
     "msg/controller=Sample/{action=Index}/{id?}");
 
-app.MapFlexMessage(); // ← 추가 (Add)
-
 app.Run();
