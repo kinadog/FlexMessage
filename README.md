@@ -183,7 +183,7 @@ FlexMessage (root)
   ```
 <br/>  
 
-- 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
+- 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
  ```csharp
  // builder.Services는 아래의 객체입니다.
  // var builder = WebApplication.CreateBuilder(args);
@@ -212,7 +212,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
 
 * **1. 실시간 로그 파일 뷰어 기능을 사용하는 경우**
 
-    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
+    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
 
         ```csharp
        // builder.Services는 아래의 객체입니다.
@@ -273,7 +273,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
 
 
 * **3. Database Insert 기능을 사용하는 경우**
-    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/Program.cs) 파일 편집 :
+    * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
 
        ```csharp
        // builder.Services는 아래의 객체입니다.
