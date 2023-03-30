@@ -167,38 +167,38 @@ FlexMessage (root)
 
 ## 기본 설치
 
-- 1. Nuget 패키지 설치 :
+1. Nuget 패키지 설치 :  
 
-  ```powershell
-  # Package Manager
-  PM> NuGet\Install-Package FlexMessage
+```powershell
+# Package Manager
+PM> NuGet\Install-Package FlexMessage
   ```  
 <br/>  
 
-- 2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
+2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)  
 
-  ```javascript
-  <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
-  ```
+```javascript
+<script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
+```
 <br/>  
 
-- 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :  
-  ```csharp
-  // builder.Services는 아래의 객체입니다.
-  // var builder = WebApplication.CreateBuilder(args);
+3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
+```csharp
+// builder.Services는 아래의 객체입니다.
+// var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
+.
+.
+.
   
-  builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
-  .
-  .
-  .
-  
-  // app.UseRouting() 과 
-  
-  app.UseFlexMessage(); // FlexMessage 서비스 사용
-  
-  // app.MapControllerRoute() 사이에 삽입합니다.
-  // app.Run();
-  ```   
+// app.UseRouting() 과 
+
+app.UseFlexMessage(); // FlexMessage 서비스 사용
+
+// app.MapControllerRoute() 사이에 삽입합니다.
+// app.Run();
+```   
 <br/>
 
 >**설치 완료!**
