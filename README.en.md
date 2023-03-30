@@ -170,7 +170,7 @@ FlexMessage (root)
   ```  
 <br/>  
 
-- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file into
+- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file into
      the common page (ex: _Layout.cshtml)
 
   ```javascript
@@ -222,7 +222,7 @@ app.UseFlexMessage(); // Use the FlexMessage service.
       .
       ```
 
-  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file :
+  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file :
       ```javascript
               connection.on("ReceiveMessage", function(msgType, 
                     message) {
@@ -244,7 +244,7 @@ app.UseFlexMessage(); // Use the FlexMessage service.
 
 
 * **2. When using a Toast JavaScript plugin other than Bootstrap.**
-  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/wwwroot/js/flexMessage.js) file :
+  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file :
 
     ```javascript
     connection.on("ReceiveMessage", function (msgType, message) {
