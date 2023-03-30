@@ -281,11 +281,11 @@ app.UseFlexMessage(); // Use the FlexMessage service.
       }, message => {
           try{
               // The code for inserting a message into the database is implemented.
-              var options = new DbContextOptionsBuilder<EfDbContext>().Option;
-              var schema = new Schema { Message = message, WriteDates = Datetime.Now };
-              using var context = new DbContext(options);
+              var options = new DbContextOptionsBuilder<EfDbContext>().Options;
+              var schema = new Schema { Message = message, Writedates = DateTime.Now };
+              using var context = new EfDbContext(options);
               context.Schemas.Add(schema);
-              context.SaveChangeAsync();
+              context.SaveChangesAsync();
           }
           catch(Exception e){
               Console.WriteLine(e.Message);
