@@ -178,7 +178,7 @@ PM> NuGet\Install-Package FlexMessage -Version 1.0.1
   ```  
 <br/>  
 
-### 2. 공통 페이지에 [[flexMessage.js]](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript 파일 삽입 (ex: _Layout.cshtml)  
+### 2. 공통 페이지에 [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript 파일 삽입 (ex: _Layout.cshtml)  
 
 ```javascript
 <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
@@ -204,7 +204,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
 ```   
 <br/>
 
->**설치 완료!**
+>#### 설치 완료!
 
 
 
@@ -271,7 +271,7 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
       }
   }
   ```  
-  > ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다. 
+  >####  `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다. 
    
 <br/>
 

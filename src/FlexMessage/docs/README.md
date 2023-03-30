@@ -173,7 +173,7 @@ PM> NuGet\Install-Package FlexMessage -Version 1.0.1
 ```  
 <br/>  
 
-### 2. Insert [[flexMessage.js]](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript file into the common page (ex: _Layout.cshtml)
+### 2. Insert [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript file into the common page (ex: _Layout.cshtml)
 
 ```javascript
 <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
@@ -201,7 +201,7 @@ app.UseFlexMessage(); // Use the FlexMessage service.
 
 <br/>
 
->**Installation complete!!**
+>#### Installation complete!!
 
 
 
@@ -268,7 +268,7 @@ app.UseFlexMessage(); // Use the FlexMessage service.
       }
   }
   ```  
-  >＃ Note that you can also use the same method to apply a custom plugin for `Alert messages`.
+  >#### Note that you can also use the same method to apply a custom plugin for `Alert messages`.
 
   <br/>
 
