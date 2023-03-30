@@ -170,31 +170,32 @@ FlexMessage (root)
   ```  
 <br/>  
 
-- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file into
-     the common page (ex: _Layout.cshtml)
+- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file into the common page (ex: _Layout.cshtml)
 
   ```javascript
   <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
   ```  
 <br/>  
 
-- 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
- ```csharp
- // builder.Services is the following object.
- // var builder = WebApplication.CreateBuilder(args);
+- 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :  
  
- builder.Services.AddFlexMessage(builder); // Add the FlexMessage service.
-.
-.
-.
+  ```csharp
+  // builder.Services is the following object.
+  // var builder = WebApplication.CreateBuilder(args);
+   
+  builder.Services.AddFlexMessage(builder); // Add the FlexMessage service.
+  .
+  .
+  .
+  
+  // Insert between app.UseRouting() 
+  
+  app.UseFlexMessage(); // Use the FlexMessage service.
+  
+  // and app.MapControllerRoute().
+  // app.Run();
+  ```  
 
-// Insert between app.UseRouting() 
-
-app.UseFlexMessage(); // Use the FlexMessage service.
-
-// and app.MapControllerRoute().
-// app.Run();
- ```   
 <br/>
 
 >**Installation complete!!**
@@ -207,8 +208,8 @@ app.UseFlexMessage(); // Use the FlexMessage service.
 
 
 
-* **1. When using the real-time log file viewer feature**
-
+* **1. When using the real-time log file viewer feature**  
+<br/>
   * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
       ```csharp
@@ -241,9 +242,11 @@ app.UseFlexMessage(); // Use the FlexMessage service.
               }
       ```  
     <br/>  
+    <br/>  
 
 
-* **2. When using a Toast JavaScript plugin other than Bootstrap.**
+* **2. When using a Toast JavaScript plugin other than Bootstrap.**  
+  <br/>
   * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file :
 
     ```javascript
@@ -266,9 +269,12 @@ app.UseFlexMessage(); // Use the FlexMessage service.
     }
     ```  
     ＃ Note that you can also use the same method to apply a custom plugin for `Alert messages`.  
+   
+    <br/>
     <br/>
 
-* **3. When using the Database Insert feature**
+* **3. When using the Database Insert feature**  
+  <br/>
   * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
      ```csharp

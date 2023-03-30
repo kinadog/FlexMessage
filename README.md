@@ -172,9 +172,8 @@ FlexMessage (root)
   ```powershell
   # Package Manager
   PM> NuGet\Install-Package FlexMessage
-  ```
-
-  
+  ```  
+<br/>  
 
 - 2. 공통페이지에 javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 삽입 (ex: _Layout.cshtml)
 
@@ -183,23 +182,23 @@ FlexMessage (root)
   ```
 <br/>  
 
-- 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
- ```csharp
- // builder.Services는 아래의 객체입니다.
- // var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
-.
-.
-.
-
-// app.UseRouting() 과 
-
-app.UseFlexMessage(); // FlexMessage 서비스 사용
-
-// app.MapControllerRoute() 사이에 삽입합니다.
-// app.Run();
- ```   
+- 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :  
+  ```csharp
+  // builder.Services는 아래의 객체입니다.
+  // var builder = WebApplication.CreateBuilder(args);
+  
+  builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
+  .
+  .
+  .
+  
+  // app.UseRouting() 과 
+  
+  app.UseFlexMessage(); // FlexMessage 서비스 사용
+  
+  // app.MapControllerRoute() 사이에 삽입합니다.
+  // app.Run();
+  ```   
 <br/>
 
 >**설치 완료!**
@@ -210,8 +209,8 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
 
 ## 추가기능 설정
 
-* **1. 실시간 로그 파일 뷰어 기능을 사용하는 경우**
-
+* **1. 실시간 로그 파일 뷰어 기능을 사용하는 경우**  
+<br/>
     * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
 
         ```csharp
@@ -244,9 +243,11 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
                 }
         ```  
       <br/>  
+      <br/>
 
 
-* **2. 부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**
+* **2. 부트스트랩이 아닌 다른 Toast 자바스크립트 플러그인을 사용하려는 경우**  
+ <br/>
     * [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) 파일 편집 :
 
       ```javascript
@@ -270,9 +271,11 @@ app.UseFlexMessage(); // FlexMessage 서비스 사용
       ```  
       ＃ `Toast메시지` 뿐만 아니라 `Alert메시지`도 별도의 커스텀 플러그인을 사용하고자 한다면 같은 방법으로 적용이 가능 합니다.  
       <br/>
+      <br/>
 
 
-* **3. Database Insert 기능을 사용하는 경우**
+* **3. Database Insert 기능을 사용하는 경우**  
+  <br/>
     * [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일 편집 :
 
        ```csharp

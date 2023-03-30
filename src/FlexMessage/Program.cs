@@ -1,10 +1,11 @@
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFlexMessage(builder, option => // ← 추가 (Add)
 {
     // 파일타입 메세지의 라이브뷰 보기여부 옵션
     // Option for live view of file type messages.
-    option.FileMessageStatus = FileMessageStatus.LiveView; 
+    option.FileMessageStatus = FileMessageStatus.LiveView;
 }, message =>
 {
     // 여기에 데이터베이스에 메시지를 저장하는 코드를 작성하세요.
