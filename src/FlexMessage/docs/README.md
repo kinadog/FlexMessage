@@ -162,7 +162,7 @@ FlexMessage (root)
 
 ## Required configuration
 
-- 1. Package installation :
+### 1. Package installation :
 
 ```powershell
 # Package Manager
@@ -173,14 +173,14 @@ PM> NuGet\Install-Package FlexMessage -Version 1.0.1
 ```  
 <br/>  
 
-- 2. Insert javascript [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file into the common page (ex: _Layout.cshtml)
+### 2. Insert [[flexMessage.js]](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript file into the common page (ex: _Layout.cshtml)
 
 ```javascript
 <script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
 ```  
 <br/>  
 
-- 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
+### 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
 ```csharp
 // builder.Services is the following object.
@@ -209,101 +209,97 @@ app.UseFlexMessage(); // Use the FlexMessage service.
 
 ## Configuring additional features
 
+### 1. When using the real-time log file viewer feature
 
+* Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
-* **1. When using the real-time log file viewer feature**  
-  <br/>
-  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
+  ```csharp
+  // builder.Services is the following object.
+  // var builder = WebApplication.CreateBuilder(args);
+  builder.Services.AddFlexMessage(builder, option => // Add the FlexMessage service.
+  {
+      option.FileMessageStatus = FileMessageStatus.LiveView;  // On/Off live view of file type messages.
+  });
+  .
+  .
+  ```
 
-      ```csharp
-      // builder.Services is the following object.
-      // var builder = WebApplication.CreateBuilder(args);
-      builder.Services.AddFlexMessage(builder, option => // Add the FlexMessage service.
-      {
-          option.FileMessageStatus = FileMessageStatus.LiveView;  // On/Off live view of file type messages.
-      });
-      .
-      .
-      ```
-
-  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file :
-      ```javascript
-              connection.on("ReceiveMessage", function(msgType, 
-                    message) {
-                  switch (msgType) {
-                      case "File": {
-                          const toast =
-                              // Create the div element to be used as the real-time log file viewer 
-                              // in the desired location on the page. (In this code, #Logs)
-                              let logViewer = document.getElementById('Logs');
-                              logViewer.textContent += "\n" + message;
-                          break;
-                      }
-                      // Other types of messages...
-                      case ""....
+* Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file :
+  ```javascript
+          connection.on("ReceiveMessage", function(msgType, 
+                message) {
+              switch (msgType) {
+                  case "File": {
+                      const toast =
+                          // Create the div element to be used as the real-time log file viewer 
+                          // in the desired location on the page. (In this code, #Logs)
+                          let logViewer = document.getElementById('Logs');
+                          logViewer.textContent += "\n" + message;
+                      break;
                   }
+                  // Other types of messages...
+                  case ""....
               }
-      ```  
-    <br/>  
-    <br/>  
+          }
+  ```  
+  <br/>  
 
 
-* **2. When using a Toast JavaScript plugin other than Bootstrap.**  
+### 2. When using a Toast JavaScript plugin other than Bootstrap.
+
+* Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file :
+
+  ```javascript
+  connection.on("ReceiveMessage", function (msgType, message) {
+      switch (msgType) {
+          case "BrowserToast": {
+            // This code executes the Toast for Bootstrap.
+            // If you want to use a different Toast plugin, modify this section of code.
+              const toastBody =
+                  document.getElementsByClassName('toast-body')[0];
+              toastBody.innerHTML = message;
+              const toast =
+                  new bootstrap.Toast(document.getElementById('toastWrap'));
+              toast.show();
+              break;
+          }
+          // Other types of messages...
+          case ""....
+      }
+  }
+  ```  
+  >＃ Note that you can also use the same method to apply a custom plugin for `Alert messages`.
+
   <br/>
-  * Edit [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) file :
 
-    ```javascript
-    connection.on("ReceiveMessage", function (msgType, message) {
-        switch (msgType) {
-            case "BrowserToast": {
-              // This code executes the Toast for Bootstrap.
-              // If you want to use a different Toast plugin, modify this section of code.
-                const toastBody =
-                    document.getElementsByClassName('toast-body')[0];
-                toastBody.innerHTML = message;
-                const toast =
-                    new bootstrap.Toast(document.getElementById('toastWrap'));
-                toast.show();
-                break;
-            }
-            // Other types of messages...
-            case ""....
+### 3. When using the Database Insert feature
+
+* Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
+
+   ```csharp
+    // builder.Services is the following object.
+    // var builder = WebApplication.CreateBuilder(args);
+     builder.Services.AddFlexMessage(builder, option => // Add the FlexMessage service.
+    {
+        option.FileMessageStatus = FileMessageStatus.LiveView or Off;  // On/Off live view of file type messages.
+    }, message => {
+        try{
+            // The code for inserting a message into the database is implemented.
+            var options = new DbContextOptionsBuilder<EfDbContext>().Options;
+            var schema = new Schema { Message = message, Writedates = DateTime.Now };
+            using var context = new EfDbContext(options);
+            context.Schemas.Add(schema);
+            context.SaveChangesAsync();
         }
-    }
-    ```  
-    ＃ Note that you can also use the same method to apply a custom plugin for `Alert messages`.
-
-    <br/>
-    <br/>
-
-* **3. When using the Database Insert feature**  
-  <br/>
-  * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
-
-     ```csharp
-      // builder.Services is the following object.
-      // var builder = WebApplication.CreateBuilder(args);
-       builder.Services.AddFlexMessage(builder, option => // Add the FlexMessage service.
-      {
-          option.FileMessageStatus = FileMessageStatus.LiveView or Off;  // On/Off live view of file type messages.
-      }, message => {
-          try{
-              // The code for inserting a message into the database is implemented.
-              var options = new DbContextOptionsBuilder<EfDbContext>().Options;
-              var schema = new Schema { Message = message, Writedates = DateTime.Now };
-              using var context = new EfDbContext(options);
-              context.Schemas.Add(schema);
-              context.SaveChangesAsync();
-          }
-          catch(Exception e){
-              Console.WriteLine(e.Message);
-          }
-      });
-      .
-      .
-      .
-     ```  
-    <br/>  
+        catch(Exception e){
+            Console.WriteLine(e.Message);
+        }
+    });
+    .
+    .
+    .
+   ```  
+  <br/>  
 
 # Information
 
