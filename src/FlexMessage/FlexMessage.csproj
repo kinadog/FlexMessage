@@ -7,8 +7,8 @@
     <PackageId>FlexMessage</PackageId>
     <Title>FlexMessage</Title>
     <Version>1.0.1</Version>
-    <Authors>Kinadog</Authors>
-    <Company>Kinadog</Company>
+    <Authors>kinadog</Authors>
+    <Company>kinadog</Company>
     <Product>FlexMessage</Product>
     <Description><![CDATA[
 Easy and versatile client message library for .net web applications
