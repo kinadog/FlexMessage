@@ -1,4 +1,5 @@
-﻿using FlexMessage.Configs;
+﻿using Demo.Models;
+using FlexMessage.Configs;
 using FlexMessage.Messages;
 using FlexMessage.Messages.Types;
 using FlexMessage.Models;
@@ -24,10 +25,11 @@ public class SampleController : ControllerBase
     [HttpGet("BrowserAlert")]
     public void BrowserAlert()
     {
-
         Message.Write(@"Browser Alert Sample message!", MsgType.BrowserAlert);
-
     }
+
+
+
     [HttpGet("BrowserConsole")]
     public void BrowserConsole()
     {
@@ -56,16 +58,43 @@ public class SampleController : ControllerBase
 
 
     [HttpGet("File")]
-    public void File()
+    public async Task File()
     {
-        Message.Write(@"Write file Sample message! and can be detected live file changes to output the content in a browser.", MsgType.File);
+        await Message.WriteAsync(@"Write file Sample message! and can be detected live file changes to output the content in a browser.", MsgType.File);
     }
 
 
     [HttpGet("Db")]
-    public void Db()
+    public async Task Db()
     {
-        Message.Write(@"Database Insert Sample message!", MsgType.Db);
+        await Message.WriteAsync(@"Database Insert Sample message!", MsgType.Db);
+    }
+
+    [HttpGet("Json")]
+    public void Json()
+    {
+        var member = new TestClass
+        {
+            MemberID = 100,
+            Name = "홍길동",
+            UserID = "Test",
+            Password = "Password",
+            Email = "email@email.com",
+            Birth = DateTime.Today,
+            Phone = "010-1234-5678"
+        };
+
+        Message.Write(member, MsgType.Json);
+    }
+
+
+    [HttpGet("SendToAll")]
+    public void SendToAll()
+    {
+        Message.Write(@"Send to All Client Sample message!"
+                      +Environment.NewLine
+                      +"여러 브라우저를 열어서 동시에 확인 해 보세요.",
+            MsgType.BrowserAlert, SendTo.All);
     }
 
 

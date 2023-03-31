@@ -1,10 +1,6 @@
 ﻿namespace FlexMessage.Messages.Types;
 
-/// <summary>
-/// 브라우저 알림 메세지를 처리하는 클래스
-/// Class for handling browser alert messages.
-/// </summary>
-public class BrowserAlertMessage : IMessage
+public class JsonMessage : IMessage
 {
     #region Field
 
@@ -13,16 +9,15 @@ public class BrowserAlertMessage : IMessage
     #endregion
 
 
+    #region Method
+
+
     #region ctor
-    public BrowserAlertMessage(IMessageCommon? messageCommon)
+    public JsonMessage(IMessageCommon? messageCommon)
     {
         _messageCommon = messageCommon;
     }
     #endregion
-
-
-    #region Method
-
 
     /// <summary>
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다.
@@ -30,14 +25,16 @@ public class BrowserAlertMessage : IMessage
     /// </summary>
     public void Write(object? message, SendTo? sendTo = null)
     {
-        var msg = message as string;
+        if (message == null) return;
+
+        message = System.Text.Json.JsonSerializer.Serialize(message);
         if (sendTo == SendTo.All)
         {
-            _messageCommon?.WriteAll(msg, MsgType.BrowserAlert);
+            _messageCommon?.WriteAll(message.ToString(), MsgType.Json);
         }
         else
         {
-            _messageCommon?.Write(msg, MsgType.BrowserAlert);
+            _messageCommon?.Write(message.ToString(), MsgType.Json);
         }
     }
 
@@ -47,14 +44,16 @@ public class BrowserAlertMessage : IMessage
     /// </summary>
     public async Task WriteAsync(object? message, SendTo? sendTo = null)
     {
-        var msg = message as string;
+        if (message == null) return;
+
+        message = System.Text.Json.JsonSerializer.Serialize(message);
         if (sendTo == SendTo.All)
         {
-            await _messageCommon!.WriteAllAsync(msg, MsgType.BrowserAlert);
+            await _messageCommon!.WriteAllAsync(message.ToString(), MsgType.Json);
         }
         else
         {
-            await _messageCommon!.WriteAsync(msg, MsgType.BrowserAlert);
+            await _messageCommon!.WriteAsync(message.ToString(), MsgType.Json);
         }
     }
 

@@ -36,13 +36,14 @@ public class DbMessage : IMessage
     /// 데이터베이스에 메세지를 저장한다.
     /// Saves a message to the database.
     /// </summary>
-    public void Write(string? message, SendTo? sendTo = null)
+    public void Write(object? message, SendTo? sendTo = null)
     {
-        if (string.IsNullOrWhiteSpace(message)) return;
+        var msg = message as string;
+        if (string.IsNullOrWhiteSpace(msg)) return;
 
         try
         {
-            _saveMessageAction?.Invoke(message);
+            _saveMessageAction?.Invoke(msg);
         }
         catch (Exception e)
         {
@@ -54,15 +55,16 @@ public class DbMessage : IMessage
     /// 데이터베이스에 메세지를 저장한다. (비동기)
     /// Saves a message to the database. (asynchronous)
     /// </summary>
-    public async Task WriteAsync(string? message, SendTo? sendTo = null)
+    public async Task WriteAsync(object? message, SendTo? sendTo = null)
     {
-        if (string.IsNullOrWhiteSpace(message)) return;
+        var msg = message as string;
+        if (string.IsNullOrWhiteSpace(msg)) return;
 
         try
         {
             await Task.Run(() =>
             {
-                _saveMessageAction?.Invoke(message);
+                _saveMessageAction?.Invoke(msg);
             });
         }
         catch (Exception e)

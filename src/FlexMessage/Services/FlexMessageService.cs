@@ -22,7 +22,7 @@ public static class FlexMessageService
             KeepAliveInterval = TimeSpan.FromSeconds(120)
         });
 
-        app.UseMiddleware<WebSocketMiddleware>();
+        app.UseMiddleware<FlexMessageMiddleware>();
         return app;
     }
 

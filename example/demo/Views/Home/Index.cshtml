@@ -5,11 +5,16 @@
 }
 
 <div class="container">
+    <div class="row border-bottom mx-auto mt-3">
+        <h3>종류 별 분류 <span class="text-uppercase">(Type classification)</span></h3>
+    </div>
     <div class="row mx-auto">
         <div class="col-lg-4">
             <div class="card mt-3">
                 <div class="card-header">BROWSER ALERT</div>
-                <img src="img/code_browseralert.png" class="card-img-top" alt="...">
+                <div class="card-img-top">
+                    <img src="img/code_browseralert.png" alt="...">
+                </div>
                 <div class="card-body">
                     <p class="card-text">
                         <code class="language-javascript">alert('{message}')</code>방식으로 메세지를 보내서
@@ -29,7 +34,9 @@
         <div class="col-lg-4">
             <div class="card mt-3">
                 <div class="card-header">BROWSER CONSOLE</div>
-                <img src="img/code_browserconsole.png" class="card-img-top" alt="...">
+                <div class="card-img-top">
+                    <img src="img/code_browserconsole.png" alt="...">
+                </div>
                 <div class="card-body">
                     <p class="card-text">
                         <code class="language-javascript">console.log('{message}')</code>방식으로 메세지를 보내서
@@ -49,7 +56,9 @@
         <div class="col-lg-4">
             <div class="card mt-3">
                 <div class="card-header">BROWSER TOAST</div>
-                <img src="img/code_browsertoast.png" class="card-img-top" alt="...">
+                <div class="card-img-top">
+                    <img src="img/code_browsertoast.png" alt="...">
+                </div>
                 <div class="card-body">
                     <p class="card-text">
                         <code class="language-javascript">toast('{message}')</code>방식의 안내창으로 메세지를 띄웁니다.
@@ -69,7 +78,9 @@
         <div class="col-lg-4">
             <div class="card mt-3">
                 <div class="card-header">WRITE FILE</div>
-                <img src="img/code_file.png" class="card-img-top" alt="...">
+                <div class="card-img-top">
+                    <img src="img/code_file.png" alt="...">
+                </div>
                 <div class="card-body">
                     <p class="card-text">
                         웹서버의 text파일에 메세지를 기록합니다.
@@ -88,8 +99,10 @@
         </div>
         <div class="col-lg-4">
             <div class="card mt-3">
-                <div class="card-header">WRITE DB</div>
-                <img src="img/code_db.png" class="card-img-top" alt="...">
+                <div class="card-header">INSERT DB</div>
+                <div class="card-img-top">
+                    <img src="img/code_db.png" alt="...">
+                </div>
                 <div class="card-body">
                     <p class="card-text">
                         메세지를 유저가 사용하는 데이터베이스에 INSERT하여 기록합니다.
@@ -108,16 +121,21 @@
         </div>
         <div class="col-lg-4">
             <div class="card mt-3">
-                <div class="card-header">MULTIPLE</div>
-                <img src="img/code_multiple.png" class="card-img-top" alt="...">
+                <div class="card-header">SEND JSON</div>
+                <div class="card-img-top">
+                    <img src="img/code_ajax.png" alt="...">
+                </div>
                 <div class="card-body">
-                    <p class="card-text">여러가지 방식을 동시에 사용하여 메세지를 보낼 수 있습니다.</p>
+                    <p class="card-text">
+                        <code class="language-javascript">C# Class</code>의 인스턴스를 <code class="language-javascript">Json</code>형식으로 변환하여 클라이언트의 웹브라우저로 전송합니다.
+                        이를 이용하여 매우 간편하게 <code class="language-javascript">Ajax</code>기능을 구현할 수 있습니다.
+                    </p>
                     <div class="d-flex">
                         <div class="flex-fill">
-                            <a href="#" id="" class="btn btn-outline-secondary d-block me-2 px-4" data-bs-toggle="modal" data-bs-target="#ModalMultiple">사용법</a>
+                            <a href="#" id="" class="btn btn-outline-secondary d-block me-2 px-4" data-bs-toggle="modal" data-bs-target="#ModalJson">사용법</a>
                         </div>
                         <div class="flex-fill">
-                            <a id="BtnTestMulti" class="btn btn-secondary d-block me-2 px-4">테스트</a>
+                            <a onclick="testJson()" class="btn btn-secondary d-block me-2 px-4">테스트</a>
                         </div>
                     </div>
                 </div>
@@ -125,7 +143,53 @@
         </div>
     </div>
 
-    <div class="row mx-auto gx-0">
+    <div class="row border-bottom mx-auto mt-4">
+        <h3>기능 별 분류 <span class="text-uppercase">(Functional classification)</span></h3>
+    </div>
+
+<div class="row mx-auto">
+    <div class="col-lg-4">
+        <div class="card mt-3">
+            <div class="card-header">전체 메세지</div>
+            <div class="card-img-top">
+                <img src="img/code_all.png" alt="...">
+            </div>
+            <div class="card-body">
+                <p class="card-text">접속중인 클라이언트 모두에게 원하는 방법으로 동시에 메세지를 보낼 수 있습니다.</p>
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <a href="#" id="" class="btn btn-outline-secondary d-block me-2 px-4" data-bs-toggle="modal" data-bs-target="#ModalAll">사용법</a>
+                    </div>
+                    <div class="flex-fill">
+                        <a onclick="testAll()" id="BtnTestAll" class="btn btn-secondary d-block me-2 px-4">테스트</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card mt-3">
+            <div class="card-header">MULTIPLE</div>
+            <div class="card-img-top">
+                <img src="img/code_multiple.png" alt="...">
+            </div>
+            <div class="card-body">
+                <p class="card-text">여러가지 방식을 동시에 사용하여 메세지를 보낼 수 있습니다.</p>
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <a href="#" id="" class="btn btn-outline-secondary d-block me-2 px-4" data-bs-toggle="modal" data-bs-target="#ModalMultiple">사용법</a>
+                    </div>
+                    <div class="flex-fill">
+                        <a id="BtnTestMulti" class="btn btn-secondary d-block me-2 px-4">테스트</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mx-auto gx-0">
         <div id="LogsWrap" class="row pb-3 pt-3 px-3 gx-0">
             <div class="row bg-light rounded-3 py-2 gx-0">
                 <div class="col-11 ps-3">
@@ -153,6 +217,7 @@
                 <table class="table table-sm my-2">
                     <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Message</th>
                         <th>Date</th>
                     </tr>
@@ -186,7 +251,30 @@
                         </p>
 
 <pre class="language-csharp">
-<code class="language-csharp" data-lang="csharp">Message.Write(@@"Browser Alert Sample message!", MsgType.BrowserAlert);</code>
+<code class="language-csharp" data-lang="csharp">// Server - C# code
+
+// Call Method
+Message.Write(@@"Browser Alert Sample message!", MsgType.BrowserAlert);
+// or
+Message.Alert(@@"Browser Alert Sample message!");
+</code>
+</pre>
+<pre class="language-javascript">
+<code class="language-javascript" data-lang="javascript">// client - javascript
+const onMessage = (event) => {
+
+    let data = JSON.parse(event.data);
+    let {Message: message, MsgType: msgType} = data;
+
+    switch (msgType) {
+        case "BrowserAlert": {
+            alert(message);
+            break;
+        }
+        // 다른 종류의 메세지들 ...
+    }
+};
+</code>
 </pre>
                     </div>
                 </div>
@@ -216,9 +304,31 @@
                             Write메서드의 매개변수로 MsgType를 <span class="fw-bolder text-info">BrowserConsole</span>로 선택하여 메세지를 전송하시기만 하면,
                             매우 간단하게 dotnet의 websocket방식(signalr)을 통하여 즉시 클라이언트의 웹브라우저의 개발자 콘솔에 Log메세지가 출력 됩니다.
                         </p>
-
 <pre class="language-csharp">
-<code class="language-csharp" data-lang="csharp">Message.Write(@@"Browser Console Sample message!", MsgType.BrowserConsole);</code>
+<code class="language-csharp" data-lang="csharp">// Server - C# code
+
+// Call Method
+Message.Write(@@"Browser Console Sample message!", MsgType.BrowserConsole);
+// or
+Message.Log(@@"Browser Console Sample message!");
+</code>
+</pre>
+<pre class="language-javascript">
+<code class="language-javascript" data-lang="javascript">// client - javascript
+const onMessage = (event) => {
+
+    let data = JSON.parse(event.data);
+    let {Message: message, MsgType: msgType} = data;
+
+    switch (msgType) {
+        case "BrowserConsole": {
+            console.log(message);
+            break;
+        }
+        // 다른 종류의 메세지들 ...
+    }
+};
+</code>
 </pre>
                     </div>
                 </div>
@@ -246,33 +356,47 @@
                         <p class="bg-light p-3">
                             서버의 C# 코드에서 웹브라우저에게 직접 Toast 푸쉬알림을 보낼 수 있습니다.<br/>
                             Write메서드의 매개변수로 MsgType를 <span class="fw-bolder text-info">BrowserToast</span>로 선택하기만 하여 메세지를 전송하시면,
-                            매우 간단하게 dotnet의 websocket방식(signalr)을 통하여 즉시 클라이언트의 웹브라우저에게 Toast 푸쉬알림이 전송됩니다.<br/>
+                            즉시 클라이언트의 웹브라우저에게 Toast 푸쉬 알림이 전송됩니다.<br/>
                             시중에는 사용할 수 있는 매우 다양한 자바스크립트 Toast플러그인이 존재합니다. 어떠한 Toast 플러그인을 사용하시던지 관계 없이 약간의 코드 수정만으로 쉽게 적용 하실 수 있습니다.
                         </p>
+<pre class="language-csharp">
+<code class="language-csharp" data-lang="csharp">// Server - C# code
 
- <pre class="language-csharp">
-<code class="language-csharp" data-lang="csharp">// C# code
-Message.Write(@@"Browser Toast Sample message!", MsgType.BrowserToast);</code>
+// Call Method
+Message.Write(@@"Browser Toast Sample message!", MsgType.BrowserToast);
+// or
+Message.Toast(@@"Browser Toast Sample message!");
+</code>
 </pre>
+                        <pre class="language-javascript">
+<code class="language-javascript" data-lang="javascript">// client - javascript
+const onMessage = (event) => {
 
-<pre class="language-javascript">
-<code class="language-javascript" data-lang="javascript">// javascript code
-connection.on("ReceiveMessage", function (msgType, message) {
+    let data = JSON.parse(event.data);
+    let {Message: message, MsgType: msgType} = data;
+
     switch (msgType) {
         case "BrowserToast": {
-            const toast =
-				/*
-				이 코드는 Bootstrap의 Toast를 실행시키는 코드 입니다.
-				만약 다른 Toast 플러그인을 사용하신다면 이부분의 코드를 변경하시면 됩니다.
-				*/
-                new bootstrap.Toast(document.getElementById('toastWrap'));
-				toast.show();
-            break;
-        }
-		/// 다른 종류의 메세지들 ...
-        case "" {
-        }
-    }</code>
+        /*
+            예제는 Bootstrap의 기본 Toast기능을 구현 하였습니다.
+            다른 Toast 라이브러리를 사용하시려면,
+            아래의 코드를 사용하시려는 Toast 라이브러리의 구현 코드로 변경 하시기 바랍니다.
+            This code is an example implementation of the default Toast functionality from Bootstrap.
+            If you want to use a different Toast library,
+            replace the code below with the implementation code for the Toast library you want to use.
+        */
+        const toastBody =
+            document.getElementsByClassName('toast-body')[0];
+        toastBody.innerHTML = message;
+
+        const toast =
+            new bootstrap.Toast(document.getElementById('toastWrap'));
+        toast.show();
+        break;
+        // 다른 종류의 메세지들 ...
+    }
+};
+</code>
 </pre>
                     </div>
                 </div>
@@ -303,9 +427,14 @@ connection.on("ReceiveMessage", function (msgType, message) {
                             또한 원하실 경우, 메세지가 파일에 기록 되는 것을 실시간으로 탐지하여 웹브라우저에 즉시 변경 된 내용을 출력 하는 기능이 있습니다. 이를 이용하면 웹사이트에서
                             <span class="text-danger">실시간 로그파일 뷰어</span>와 같은 서비스를 매우 쉽게 구현하실 수 있습니다.
                         </p>
-
 <pre class="language-csharp">
-<code class="language-csharp" data-lang="csharp">Message.Write(@@"Write file Sample message!", MsgType.File);</code>
+<code class="language-csharp" data-lang="csharp">// Server - C# code
+
+// Call Method
+await Message.WriteAsync(@@"Write file Sample message!", MsgType.File);
+// or
+await Message.File(@@"Write file Sample message!");
+</code>
 </pre>
                     </div>
                 </div>
@@ -321,7 +450,7 @@ connection.on("ReceiveMessage", function (msgType, message) {
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-4 fw-bold text-info" id="">WRITE DB</h1>
+                <h1 class="modal-title fs-4 fw-bold text-info" id="">INSERT DB</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -335,35 +464,166 @@ connection.on("ReceiveMessage", function (msgType, message) {
                             Write메서드를 사용하여 메세지를 전송하면 그 즉시 사용하시는 데이터베이스에 메세지가 저장 됩니다.<br/>
                             FlexMessage는 데이터베이스와 느슨하게 결합되도록 구현되어 있기 때문에 사용하시는 데이터베이스의 종류와 전혀 상관이 없이 저장하실 수 있으며, 또한 저장하시려는 테이블의 스키마에도 전혀 영향을 받지 않습니다.
                         </p>
-
 <pre class="language-csharp">
-<code class="language-csharp" data-lang="csharp">//C# code
-//Call method
-Message.Write(@@"Database Insert Sample message!", MsgType.Db);
+<code class="language-csharp" data-lang="csharp">// Server - C# code
+
+// Call Method
+await Message.WriteAsync(@@"Database Insert Sample message!", MsgType.Db);
+// or
+await Message.Db(@@"Database Insert Sample message!");
 
 
-//Write Method to save database
-public void Write(string? message)
+// Program.cs - 서비스 등록
+builder.Services.AddFlexMessage(builder, option => {}, message =>
 {
-    if (string.IsNullOrWhiteSpace(message)) return;
-
-    //Your database table schema
-    var newLogs = new Logs();
     try
     {
-        //Your database insert logic
-        using var context = new EfDbContext();
-        newLogs.Message = message;
-        newLogs.Writedates = DateTime.Now;
+        // 데이터베이스에 저장 할 클래스 지정
+        var sampleDbSchema = new SampleDbSchema
+        {
+            Message = message,
+            Writedates = DateTime.Now
+        };
 
-        context.Logs!.Add(newLogs);
-        context.SaveChanges();
+        // 사용자 DbContext 및 Data 입력 구현
+        using var context = new dbContext();
+        context.SampleDbSchemas.Add(sampleDbSchema);
+        context.SaveChangesAsync();
     }
     catch (Exception e)
     {
         Console.WriteLine(e.Message);
     }
-}</code>
+});
+</code>
+</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalJson" tabindex="-1" aria-labelledby="ModalLabelJson" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 fw-bold text-info" id="">SEND JSON</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <img src="img/code_ajax.png" class="w-100" alt="Json send Code Sample"/>
+                    </div>
+                    <div class="col-12 p-2">
+                        <p class="bg-light p-3">
+                            C# Class의 인스턴스를 그대로 Json 형식으로 변환하여 클라이언트의 웹브라우저로 전송 할 수 있습니다.<br/>
+                            기존의 Ajax 작업 등에서 번거로웠던 여러가지 작업들을 모두 생략하고, Server에서 Data처리 작업 후 결과물을 바로 전달 해주면 자동으로 Json 타입의 결과물이 실시간으로 웹브라우저에 전송 됩니다.
+                        </p>
+
+<pre class="language-csharp">
+<code class="language-csharp" data-lang="csharp">// Server - C# code
+
+// Test Class
+var member = new TestClass
+{
+    MemberID = 100,
+    Name = "홍길동",
+    UserID = "Test",
+    Password = "Password",
+    Email = "email@email.com",
+    Birth = DateTime.Today,
+    Phone = "010-1234-5678"
+};
+
+// Call method
+Message.Write(member, MsgType.Json);
+// or
+Message.Json(member);
+</code>
+</pre>
+<pre class="language-javascript">
+<code class="language-javascript" data-lang="javascript">// client - javascript
+const onMessage = (event) => {
+
+    let data = JSON.parse(event.data);
+    let {Message: message, MsgType: msgType} = data;
+
+    switch (msgType) {
+        case "Json": {
+            message = JSON.parse(message);
+            setFlexData(message);
+            break;
+        }
+        // 다른 종류의 메세지들 ...
+    }
+};
+
+const flexEvent = new FlexEvent();
+
+// 송신 된 Json값 저장
+//Save transmitted JSON value
+function setFlexData(value) {
+    window.flexData = value;
+    flexEvent.publish('flexData', value);
+}
+
+// 이벤트 구독
+//Subscribe events
+flexEvent.subscribe('flexData', onFlexDataChanged);
+
+// 값 변경 시 원하는 작업 수행
+// Perform desired actions when the value changes
+function onFlexDataChanged(value) {
+
+    console.log(value);
+
+}
+</code>
+</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalAll" tabindex="-1" aria-labelledby="ModalLabelAll" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 fw-bold text-info" id="">SEND TO ALL CLIENTS</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <img src="img/code_all.png" class="w-100" alt="Browser Alert Code Sample"/>
+                    </div>
+                    <div class="col-12 p-2">
+                        <p class="bg-light p-3">
+                            <span class="text-info fw-bold">접속중인 모든 클라이언트들</span>에게 동시에 메세지를 전송할 수 있습니다.<br/>
+                            이를 이용하면 <span class="text-danger">실시간 댓글 알림 서비스</span>, <span class="text-danger">새 게시글 알림 서비스</span>와 같은 기능을 매우 간단하게 구현 할 수 있습니다.<br/>
+                        </p>
+
+<pre class="language-csharp">
+<code class="language-csharp" data-lang="csharp">// Server - C# code
+
+// Call method
+ Message.Write(@@"Send to All Client Sample message!", MsgType.BrowserAlert, SendTo.All);
+ Message.Write(@@"Send to All Client Sample message!", MsgType.BrowserToast, SendTo.All);
+// or
+Message.Alert(@@"Send to All Client Sample message!", SendTo.All);
+Message.Toast(@@"Send to All Client Sample message!", SendTo.All);
+</code>
 </pre>
                     </div>
                 </div>
@@ -389,11 +649,11 @@ public void Write(string? message)
                     </div>
                     <div class="col-12 p-2">
                         <p class="bg-light p-3">
-                            필요한 경우, 이러한 다양한 종류의 메세지들을 원하는 만큼 혼합하여 동시에 전송할 수 있습니다.<br/>
-                            Write메서드의 매게변수에 MsgType으로 전송을 원하는 메세지타입들을 중복으로 입력 해 주시기만 하면 여러 종류의 메세지가 즉시 동시에 전송 됩니다.
+                            필요한 경우, 이러한 다양한 종류의 메세지들을 원하는 만큼 <span class="text-info fw-bold">동시에 전송</span>할 수 있습니다.<br/>
+                            Write메서드의 매게변수에 MsgType으로 전송을 원하는 메세지타입들을 중복으로 입력 해 주시기만 하면 <span class="text-info fw-bold">여러 종류의 메세지</span>가 즉시 동시에 전송 됩니다.
                         </p>
 
-<pre class="language-csharp">
+                        <pre class="language-csharp">
 <code class="language-csharp" data-lang="csharp">Message.Write(@@"Multiple Sample message!",
                     MsgType.BrowserAlert,
                     MsgType.BrowserConsole,

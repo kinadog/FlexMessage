@@ -21,6 +21,7 @@ public static class Message
     private static IMessage? _browserConsoleMessage; // 브라우저 콘솔 메세지 객체 (Browser console message object)
     private static IMessage? _browserAlertMessage; // 브라우저 경고창 메세지 객체 (Browser alert message object)
     private static IMessage? _browserToastMessage; // 브라우저 토스트 메세지 객체 (Browser toast message object)
+    private static IMessage? _jsonMessage; // 아약스 인스턴스 메세지 객체 (Ajax Instance message object)
     private static IServiceProvider? _serviceProvider; // 서비스 제공자 객체 (Service provider object)
     private static IMessageCommon? _messageCommon;
     private static WriteMessage? _writeMessage;
@@ -55,12 +56,14 @@ public static class Message
         _browserToastMessage = new BrowserToastMessage(_messageCommon);
         _browserAlertMessage = new BrowserAlertMessage(_messageCommon);
         _browserConsoleMessage = new BrowserConsoleMessage(_messageCommon);
+        _jsonMessage = new JsonMessage(_messageCommon);
         _writeMessage = new WriteMessage(
             _fileMessage,
             _consoleMessage,
             _browserConsoleMessage,
             _browserAlertMessage,
             _browserToastMessage,
+            _jsonMessage,
             _serviceProvider,
             _messageCommon);
     }
@@ -78,7 +81,7 @@ public static class Message
     /// [ARRAY] 메세지 종류
     /// [ARRAY] The type(s) of the message.
     /// </param>
-    public static void Write(string? message, params MsgType?[]? msgTypes)
+    public static void Write(object? message, params MsgType?[]? msgTypes)
     {
         // MessageType 매개변수를 입력받지 않았을 때, 기본 메시지 타입으로 설정합니다.
         // Sets the default message type to console when no MessageType parameter is passed in.
@@ -111,7 +114,7 @@ public static class Message
     /// [ARRAY] 메세지 종류
     /// [ARRAY] The type(s) of the message.
     /// </param>
-    public static async Task WriteAsync(string? message, params MsgType?[]? msgTypes)
+    public static async Task WriteAsync(object? message, params MsgType?[]? msgTypes)
     {
         // MessageType 매개변수를 입력받지 않았을 때, 기본 메시지 타입으로 설정합니다.
         // Sets the default message type to console when no MessageType parameter is passed in.
@@ -149,7 +152,7 @@ public static class Message
     /// 전체발신/개별발신 여부
     /// Indicates whether to send the message to everyone or individually.
     /// </param>
-    public static void Write(string? message, MsgType? msgType, SendTo sendTo)
+    public static void Write(object? message, MsgType? msgType, SendTo sendTo)
     {
         _writeMessage?.Write(message, msgType, sendTo);
     }
@@ -173,7 +176,7 @@ public static class Message
     /// 전체발신/개별발신 여부
     /// Indicates whether to send the message to everyone or individually.
     /// </param>
-    public static async Task WriteAsync(string? message, MsgType? msgType, SendTo sendTo)
+    public static async Task WriteAsync(object? message, MsgType? msgType, SendTo sendTo)
     {
         await _writeMessage!.WriteAsync(message, msgType, sendTo);
     }
@@ -228,6 +231,23 @@ public static class Message
     public static void Toast(string? message, SendTo sendTo)
     {
         _browserAlertMessage?.Write(message, sendTo);
+    }
+
+
+    /// <summary>
+    /// Json Object Message
+    /// </summary>
+    public static void Json(string? message)
+    {
+        _jsonMessage?.Write(message);
+    }
+
+    /// <summary>
+    /// Json Object Message (Select Target/All)
+    /// </summary>
+    public static void Json(string? message, SendTo sendTo)
+    {
+        _jsonMessage?.Write(message, sendTo);
     }
 
     /// <summary>

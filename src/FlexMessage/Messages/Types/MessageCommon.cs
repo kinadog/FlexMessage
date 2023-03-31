@@ -39,7 +39,7 @@ public class MessageCommon : IMessageCommon
             // 쿠키에서 현재 접속중인 클라이언트의 webSocketId 가져오기
             // Get the webSocketId from the cookie
             string.IsNullOrWhiteSpace(_webSocketId)
-            ? _contextAccessor!.HttpContext!.Request.Cookies["webSocketId"]
+            ? _contextAccessor!.HttpContext!.Request.Cookies["flexMessage-webSocketId"]
             : _webSocketId;
 
         Task.Run(async () =>
@@ -52,7 +52,6 @@ public class MessageCommon : IMessageCommon
 
                 var webSocketMessage = new WebSocketMessage
                 {
-                    IsId = false,
                     MsgType = Enum.GetName(typeof(MsgType),msgType),
                     Message = message
                 };
@@ -86,7 +85,6 @@ public class MessageCommon : IMessageCommon
 
             var webSocketMessage = new WebSocketMessage
             {
-                IsId = false,
                 MsgType = Enum.GetName(typeof(MsgType),msgType),
                 Message = message
             };
@@ -109,7 +107,6 @@ public class MessageCommon : IMessageCommon
         {
             var webSocketMessage = new WebSocketMessage
             {
-                IsId = false,
                 MsgType = Enum.GetName(typeof(MsgType),msgType),
                 Message = message
             };
@@ -128,7 +125,6 @@ public class MessageCommon : IMessageCommon
         if (string.IsNullOrWhiteSpace(message)) return;
         var webSocketMessage = new WebSocketMessage
         {
-            IsId = false,
             MsgType = Enum.GetName(typeof(MsgType),msgType),
             Message = message
         };

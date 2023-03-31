@@ -75,7 +75,7 @@ Message.Write($"{보낼 메시지}", MsgType.메세지_서비스종류)
 ```  
 <br/>  
 
-메시지 서비스의 종류는 enum타입으로 정의되어 있습니다.
+### 메시지 서비스의 종류는 enum타입으로 정의되어 있습니다.
 ```csharp
 /// <summary>
 /// 메시지 서비스 종류가 정의 된 enum class
@@ -83,34 +83,83 @@ Message.Write($"{보낼 메시지}", MsgType.메세지_서비스종류)
 public enum MsgType
 {
     Console, // 어플리케이션 시스템 콘솔 메시지 (Console.WriteLine)
-    File, // 물리적 디스크의 Text파일에 기록하는 메시지
     BrowserConsole, // 웹브라우저의 개발자메뉴 콘솔에 출력하는 메시지
     BrowserAlert, // 웹브라우저의 Alert창으로 띄우는 메시지
     BrowserToast, // 웹브라우저의 Toast로 보내는 메시지
+    Json, // C# 클래스를 JSON으로 변환하여 웹브라우저로 전송하는 메세지
+    File, // 물리적 디스크의 Text파일에 기록하는 메시지
     Db // 데이터베이스에 입력시키는 메시지
 }
 ```  
 <br/>  
 
-메시지 발송 예제
+### 메시지 발송 예제  
 
+1. 기본 호출
 ```csharp
-/// 1. 웹브라우저 Alert창으로.
+/// 웹브라우저 Alert창으로
 Message.Write("Sample Message.", MsgType.BrowserAlert);
 
-/// 2. 웹브라우저의 개발자메뉴의 console log로.
+/// 웹브라우저의 개발자메뉴의 console log로.
 Message.Write("Sample Message.", MsgType.BrowserConsole);
 
-/// 3. 텍스트 파일로 (비동기)
+/// 웹브라우저의 Toast 알림으로.
+Message.Write("Sample Message.", MsgType.BrowserToast);
+
+/// 웹브라우저에게 JSON타입의 객체로.
+Message.Write("Sample Message.", MsgType.Json);
+```
+<br/> 
+
+2. 비동기 호출  
+```csharp
+/// 텍스트 파일로 (비동기)
 await Message.WriteAsync("Sample Message.", MsgType.File);
 
-/// 4. 여러가지 방법을 한꺼번에 발송.
-/// 웹브라우저의 Toast 메시지를 보내면서, 개발자메뉴 콘솔에 출력하며, 텍스트 파일에도 기록
-await Message.WriteAsync("Sample Message.",
-                            MsgType.BrowserConsole,
-                            MsgType.BrowserToast,
-                            MsgType.Db);
+/// 데이타베이스로 (비동기)
+await Message.WriteAsync("Sample Message.", MsgType.Db);
 ```  
+<br/> 
+
+3. 전용 예약 단축어 호출  
+```csharp
+/// 웹브라우저 Alert창으로
+Message.Alert("Sample Message.");
+
+/// 웹브라우저의 개발자메뉴의 console log로.
+Message.Log("Sample Message.");
+
+/// 웹브라우저의 Toast 알림으로.
+Message.Toast("Sample Message.");
+
+/// 웹브라우저에게 JSON타입의 객체로.
+Message.Json("Sample Message.");
+
+/// 텍스트 파일로 (비동기)
+await Message.File("Sample Message.");
+
+/// 데이타베이스로 (비동기)
+await Message.Db("Sample Message.");
+```  
+<br/> 
+
+4. 여러가지 메세지 타입을 동시에 호출  
+```csharp
+/// 여러가지 방법을 한꺼번에 발송.
+/// (웹브라우저의 Toast 메시지를 보내면서, 개발자메뉴 콘솔에 출력하며, 텍스트 파일에도 기록)
+await Message.WriteAsync("Sample Message.",
+        MsgType.BrowserConsole,
+        MsgType.BrowserToast,
+        MsgType.Db);
+```  
+<br/> 
+
+5. 전체 클라이언트에게 메세지 전송  
+```csharp
+/// 접속중인 전체 클라이언트의 웹브라우저로
+Message.Write("Sample Message.", MsgType.BrowserToast, SendTo.All);
+```
+
 <br/>  
 
 
@@ -137,12 +186,14 @@ FlexMessage (root)
 |      |      |--------- ConsoleMessage.cs   // 시스템 콘솔 메시지 클래스.
 |      |      |--------- DbMessage.cs   // 데이터베이스 인서트 메시지 클래스.
 |      |      |--------- FileMessage.cs   // 파일 기록 메시지 클래스.
+|      |      |--------- JsonMessage.cs   // Json객체 발송용 메시지 클래스.
 |      |      |--------- IMessageCommon.cs   // 메세지 클래스 용 공통 메서드의 클래스.
 |      |      |--------- MessageCommon.cs   // 메세지 클리스 용 공통 메서드의 인터페이스.
 |      |      |--------- MsgType.cs   // (*)메시지 타입 정보를 담고 있는 열거형.
 |      |--------- FileMessageCngMonitor.cs   // 실시간 파일 변경 감시 기능을 담당하는 클래스.
 |      |--------- IMessage.cs   // (*)모든 메시지 클래스가 구현해야 하는 인터페이스.
 |      |--------- Message.cs   // (*)메시지를 처리하는 기본 클래스.
+|      |--------- WriteMessage.cs   // (*)메시지 발송의 메소드가 구현되어 있는 클래스.
 |
 |--- Middlewares (folder)
 |      |--------- WebSocketMiddleware.cs   // (*)클라이언트와 통신하기 위한 미들웨어 클래스.

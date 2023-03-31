@@ -6,12 +6,23 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>FlexMessage</PackageId>
     <Title>FlexMessage</Title>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>kinadog</Authors>
     <Company>kinadog</Company>
     <Product>FlexMessage</Product>
     <Description><![CDATA[
 Easy and versatile client message library for .net web applications
+
+=== RELEASE NOTE ===
+* V1.1.0
+- Add full message sending feature
+- Add shortcut sending method
+- Add WebSocket auto-reconnect feature
+- Add JSON Object sending feature
+
+* V1.0.1
+- Switch from SignalR to WebSocket
+
 
 you can,
 

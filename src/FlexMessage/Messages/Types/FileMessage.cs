@@ -15,9 +15,10 @@ public class FileMessage : IMessage
     /// 메세지를 파일에 작성합니다.
     /// Write a message to a file.
     /// </summary>
-    public void Write(string? message, SendTo? sendTo = null)
+    public void Write(object? message, SendTo? sendTo = null)
     {
-        if (string.IsNullOrWhiteSpace(message)) return;
+        var msg = message as string;
+        if (string.IsNullOrWhiteSpace(msg)) return;
 
         var filePath = Config.GetFileFullPath();
         if (string.IsNullOrWhiteSpace(filePath)) return;
@@ -62,9 +63,10 @@ public class FileMessage : IMessage
     /// 메세지를 파일에 작성합니다. (비동기)
     /// Write a message to a file. (asynchronous)
     /// </summary>
-    public async Task WriteAsync(string? message, SendTo? sendTo = null)
+    public async Task WriteAsync(object? message, SendTo? sendTo = null)
     {
-        if (string.IsNullOrWhiteSpace(message)) return;
+        var msg = message as string;
+        if (string.IsNullOrWhiteSpace(msg)) return;
 
         var filePath = Config.GetFileFullPath();
         if (string.IsNullOrWhiteSpace(filePath)) return;

@@ -56,6 +56,39 @@ function testDb(){
     }
     Ajax("/msg/sample/Db")
         .then(function () {
+            let data = window.flexData;
+            AjaxTestDb(data);
+        })
+        .catch(function (error) {
+            console.error('ajax error: ', error);
+        })
+        .finally(function (){
+            clearFlexData();
+        });
+}
+
+function testAll(){
+    Ajax("/msg/sample/SendToAll")
+        .then(function () {
+        })
+        .catch(function (error) {
+            console.error('ajax error: ', error);
+        });
+}
+
+
+function testJson(){
+    Ajax("/msg/sample/Json")
+        .then(function () {
+            let data = window.flexData;
+
+            const toastBody =
+                document.getElementsByClassName('toast-body')[0];
+            toastBody.innerHTML = JSON.stringify(data);
+
+            const toast =
+                new bootstrap.Toast(document.getElementById('toastWrap'));
+            toast.show();
         })
         .catch(function (error) {
             console.error('ajax error: ', error);
@@ -82,6 +115,36 @@ document.getElementById("CloseDb")
         let logWrap = document.getElementById('DbWrap');
         logWrap.style.display = "none";
     })
+
+/*
+    DB에 기록 된 메세지를 실시간으로 웹에 출력하기 위한 샘플 코드 입니다.
+    This is a sample code to output messages written to a DB in real time to the web.
+*/
+function AjaxTestDb(message){
+    let dbViewer = document.getElementById('Db');
+    const {Id, Message, Writedates} = message;
+
+    let tdId = document.createElement('td');
+    let tdMessage = document.createElement('td');
+    let tdWritedate = document.createElement('td');
+    tdId.textContent = Id;
+    tdMessage.textContent = Message;
+    tdWritedate.textContent = Writedates;
+
+    let newTr = document.createElement('tr');
+    newTr.appendChild(tdId);
+    newTr.appendChild(tdMessage);
+    newTr.appendChild(tdWritedate);
+
+    let table = dbViewer.querySelector('table');
+    let tbody = table.querySelector('tbody');
+    if (!tbody) {
+        tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+    }
+    tbody.appendChild(newTr);
+    table.appendChild(tbody)
+}
 
 function Ajax(
     _ajaxUrl,

@@ -9,10 +9,12 @@ public class ConsoleMessage : IMessage
     /// 시스템 콘솔에 메세지를 전송한다.
     /// Send a message to the system console.
     /// </summary>
-    public void Write(string? message, SendTo? sendTo = null)
+    public void Write(object? message, SendTo? sendTo = null)
     {
         if (message == null) return;
-        Console.WriteLine(message);
+
+        var msg = message as string;
+        Console.WriteLine(msg);
     }
 
 
@@ -20,10 +22,12 @@ public class ConsoleMessage : IMessage
     /// 시스템 콘솔에 메세지를 전송한다. (비동기)
     /// Send a message to the system console. (asynchronous)
     /// </summary>
-    public Task WriteAsync(string? message, SendTo? sendTo = null)
+    public Task WriteAsync(object? message, SendTo? sendTo = null)
     {
         if (message == null) return Task.CompletedTask;
-        Console.WriteLine(message);
+
+        var msg = message as string;
+        Console.WriteLine(msg);
         return Task.CompletedTask;
     }
     

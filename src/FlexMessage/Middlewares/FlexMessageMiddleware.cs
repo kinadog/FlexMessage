@@ -13,13 +13,13 @@ namespace FlexMessage.Middlewares;
 /// Middleware that sets up the configuration for
 /// logging messages via various channels, including console, file, and browser.
 /// </summary>
-public class WebSocketMiddleware
+public class FlexMessageMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly WebSocketManager _webSocketManager;
     private static IMessageCommon? _messageCommon;
 
-    public WebSocketMiddleware(
+    public FlexMessageMiddleware(
         RequestDelegate next,
         WebSocketManager webSocketManager,
         IMessageCommon messageCommon)
@@ -35,7 +35,7 @@ public class WebSocketMiddleware
     {
         // HTTP 쿠키에서 connectionId 값을 가져옵니다.
         // Gets the connectionId value from the HTTP cookie.
-        var webSocketId = context.Request.Cookies["webSocketId"];
+        var webSocketId = context.Request.Cookies["flexMessage-webSocketId"];
         MessageCommon._webSocketId = webSocketId;
 
         // HTTP 요청의 스키마(HTTP 또는 HTTPS)를 기반으로 Config.Host 값을 설정합니다.
@@ -79,10 +79,13 @@ public class WebSocketMiddleware
     // Handles the WebSocket connection.
     private async Task HandleWebSocketConnectionAsync(HttpContext context)
     {
-        var webSocket = await AcceptWebSocket(context);
-        var webSocketId = AddWebSocketToManager(webSocket);
-        await SendWebSocketId(webSocket, webSocketId);
+        var webSocketId = Guid.NewGuid().ToString();
+        context.Response.Cookies
+            .Append("flexMessage-webSocketId", webSocketId,
+                new CookieOptions { HttpOnly = true, Secure = true });
 
+        var webSocket = await AcceptWebSocket(context);
+        AddWebSocketToManager(webSocket, webSocketId);
         await ProcessWebSocketCommunication(webSocket);
     }
 
@@ -95,22 +98,9 @@ public class WebSocketMiddleware
 
     // 웹소켓을 관리자에 추가합니다.
     // Adds the WebSocket to the manager.
-    private string AddWebSocketToManager(WebSocket webSocket)
+    private string AddWebSocketToManager(WebSocket webSocket, string id)
     {
-        return _webSocketManager.AddWebSocket(webSocket);
-    }
-
-    // 웹소켓 ID를 전송합니다.
-    // Sends the WebSocket ID.
-    private async Task SendWebSocketId(WebSocket webSocket, string webSocketId)
-    {
-        var webSocketMessage = new WebSocketMessage
-        {
-            IsId = true,
-            Message = webSocketId
-        };
-
-        await _webSocketManager.SendMessageAsync(webSocket, webSocketMessage);
+        return _webSocketManager.AddWebSocket(webSocket, id);
     }
 
     // 웹소켓 통신을 처리합니다.

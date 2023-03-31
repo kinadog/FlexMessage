@@ -4,6 +4,6 @@ namespace FlexMessage.Messages;
 
 public interface IMessage
 {
-    void Write(string? message, SendTo? sendTo = null);
-    Task WriteAsync(string? message, SendTo? sendTo = null);
+    void Write(object? message, SendTo? sendTo = null);
+    Task WriteAsync(object? message, SendTo? sendTo = null);
 }

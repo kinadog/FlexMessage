@@ -15,6 +15,7 @@ internal class WriteMessage
     private static IMessage? _browserConsoleMessage; // 브라우저 콘솔 메세지 객체 (Browser console message object)
     private static IMessage? _browserAlertMessage; // 브라우저 경고창 메세지 객체 (Browser alert message object)
     private static IMessage? _browserToastMessage; // 브라우저 토스트 메세지 객체 (Browser toast message object)
+    private static IMessage? _ajaxMessage; // 아약스 인스턴스 메세지 객체 (Ajax Instance message object)
     private static IServiceProvider? _serviceProvider; // 서비스 제공자 객체 (Service provider object)
     private static IMessageCommon? _messageCommon;
 
@@ -29,6 +30,7 @@ internal class WriteMessage
         IMessage? browserConsoleMessage,
         IMessage? browserAlertMessage,
         IMessage? browserToastMessage,
+        IMessage? ajaxMessage,
         IServiceProvider? serviceProvider,
         IMessageCommon? messageCommon
         )
@@ -38,6 +40,7 @@ internal class WriteMessage
         _browserConsoleMessage = browserConsoleMessage;
         _browserAlertMessage = browserAlertMessage;
         _browserToastMessage = browserToastMessage;
+        _ajaxMessage = ajaxMessage;
         _serviceProvider = serviceProvider;
         _messageCommon = messageCommon;
     }
@@ -49,7 +52,7 @@ internal class WriteMessage
 
     // 입력된 메시지 타입에 따라 해당하는 객체의 Write 메서드를 호출합니다.
     // Depending on the input message type, calls the Write method of the corresponding object.
-    internal void Write(string? message, MsgType? msgType, SendTo? sendTo)
+    internal void Write(object? message, MsgType? msgType, SendTo? sendTo)
     {
         switch (msgType)
         {
@@ -103,6 +106,12 @@ internal class WriteMessage
                 _browserConsoleMessage?.Write(message, sendTo);
                 break;
 
+            // 메시지 타입이 Ajax인 경우, 브라우저에 Ajax 인스턴스를 전송합니다.
+            // If the message type is Aajx, send the ajax instance to the browser.
+            case MsgType.Json:
+                _ajaxMessage?.Write(message, sendTo);
+                break;
+
             // 메시지 타입이 정의되지 않은 경우, 기본 메시지 타입으로 설정합니다.
             // If the message type is undefined, sets the default message type and writes the log to the console.
             default:
@@ -113,7 +122,7 @@ internal class WriteMessage
 
     // 입력된 메시지 타입에 따라 해당하는 객체의 Write 메서드를 호출합니다. (비동기)
     // Depending on the input message type, calls the Write method of the corresponding object. (asynchronous)
-    internal async Task WriteAsync(string? message, MsgType? msgType, SendTo? sendTo)
+    internal async Task WriteAsync(object? message, MsgType? msgType, SendTo? sendTo)
     {
         switch (msgType)
         {
@@ -162,6 +171,12 @@ internal class WriteMessage
             // If the message type is BrowserConsole, writes the log to the browser console.
             case MsgType.BrowserConsole:
                 await _browserConsoleMessage?.WriteAsync(message, sendTo)!;
+                break;
+
+            // 메시지 타입이 Ajax인 경우, 브라우저에 Ajax 인스턴스를 전송합니다.
+            // If the message type is Aajx, send the ajax instance to the browser.
+            case MsgType.Json:
+                await _ajaxMessage?.WriteAsync(message, sendTo)!;
                 break;
 
             // 메시지 타입이 정의되지 않은 경우, 기본 메시지 타입으로 설정합니다.

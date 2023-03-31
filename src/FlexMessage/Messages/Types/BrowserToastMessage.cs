@@ -23,15 +23,16 @@ public class BrowserToastMessage : IMessage
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다.
     /// Send a message to the client using the webSocketId.
     /// </summary>
-    public void Write(string? message, SendTo? sendTo = null)
+    public void Write(object? message, SendTo? sendTo = null)
     {
+        var msg = message as string;
         if (sendTo == SendTo.All)
         {
-            _messageCommon?.WriteAll(message, MsgType.BrowserToast);
+            _messageCommon?.WriteAll(msg, MsgType.BrowserToast);
         }
         else
         {
-            _messageCommon?.Write(message, MsgType.BrowserToast);
+            _messageCommon?.Write(msg, MsgType.BrowserToast);
         }
     }
 
@@ -39,15 +40,16 @@ public class BrowserToastMessage : IMessage
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다. (비동기)
     /// Send a message to the client using the webSocketId. (asynchronous)
     /// </summary>
-    public async Task WriteAsync(string? message, SendTo? sendTo = null)
+    public async Task WriteAsync(object? message, SendTo? sendTo = null)
     {
+        var msg = message as string;
         if (sendTo == SendTo.All)
         {
-            await _messageCommon!.WriteAllAsync(message, MsgType.BrowserToast);
+            await _messageCommon!.WriteAllAsync(msg, MsgType.BrowserToast);
         }
         else
         {
-            await _messageCommon!.WriteAsync(message, MsgType.BrowserToast);
+            await _messageCommon!.WriteAsync(msg, MsgType.BrowserToast);
         }
     }
 

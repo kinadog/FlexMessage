@@ -1,4 +1,6 @@
 using Demo.Models;
+using FlexMessage.Messages;
+using FlexMessage.Messages.Types;
 using FlexMessage.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +33,8 @@ builder.Services.AddFlexMessage(builder, option => // ← 추가 (Add)
         using var context = new EfDbContext(options);
         context.Logs!.Add(newLogs);
         context.SaveChangesAsync();
+
+        Message.Write(newLogs, MsgType.Json);
     }
     catch (Exception e)
     {

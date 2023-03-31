@@ -27,15 +27,16 @@ public class BrowserConsoleMessage : IMessage
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다.
     /// Send a message to the client using the webSocketId.
     /// </summary>
-    public void Write(string? message, SendTo? sendTo = null)
+    public void Write(object? message, SendTo? sendTo = null)
     {
+        var msg = message as string;
         if (sendTo == SendTo.All)
         {
-            _messageCommon?.WriteAll(message, MsgType.BrowserConsole);
+            _messageCommon?.WriteAll(msg, MsgType.BrowserConsole);
         }
         else
         {
-            _messageCommon?.Write(message, MsgType.BrowserConsole);
+            _messageCommon?.Write(msg, MsgType.BrowserConsole);
         }
     }
 
@@ -43,15 +44,16 @@ public class BrowserConsoleMessage : IMessage
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다. (비동기)
     /// Send a message to the client using the webSocketId. (asynchronous)
     /// </summary>
-    public async Task WriteAsync(string? message, SendTo? sendTo = null)
+    public async Task WriteAsync(object? message, SendTo? sendTo = null)
     {
+        var msg = message as string;
         if (sendTo == SendTo.All)
         {
-            await _messageCommon!.WriteAllAsync(message, MsgType.BrowserConsole);
+            await _messageCommon!.WriteAllAsync(msg, MsgType.BrowserConsole);
         }
         else
         {
-            await _messageCommon!.WriteAsync(message, MsgType.BrowserConsole);
+            await _messageCommon!.WriteAsync(msg, MsgType.BrowserConsole);
         }
     }
 

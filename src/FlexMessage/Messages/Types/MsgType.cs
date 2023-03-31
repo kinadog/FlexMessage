@@ -7,7 +7,8 @@ public enum MsgType
     BrowserConsole,
     BrowserAlert,
     BrowserToast,
-    Db
+    Db,
+    Json
 }
 
 public enum SendTo

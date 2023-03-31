@@ -40,9 +40,10 @@ public class WebSocketManager
     /// <summary>
     /// Add WebSocket
     /// </summary>
-    public string AddWebSocket(WebSocket socket)
+    public string AddWebSocket(WebSocket socket, string? id = null)
     {
-        var id = Guid.NewGuid().ToString();
+        if(string.IsNullOrWhiteSpace(id))
+            id = Guid.NewGuid().ToString();
         _sockets.TryAdd(id, socket);
         return id;
     }

@@ -70,7 +70,8 @@ you can,
 Message.Write($"{message_to_send}", MsgType.message_service_type)
 ```   
 <br/>
-The types of message services are defined as enum types   
+
+### The types of message services are defined as enum types
 
 ```csharp
 /// <summary>
@@ -79,38 +80,87 @@ The types of message services are defined as enum types
 public enum MsgType
 {
     Console, // Application system console message (Console.WriteLine)
-    File, // Message written to a physical disk text file
     BrowserConsole, // Message displayed in the web browser developer console
     BrowserAlert, // Message displayed in the web browser alert window
     BrowserToast, // Message sent as a web browser toast
+    Json, // Message that converts a C# class to JSON and sends it to the web browser
+    File, // Message written to a physical disk text file
     Db // Message inserted into the database
 }
 ```   
 <br/>
-Message sending examples   
 
+### Message sending examples   
+
+1. Basic invocation
 ```csharp
-/// 1. As a web browser alert window.
+/// As a web browser alert window.
 Message.Write("Sample Message.", MsgType.BrowserAlert);
 
-/// 2. As a web browser developer console log.
+/// As a web browser developer console log.
 Message.Write("Sample Message.", MsgType.BrowserConsole);
 
-/// 3. As a text file (asynchronously)
+/// As a Toast notification in the web browser.
+Message.Write("Sample Message.", MsgType.BrowserToast);
+
+/// To the web browser as a JSON object.
+Message.Write("Sample Message.", MsgType.Json);
+```
+<br/> 
+
+2. Asynchronous invocation
+```csharp
+/// As a text file (asynchronously)
 await Message.WriteAsync("Sample Message.", MsgType.File);
 
-/// 4. Send messages in various ways at once.
-/// Send a web browser Toast message, output to developer console, 
-/// and record to a text file
-await Message.WriteAsync("Sample Message.",
-MsgType.BrowserConsole,
-MsgType.BrowserToast,
-MsgType.Db);
-```   
-<br/>  
+/// As a database (asynchronously)
+await Message.WriteAsync("Sample Message.", MsgType.Db);
+```  
+<br/> 
 
+3. Dedicated reserved word invocation
+```csharp
+/// As a web browser alert window.
+Message.Alert("Sample Message.");
+
+/// As a web browser developer console log.
+Message.Log("Sample Message.");
+
+/// As a Toast notification in the web browser.
+Message.Toast("Sample Message.");
+
+/// To the web browser as a JSON object.
+Message.Json("Sample Message.");
+
+/// As a text file (asynchronously)
+await Message.File("Sample Message.");
+
+/// As a database (asynchronously)
+await Message.Db("Sample Message.");
+```  
+<br/> 
+
+4. Simultaneous invocation of various message types
+```csharp
+/// Send messages in various ways at once.
+/// (Send a web browser Toast message, output to developer console, and write to a text file)
+await Message.WriteAsync("Sample Message.",
+        MsgType.BrowserConsole,
+        MsgType.BrowserToast,
+        MsgType.Db);
+```  
+<br/> 
+
+5. Sending messages to all clients
+```csharp
+/// To all connected clients' web browsers
+Message.Write("Sample Message.", MsgType.BrowserToast, SendTo.All);
+```
+
+<br/>   
 
 # Installation
+
 <br/>   
 
 ## File structure
@@ -132,13 +182,15 @@ FlexMessage (root)
 |      |      |--------- BrowserToastMessage.cs   // Browser toast message class.
 |      |      |--------- ConsoleMessage.cs   // System console message class.
 |      |      |--------- DbMessage.cs   // Database insert message class.
-|      |      |--------- FileMessage.cs   // File record message class.
+|      |      |--------- FileMessage.cs   // File write message class.
+|      |      |--------- JsonMessage.cs   // JSON object message class.
 |      |      |--------- IMessageCommon.cs   // A class for common methods for message classes.
 |      |      |--------- MessageCommon.cs   // An interface for common methods for message classes.
 |      |      |--------- MsgType.cs   // (*)Enum containing message type information.
 |      |--------- FileMessageCngMonitor.cs   // Class responsible for real-time file change monitoring.
 |      |--------- IMessage.cs   // (*)Interface that all message classes must implement.
 |      |--------- Message.cs   // (*)Base class for handling messages.
+|      |--------- WriteMessage.cs   // (*) Class the message sending method is implemented.
 |
 |--- Middlewares (folder)
 |      |--------- WebSocketMiddleware.cs   // (*)Middleware class for communicating with clients.
