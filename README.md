@@ -97,7 +97,7 @@ public enum MsgType
 
 1. 기본 호출
 ```csharp
-/// 웹브라우저 Alert창으로
+/// 웹브라우저 Alert창으로.
 Message.Write("Sample Message.", MsgType.BrowserAlert);
 
 /// 웹브라우저의 개발자메뉴의 console log로.
@@ -222,10 +222,10 @@ FlexMessage (root)
 
 ```powershell
 # Package Manager
-PM> NuGet\Install-Package FlexMessage -Version 1.0.1
+PM> NuGet\Install-Package FlexMessage -Version 1.1.0
 
 # .NET CLI
-> dotnet add package FlexMessage --version 1.0.1
+> dotnet add package FlexMessage --version 1.1.0
   ```  
 <br/>  
 
