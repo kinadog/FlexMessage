@@ -218,10 +218,10 @@ FlexMessage (root)
 
 ```powershell
 # Package Manager
-PM> NuGet\Install-Package FlexMessage -Version 1.0.1
+PM> NuGet\Install-Package FlexMessage -Version 1.1.0
 
 # .NET CLI
-> dotnet add package FlexMessage --version 1.0.1
+> dotnet add package FlexMessage --version 1.1.0
 ```  
 <br/>  
 
