@@ -36,11 +36,7 @@ public class DbMessage : IMessage
     /// 데이터베이스에 메세지를 저장한다.
     /// Saves a message to the database.
     /// </summary>
-    /// <param name="message">
-    /// 저장할 메세지
-    /// message to save
-    /// </param>
-    public void Write(string? message)
+    public void Write(string? message, SendTo? sendTo = null)
     {
         if (string.IsNullOrWhiteSpace(message)) return;
 
@@ -58,11 +54,7 @@ public class DbMessage : IMessage
     /// 데이터베이스에 메세지를 저장한다. (비동기)
     /// Saves a message to the database. (asynchronous)
     /// </summary>
-    /// <param name="message">
-    /// 저장할 메세지
-    /// message to save
-    /// </param>
-    public async Task WriteAsync(string? message)
+    public async Task WriteAsync(string? message, SendTo? sendTo = null)
     {
         if (string.IsNullOrWhiteSpace(message)) return;
 

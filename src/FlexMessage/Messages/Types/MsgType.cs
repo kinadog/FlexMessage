@@ -9,3 +9,9 @@ public enum MsgType
     BrowserToast,
     Db
 }
+
+public enum SendTo
+{
+    All,
+    Target
+}

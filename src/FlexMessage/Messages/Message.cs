@@ -18,12 +18,12 @@ public static class Message
 
     private static IMessage? _fileMessage; // 파일 메세지 객체 (File message object)
     private static IMessage? _consoleMessage; // 콘솔 메세지 객체 (Console message object)
-    //private static IMessage? _dbMessage; // 데이터베이스 메세지 객체 (Database message object)
     private static IMessage? _browserConsoleMessage; // 브라우저 콘솔 메세지 객체 (Browser console message object)
     private static IMessage? _browserAlertMessage; // 브라우저 경고창 메세지 객체 (Browser alert message object)
     private static IMessage? _browserToastMessage; // 브라우저 토스트 메세지 객체 (Browser toast message object)
     private static IServiceProvider? _serviceProvider; // 서비스 제공자 객체 (Service provider object)
     private static IMessageCommon? _messageCommon;
+    private static WriteMessage? _writeMessage;
     #endregion
 
 
@@ -55,10 +55,18 @@ public static class Message
         _browserToastMessage = new BrowserToastMessage(_messageCommon);
         _browserAlertMessage = new BrowserAlertMessage(_messageCommon);
         _browserConsoleMessage = new BrowserConsoleMessage(_messageCommon);
+        _writeMessage = new WriteMessage(
+            _fileMessage,
+            _consoleMessage,
+            _browserConsoleMessage,
+            _browserAlertMessage,
+            _browserToastMessage,
+            _serviceProvider,
+            _messageCommon);
     }
 
     /// <summary>
-    /// 메세지 타입에 따라 로그 메세지를 작성하는 메서드입니다.
+    /// 메세지 타입에 따라 메세지를 작성하는 메서드입니다.
     /// A method that writes messages of various types
     /// depending on the MessageType parameter.
     /// </summary>
@@ -84,71 +92,16 @@ public static class Message
         // Depending on the input message type, calls the Write method of the corresponding object.
         var listMsgType = new List<MsgType?>();
         foreach (var msgType in msgTypes!)
-            switch (msgType)
-            {
-                // 메시지 타입이 null인 경우, 기본 메시지 타입으로 설정합니다.
-                // If the message type is null, sets the default message type and writes the log to the console.
-                case null:
-                    _consoleMessage?.Write(message);
-                    break;
-
-                // 메시지 타입이 File인 경우, 파일에 로그를 작성합니다.
-                // If the message type is File, writes the log to the file.
-                case MsgType.File:
-                    _fileMessage?.Write(message);
-                    break;
-
-                // 메시지 타입이 Console인 경우, 콘솔에 로그를 작성합니다.
-                // If the message type is Console, writes the log to the console.
-                case MsgType.Console:
-                    _consoleMessage?.Write(message);
-                    break;
-
-                // 메시지 타입이 Db인 경우, 데이터베이스에 로그를 작성합니다.
-                // If the message type is Db, writes the log to the database.
-                case MsgType.Db:
-                    if (_serviceProvider != null)
-                    {
-                        Task.Run(async () =>
-                        {
-                            using var scope = _serviceProvider.CreateScope();
-                            var dbMessage = scope.ServiceProvider.GetRequiredService<DbMessage>();
-                            await dbMessage.WriteAsync(message);
-                        });
-                    }
-                    break;
-
-                // 메시지 타입이 BrowserAlert인 경우, 브라우저에서 Alert를 띄웁니다.
-                // If the message type is BrowserAlert, shows an alert in the browser.
-                case MsgType.BrowserAlert:
-                    _browserAlertMessage?.Write(message);
-                    break;
-
-                // 메시지 타입이 BrowserToast인 경우, 브라우저에서 Toast를 띄웁니다.
-                // If the message type is BrowserToast, shows a toast in the browser.
-                case MsgType.BrowserToast:
-                    _browserToastMessage?.Write(message);
-                    break;
-
-                // 메시지 타입이 BrowserConsole인 경우, 브라우저 콘솔에 로그를 작성합니다.
-                // If the message type is BrowserConsole, writes the log to the browser console.
-                case MsgType.BrowserConsole:
-                    _browserConsoleMessage?.Write(message);
-                    break;
-
-                // 메시지 타입이 정의되지 않은 경우, 기본 메시지 타입으로 설정합니다.
-                // If the message type is undefined, sets the default message type and writes the log to the console.
-                default:
-                    _consoleMessage?.Write(message);
-                    break;
-            }
+        {
+            _writeMessage?.Write(message, msgType, null);
+        }
     }
 
 
     /// <summary>
-    /// 메세지 타입에 따라 로그 메세지를 작성하는 메서드입니다. (비동기)
-    /// A method that writes messages of various types (asynchronous)
-    /// depending on the MessageType parameter.
+    /// 메세지 타입에 따라 메세지를 작성하는 메서드입니다. (비동기)
+    /// A method that writes messages of various types
+    /// depending on the MessageType parameter. (asynchronous)
     /// </summary>
     /// <param name="message">
     /// 메세지 내용
@@ -172,62 +125,142 @@ public static class Message
         // Depending on the input message type, calls the Write method of the corresponding object.
         var listMsgType = new List<MsgType?>();
         foreach (var msgType in msgTypes!)
-            switch (msgType)
-            {
-                // 메시지 타입이 null인 경우, 기본 메시지 타입으로 설정합니다.
-                // If the message type is null, sets the default message type and writes the log to the console.
-                case null:
-                    await _consoleMessage?.WriteAsync(message)!;
-                    break;
-
-                // 메시지 타입이 File인 경우, 파일에 로그를 작성합니다.
-                // If the message type is File, writes the log to the file.
-                case MsgType.File:
-                    await _fileMessage?.WriteAsync(message)!;
-                    break;
-
-                // 메시지 타입이 Console인 경우, 콘솔에 로그를 작성합니다.
-                // If the message type is Console, writes the log to the console.
-                case MsgType.Console:
-                    await _consoleMessage?.WriteAsync(message)!;
-                    break;
-
-                // 메시지 타입이 Db인 경우, 데이터베이스에 로그를 작성합니다.
-                // If the message type is Db, writes the log to the database.
-                case MsgType.Db:
-                    if (_serviceProvider != null)
-                    {
-                        using var scope = _serviceProvider.CreateScope();
-                        var dbMessage = scope.ServiceProvider.GetRequiredService<DbMessage>();
-                        await dbMessage.WriteAsync(message);
-                    }
-                    break;
-
-                // 메시지 타입이 BrowserAlert인 경우, 브라우저에서 Alert를 띄웁니다.
-                // If the message type is BrowserAlert, shows an alert in the browser.
-                case MsgType.BrowserAlert:
-                    await _browserAlertMessage?.WriteAsync(message)!;
-                    break;
-
-                // 메시지 타입이 BrowserToast인 경우, 브라우저에서 Toast를 띄웁니다.
-                // If the message type is BrowserToast, shows a toast in the browser.
-                case MsgType.BrowserToast:
-                    await _browserToastMessage?.WriteAsync(message)!;
-                    break;
-
-                // 메시지 타입이 BrowserConsole인 경우, 브라우저 콘솔에 로그를 작성합니다.
-                // If the message type is BrowserConsole, writes the log to the browser console.
-                case MsgType.BrowserConsole:
-                    await _browserConsoleMessage?.WriteAsync(message)!;
-                    break;
-
-                // 메시지 타입이 정의되지 않은 경우, 기본 메시지 타입으로 설정합니다.
-                // If the message type is undefined, sets the default message type and writes the log to the console.
-                default:
-                    await _consoleMessage?.WriteAsync(message)!;
-                    break;
-            }
+        {
+            await _writeMessage!.WriteAsync(message, msgType, null);
+        }
     }
+
+
+    /// <summary>
+    /// 메세지 타입과 전체발신/개별발신을 선택하여 메세지를 작성하는 메서드입니다.
+    /// A method that allows you to select the message type
+    /// and choose between sending messages to everyone or individually,
+    /// then compose the message.
+    /// </summary>
+    /// <param name="message">
+    /// 메세지 내용
+    /// The content of the message.
+    /// </param>
+    /// <param name="msgType">
+    /// 메세지 종류
+    /// The type of the message.
+    /// </param>
+    /// <param name="sendTo">
+    /// 전체발신/개별발신 여부
+    /// Indicates whether to send the message to everyone or individually.
+    /// </param>
+    public static void Write(string? message, MsgType? msgType, SendTo sendTo)
+    {
+        _writeMessage?.Write(message, msgType, sendTo);
+    }
+
+
+    /// <summary>
+    /// 메세지 타입과 전체발신/개별발신을 선택하여 메세지를 작성하는 메서드입니다. (비동기)
+    /// A method that allows you to select the message type
+    /// and choose between sending messages to everyone or individually,
+    /// then compose the message. (asynchronous)
+    /// </summary>
+    /// <param name="message">
+    /// 메세지 내용
+    /// The content of the message.
+    /// </param>
+    /// <param name="msgType">
+    /// 메세지 종류
+    /// The type of the message.
+    /// </param>
+    /// <param name="sendTo">
+    /// 전체발신/개별발신 여부
+    /// Indicates whether to send the message to everyone or individually.
+    /// </param>
+    public static async Task WriteAsync(string? message, MsgType? msgType, SendTo sendTo)
+    {
+        await _writeMessage!.WriteAsync(message, msgType, sendTo);
+    }
+
+
+    #region 단축어 실행 메소드 (Shortcut execution method)
+
+    /// <summary>
+    /// Browser Console.log Message
+    /// </summary>
+    public static void Log(string? message)
+    {
+        _browserAlertMessage?.Write(message);
+    }
+
+    /// <summary>
+    /// Browser Console.log Message (Select Target/All)
+    /// </summary>
+    public static void Log(string? message, SendTo sendTo)
+    {
+        _browserAlertMessage?.Write(message, sendTo);
+    }
+
+    /// <summary>
+    /// Browser Alert() Message
+    /// </summary>
+    public static void Alert(string? message)
+    {
+        _browserAlertMessage?.Write(message);
+    }
+
+    /// <summary>
+    /// Browser Alert() Message (Select Target/All)
+    /// </summary>
+    public static void Alert(string? message, SendTo sendTo)
+    {
+        _browserAlertMessage?.Write(message, sendTo);
+    }
+
+
+    /// <summary>
+    /// Browser Toast Message
+    /// </summary>
+    public static void Toast(string? message)
+    {
+        _browserToastMessage?.Write(message);
+    }
+
+    /// <summary>
+    /// Browser Toast Message (Select Target/All)
+    /// </summary>
+    public static void Toast(string? message, SendTo sendTo)
+    {
+        _browserAlertMessage?.Write(message, sendTo);
+    }
+
+    /// <summary>
+    /// System Console Message
+    /// </summary>
+    public static void Console(string? message)
+    {
+        _consoleMessage?.Write(message);
+    }
+
+    /// <summary>
+    /// Write to File Message
+    /// </summary>
+    public static async Task File(string? message)
+    {
+        await _fileMessage?.WriteAsync(message)!;
+    }
+
+    /// <summary>
+    /// Intert to Database Message
+    /// </summary>
+    public static async Task Db(string? message)
+    {
+        if (_serviceProvider != null)
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var dbMessage = scope.ServiceProvider.GetRequiredService<DbMessage>();
+            await dbMessage.WriteAsync(message);
+        }
+    }
+
+    #endregion
+
 
     #endregion
 }

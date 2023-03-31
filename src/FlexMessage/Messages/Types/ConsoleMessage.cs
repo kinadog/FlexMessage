@@ -9,7 +9,7 @@ public class ConsoleMessage : IMessage
     /// 시스템 콘솔에 메세지를 전송한다.
     /// Send a message to the system console.
     /// </summary>
-    public void Write(string? message)
+    public void Write(string? message, SendTo? sendTo = null)
     {
         if (message == null) return;
         Console.WriteLine(message);
@@ -20,7 +20,7 @@ public class ConsoleMessage : IMessage
     /// 시스템 콘솔에 메세지를 전송한다. (비동기)
     /// Send a message to the system console. (asynchronous)
     /// </summary>
-    public Task WriteAsync(string? message)
+    public Task WriteAsync(string? message, SendTo? sendTo = null)
     {
         if (message == null) return Task.CompletedTask;
         Console.WriteLine(message);

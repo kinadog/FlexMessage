@@ -83,6 +83,9 @@ public class WebSocketManager
         return _sockets.TryRemove(id, out _);
     }
 
+    /// <summary>
+    /// Send Message to Target Client
+    /// </summary>
     public async Task SendMessageAsync(WebSocket webSocket, WebSocketMessage? webSocketMessage)
     {
         var message = JsonSerializer.Serialize(webSocketMessage);
@@ -92,10 +95,11 @@ public class WebSocketManager
     }
 
     /// <summary>
-    /// 전체 유저에게 메세지 보내기
+    /// Send Message to All Client
     /// </summary>
-    public async Task SendToAllAsync(string message)
+    public async Task SendToAllAsync(WebSocketMessage? webSocketMessage)
     {
+        var message = JsonSerializer.Serialize(webSocketMessage);
         var buffer = Encoding.UTF8.GetBytes(message);
         foreach (var webSocket in _sockets)
         {

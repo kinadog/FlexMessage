@@ -38,7 +38,7 @@ public class SampleController : ControllerBase
     [HttpGet("BrowserToast")]
     public void BrowserToast()
     {
-        Message.Write(@"Browser Toast Sample message!", MsgType.BrowserToast);
+        Message.Write(@"Browser Toast Sample message!", MsgType.BrowserToast, SendTo.All);
     }
 
 

@@ -1,4 +1,5 @@
 
+/*
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFlexMessage(builder, option => // ← 추가 (Add)
@@ -33,4 +34,4 @@ app.MapControllerRoute(
     "default",
     "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+app.Run();*/

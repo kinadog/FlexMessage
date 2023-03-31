@@ -15,7 +15,7 @@ public class FileMessage : IMessage
     /// 메세지를 파일에 작성합니다.
     /// Write a message to a file.
     /// </summary>
-    public void Write(string? message)
+    public void Write(string? message, SendTo? sendTo = null)
     {
         if (string.IsNullOrWhiteSpace(message)) return;
 
@@ -62,7 +62,7 @@ public class FileMessage : IMessage
     /// 메세지를 파일에 작성합니다. (비동기)
     /// Write a message to a file. (asynchronous)
     /// </summary>
-    public async Task WriteAsync(string? message)
+    public async Task WriteAsync(string? message, SendTo? sendTo = null)
     {
         if (string.IsNullOrWhiteSpace(message)) return;
 

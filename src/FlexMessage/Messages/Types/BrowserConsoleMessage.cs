@@ -27,18 +27,32 @@ public class BrowserConsoleMessage : IMessage
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다.
     /// Send a message to the client using the webSocketId.
     /// </summary>
-    public void Write(string? message)
+    public void Write(string? message, SendTo? sendTo = null)
     {
-        _messageCommon?.Write(message, MsgType.BrowserConsole);
+        if (sendTo == SendTo.All)
+        {
+            _messageCommon?.WriteAll(message, MsgType.BrowserConsole);
+        }
+        else
+        {
+            _messageCommon?.Write(message, MsgType.BrowserConsole);
+        }
     }
 
     /// <summary>
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다. (비동기)
     /// Send a message to the client using the webSocketId. (asynchronous)
     /// </summary>
-    public async Task WriteAsync(string? message)
+    public async Task WriteAsync(string? message, SendTo? sendTo = null)
     {
-        await _messageCommon?.WriteAsync(message, MsgType.BrowserConsole)!;
+        if (sendTo == SendTo.All)
+        {
+            await _messageCommon!.WriteAllAsync(message, MsgType.BrowserConsole);
+        }
+        else
+        {
+            await _messageCommon!.WriteAsync(message, MsgType.BrowserConsole);
+        }
     }
 
     #endregion

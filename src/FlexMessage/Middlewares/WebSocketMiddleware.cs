@@ -33,21 +33,10 @@ public class WebSocketMiddleware
     // Handles the next step in the middleware pipeline.
     public async Task InvokeAsync(HttpContext context)
     {
-        // Message 객체를 초기화 합니다.
-        // Initialize the Message object.
-        var serviceProvider = context.RequestServices;
-        Message.Configure(serviceProvider, _messageCommon);
-
         // HTTP 쿠키에서 connectionId 값을 가져옵니다.
         // Gets the connectionId value from the HTTP cookie.
         var webSocketId = context.Request.Cookies["webSocketId"];
         MessageCommon._webSocketId = webSocketId;
-
-        // HttpContext를 기반으로 FileMessageCngMonitor 객체를 초기화합니다.
-        // Initializes the FileMessageCngMonitor object based on the HttpContext.
-        // ↓ 웹페이지의 실시간 파일 View 기능이 필요 없으시면 비 활성화 하셔도 됩니다.
-        // ↓ If real-time file view feature is not needed, you can disable it.
-        FileMessageCngMonitor.Configure(_messageCommon);
 
         // HTTP 요청의 스키마(HTTP 또는 HTTPS)를 기반으로 Config.Host 값을 설정합니다.
         // Sets the host URL in the configuration based on the request scheme and host
@@ -57,6 +46,18 @@ public class WebSocketMiddleware
 
         if (IsWebSocketRequest(context))
         {
+            // Message 객체를 초기화 합니다.
+            // Initialize the Message object.
+            var serviceProvider = context.RequestServices;
+            Message.Configure(serviceProvider, _messageCommon);
+
+
+            // HttpContext를 기반으로 FileMessageCngMonitor 객체를 초기화합니다.
+            // Initializes the FileMessageCngMonitor object based on the HttpContext.
+            // ↓ 웹페이지의 실시간 파일 View 기능이 필요 없으시면 비 활성화 하셔도 됩니다.
+            // ↓ If real-time file view feature is not needed, you can disable it.
+            FileMessageCngMonitor.Configure(_messageCommon);
+
             // 웹소켓 연결을 처리하고 통신을 시작합니다.
             // Handles the WebSocket connection and initiates communication.
             await HandleWebSocketConnectionAsync(context);

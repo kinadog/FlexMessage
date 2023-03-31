@@ -185,7 +185,7 @@ PM> NuGet\Install-Package FlexMessage -Version 1.0.1
 ```
 <br/>  
 
-### 3. [[Program.cs]](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일에서 서비스 등록 :
+### 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일에서 서비스 등록 :
 ```csharp
 // builder.Services는 아래의 객체입니다.
 // var builder = WebApplication.CreateBuilder(args);

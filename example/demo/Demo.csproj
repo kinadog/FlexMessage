@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="FlexMessage" Version="1.0.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.2.23128.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0-preview.2.23128.3" />
     </ItemGroup>
@@ -18,6 +17,10 @@
       <Content Remove="C:\Users\id\.nuget\packages\flexmessage\1.0.0\contentFiles\any\net6.0\wwwroot\js\flexMessage\signalr.js.map" />
       <Content Remove="C:\Users\id\.nuget\packages\flexmessage\1.0.0\contentFiles\any\net6.0\wwwroot\js\flexMessage\signalr.min.js" />
       <Content Remove="C:\Users\id\.nuget\packages\flexmessage\1.0.0\contentFiles\any\net6.0\wwwroot\js\flexMessage\signalr.min.js.map" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\FlexMessage\FlexMessage.csproj" />
     </ItemGroup>
 
 </Project>

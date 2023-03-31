@@ -23,6 +23,9 @@ public class MessageCommon : IMessageCommon
     }
     #endregion
 
+
+    #region Method
+
     /// <summary>
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다.
     /// Send a message to the client using the webSocketId.
@@ -59,6 +62,7 @@ public class MessageCommon : IMessageCommon
         });
     }
 
+
     /// <summary>
     /// webSocketId를 이용하여 클라이언트에게 메세지를 전송한다. (비동기)
     /// Send a message to the client using the webSocketId. (asynchronous)
@@ -90,4 +94,46 @@ public class MessageCommon : IMessageCommon
                 await _webSocketManager.SendMessageAsync(websocket, webSocketMessage);
         }
     }
+
+
+    /// <summary>
+    /// webSocketId를 이용하여 전체에게 메세지를 전송한다.
+    /// Send a message to the all using the webSocketId.
+    /// </summary>
+    ///
+    public void WriteAll(string? message, MsgType msgType)
+    {
+        if (string.IsNullOrWhiteSpace(message)) return;
+
+        Task.Run(async () =>
+        {
+            var webSocketMessage = new WebSocketMessage
+            {
+                IsId = false,
+                MsgType = Enum.GetName(typeof(MsgType),msgType),
+                Message = message
+            };
+            await _webSocketManager.SendToAllAsync(webSocketMessage);
+        });
+    }
+
+
+    /// <summary>
+    /// webSocketId를 이용하여 전체에게 메세지를 전송한다. (비동기)
+    /// Send a message to the all using the webSocketId. (asynchronous)
+    /// </summary>
+    ///
+    public async Task WriteAllAsync(string? message, MsgType msgType)
+    {
+        if (string.IsNullOrWhiteSpace(message)) return;
+        var webSocketMessage = new WebSocketMessage
+        {
+            IsId = false,
+            MsgType = Enum.GetName(typeof(MsgType),msgType),
+            Message = message
+        };
+        await _webSocketManager.SendToAllAsync(webSocketMessage);
+    }
+
+    #endregion
 }

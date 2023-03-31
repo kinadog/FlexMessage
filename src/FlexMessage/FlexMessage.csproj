@@ -58,7 +58,7 @@ More infomation is please visit : https://github.com/kinadog/FlexMessage
 
   <ItemGroup>
     <Content Include="icon.png" PackagePath="icon.png" />
-    <None Include="docs\README.md" Pack="true" PackagePath="\"/>
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 

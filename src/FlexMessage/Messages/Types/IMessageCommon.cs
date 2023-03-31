@@ -14,4 +14,18 @@ public interface IMessageCommon
     /// Send a message to the client using the webSocketId. (asynchronous)
     /// </summary>
     Task WriteAsync(string? message, MsgType msgType);
+
+    /// <summary>
+    /// webSocketId를 이용하여 전체에게 메세지를 전송한다.
+    /// Send a message to the all using the webSocketId.
+    /// </summary>
+    ///
+    void WriteAll(string? message, MsgType msgType);
+
+    /// <summary>
+    /// webSocketId를 이용하여 전체에게 메세지를 전송한다. (비동기)
+    /// Send a message to the all using the webSocketId. (asynchronous)
+    /// </summary>
+    ///
+    Task WriteAllAsync(string? message, MsgType msgType);
 }
