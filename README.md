@@ -232,13 +232,12 @@ PM> NuGet\Install-Package FlexMessage -Version 1.1.0
 ### 2. 공통 페이지에 [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript 파일 삽입 (ex: _Layout.cshtml)  
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js"></script>
 ```
 <br/>  
 
 ### 3. [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) 파일에서 서비스 등록 :
 ```csharp
-// builder.Services는 아래의 객체입니다.
 // var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFlexMessage(builder); // FlexMessage 서비스 추가
