@@ -228,14 +228,13 @@ PM> NuGet\Install-Package FlexMessage -Version 1.1.0
 ### 2. Insert [flexMessage.js](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js) javascript file into the common page (ex: _Layout.cshtml)
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kinadog/FlexMessage@master/src/FlexMessage/wwwroot/js/flexMessage/flexMessage.js"></script>
 ```  
 <br/>  
 
 ### 3. Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
 ```csharp
-// builder.Services is the following object.
 // var builder = WebApplication.CreateBuilder(args);
  
 builder.Services.AddFlexMessage(builder); // Add the FlexMessage service.
@@ -266,7 +265,6 @@ app.UseFlexMessage(); // Use the FlexMessage service.
 * Edit [Program.cs](https://github.com/kinadog/FlexMessage/blob/master/src/FlexMessage/Program.cs) file :
 
   ```csharp
-  // builder.Services is the following object.
   // var builder = WebApplication.CreateBuilder(args);
   builder.Services.AddFlexMessage(builder, option => // Add the FlexMessage service.
   {
